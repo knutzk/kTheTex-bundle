@@ -1,0 +1,43 @@
+% # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+%     $HOME/texmf/tex/latex/knut/klinenumbers.sty                             #
+%                                                                             #
+%     This is a manipulated version of the lineno package. The code below     #
+%     removes the bugs connected with math environments and turns global      #
+%     line numbering on by default.                                           #
+%                                                                             #
+%     Copyright 2014 Knut Zoch                                                #
+% # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{klinenumbers}[2014/12/08]
+\RequirePackage{lineno}
+
+
+% This turns on global line numbering.
+\linenumbers
+
+% Create new command which patches the math environments for lineno compatibility.
+\newcommand*\patchAmsMathEnvironmentForLineno[1]{%
+  \expandafter\let\csname old#1\expandafter\endcsname\csname #1\endcsname
+  \expandafter\let\csname oldend#1\expandafter\endcsname\csname end#1\endcsname
+  \renewenvironment{#1}%
+     {\linenomath\csname old#1\endcsname}%
+     {\csname oldend#1\endcsname\endlinenomath}}% 
+\newcommand*\patchBothAmsMathEnvironmentsForLineno[1]{%
+  \patchAmsMathEnvironmentForLineno{#1}%
+  \patchAmsMathEnvironmentForLineno{#1*}}%
+
+% Now use this patch for the following environments.
+\AtBeginDocument{%
+\patchBothAmsMathEnvironmentsForLineno{equation}%
+\patchBothAmsMathEnvironmentsForLineno{align}%
+\patchBothAmsMathEnvironmentsForLineno{flalign}%
+\patchBothAmsMathEnvironmentsForLineno{alignat}%
+\patchBothAmsMathEnvironmentsForLineno{gather}%
+\patchBothAmsMathEnvironmentsForLineno{multline}%
+}
+
+\endinput
+
+%    End of file: $HOME/texmf/tex/latex/knut/klinenumbers.sty

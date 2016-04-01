@@ -1,0 +1,59 @@
+% Section with font examples
+
+
+\newcommand*{\abc}{abcdefghijklmnopqrstuvwxyz}
+\newcommand*{\ABC}{ABCDEFGHIJKLMNOPQRSTUVWXYZ}
+
+
+\chapter{Different Font Examples}
+
+
+\section{Subsection with Font Examples (Roman)}
+
+\begin{quotation}
+\noindent
+\large
+\begin{tabular}{l l}
+Caps:    & \ABC \\
+         & \abc \\
+SC:      & \textsc{\abc} \\
+Italics: & abcefghijop ~ \textit{abcefghijopy} \\
+Ligatures: & Fancy \textit{flesh} fresh \textsc{Blood} final\\
+OSF:     & 0123456789 ~~ $0123456789$ \\
+         & \textscl{Small} and \textsca{Large} and \textsc{Normal} \\
+\end{tabular}
+\end{quotation}
+
+
+\section{Subsection with Font Examples (Sansserif)}
+
+\begin{quotation}
+\noindent
+\large
+\sffamily
+\begin{tabular}{l l}
+Caps:    & \ABC \\
+         & \abc \\
+SC:      & \textsc{\abc} \\
+Italics: & abcefghijop ~ \textit{abcefghijopy} \\
+Ligatures: & Fancy \textit{flesh} fresh \textsc{Blood} final\\
+OSF:     & 0123456789 ~~ $\mathsf{0123456789}$ \\
+         & \textscl{Small} and \textsca{Large} and \textsc{Normal} \\
+\end{tabular}
+\end{quotation}
+
+
+\section{Example of Italic Inline Text}
+\renewcommand{\blindmarkup}[1]{\emph{#1}}
+\blindtext
+
+
+\section{Example of Small Caps Inline Text}
+\renewcommand{\blindmarkup}[1]{\textscl{#1}}
+\blindtext
+
+
+\section{Example of Capitalised Inline Text}
+\renewcommand{\blindmarkup}[1]{\textsca{#1}}
+\blindtext
+\renewcommand{\blindmarkup}[1]{}

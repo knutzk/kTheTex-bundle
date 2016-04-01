@@ -1,0 +1,134 @@
+% To-Do List
+
+\chapter{To-Do List}
+
+Add the following points to the template:
+\begin{enumerate}
+\item Definition of an example environment:
+\begin{verbatim}
+\usepackage{amsthm}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\theoremstyle{definition}
+\newtheorem{exm}{Example}[section]
+
+\surroundwithmdframed[
+  topline=false,
+  rightline=false,
+  bottomline=false,
+  linewidth=1ex,
+  linecolor=black!25,
+  leftmargin=\parindent,
+  skipabove=\medskipamount,
+  skipbelow=\medskipamount
+]{exm}
+\end{verbatim}
+
+\item Add the different typearea setups to the template (twocolumn, single column with optimal line width, single colum with slightly longer line width)
+  \begin{itemize}
+  \item twocolumn:\\ \texttt{fontsize=9pt\\ twocolumn=yes\\ headinclude=yes\\ footinclude=yes\\ DIV=calc\\ linespread=1.06\\ setlength columnsep 0.02 textwidth} 
+  \item single-column oversized:\\ \texttt{fontsize=11pt\\ DIV=13\\ headinclude=yes\\ footinclude=no\\ linespread=1.12}
+  \item single-column optimal:\\ \texttt{fontsize=11pt\\ DIV=9\\ headinclude=yes\\ footinclude=no}
+  \end{itemize}
+
+\item Include the following packages:
+\begin{verbatim}
+\usepackage{showframe}
+\usepackage{todonotes}
+\usepackage{units}
+\usepackage{xspace}
+\usepackage[shortcuts]{extdash}
+\usepackage{enumitem}
+\setlist{itemsep=0.3ex}
+\end{verbatim}
+
+\item Include defined commands and hyphenation patterns
+\item Include new titlepage format for lab course
+\item Check bib volume format (no \enquote{Bd})
+\item Definition of margin floats:
+\begin{verbatim}
+\newlength{\marginspace}
+\setlength{\marginspace}{\marginparwidth}
+\setlength{\wrapoverhang}{\marginspace+\marginparsep}
+\begin{wrapfigure}{o}{\marginspace}
+  \begin{minipage}{\marginspace}
+    \centering
+    \rule{\textwidth}{4em}
+  \end{minipage}
+  \caption{Kleiner Test}
+\end{wrapfigure}
+\end{verbatim}
+\item Definition of full-width floats:
+\begin{verbatim}
+\usepackage{changepage}
+\newenvironment{widefigure}[1][]{%
+  \strictpagecheck
+  \begin{figure}[#1]
+    \begin{adjustwidth*}{0pt}{-\marginparsep-\marginparwidth}
+}{%
+    \end{adjustwidth*}
+  \end{figure}
+}
+\end{verbatim}
+\item Include fool-proof version of abstract definition (which works for every class). Current state:
+\begin{verbatim}
+\RequirePackage{abstract}
+\renewcommand*{\abstractnamefont}{%
+  \normalfont\kReport@lowcaps}
+
+\let\oldabstract\abstract
+\let\oldendabstract\endabstract
+
+\renewenvironment{abstract}{%
+  \begin{center}
+    \begin{minipage}{0.9\textwidth}
+      \oldabstract
+}{%
+      \oldendabstract
+    \end{minipage}
+  \end{center}
+}
+\end{verbatim}
+
+\item Include better control of margin notes again:
+\begin{verbatim}
+\RequirePackage{marginnote}
+\let\marginparold\marginpar
+\RequirePackage{setspace}
+\setlength{\marginparsep}{1.5em}
+\renewcommand*{\marginpar}[1]{%
+  \marginnote{\footnotesize\itshape
+    \begin{spacing}{1.05}
+      #1
+    \end{spacing}
+  }
+}
+\end{verbatim}
+
+\item Fix issue with kLinenumbers package
+\begin{verbatim}
+% adds line numbers to the document
+\RequirePackage{klinenumbers}
+\end{verbatim}
+
+\item Set custom text height:
+\begin{verbatim}
+\newlength{\LinesXXX}
+\setlength{\LinesXXX}{\topskip} 
+\addtolength{\LinesXXX}{31\baselineskip} 
+\areaset{\textwidth}{\LinesXXX}
+\end{verbatim}
+
+\item Shift onesided documents:
+\begin{verbatim}
+\setlength{\oddsidemargin}{0pt}
+\end{verbatim}
+
+\end{enumerate}
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../diss"
+%%% End:

@@ -1,0 +1,74 @@
+%
+% \subsection{Floats}
+% \label{sec:floats}
+%
+% Adjust the style for the implementation of floats. For that, the |caption|
+% package is loaded to get control of specific caption parameters. For
+% subcaptions, the package |subcaption| will be loaded as well. Subcaptions can
+% be included with the following syntax:
+%
+% \begin{verbatim}
+%     \begin{figure}|
+%       \centering|
+%       \subcaptionbox{caption 1\label{fig:1}{%
+%                      \includegraphics{fig1.pdf}}
+%       \subcaptionbox{caption 2\label{fig:2}{%
+%                      \includegraphics{fig2.pdf}}
+%       \label{fig:total}
+%       \caption{Caption of both combined}
+%     \end{figure}
+% \end{verbatim}
+%
+% \begin{macro}{caption}
+%   Now include the |caption| package here. The format |plain| uses no indent
+%   between label and caption. |margin| controls the total margin of the left
+%   and right side of the caption.
+%    \begin{macrocode}
+\RequirePackage[format = plain,%
+                margin = 2.0em,%
+                ]{caption}
+%    \end{macrocode}
+% Set the font of the captions to be sans-serif and in footnote size (10pt for a
+% 12pt document size). Set the stretching factor as well (that step needs the
+% package |setspace| to adjust the spacing). For the labels, use the same font
+% settings plus additional bold face.
+%    \begin{macrocode}
+\RequirePackage{setspace}
+\captionsetup{font={footnotesize,sf,stretch=1.2}}
+\captionsetup{labelfont={footnotesize,sf,bf}}
+%    \end{macrocode}
+% Add a skip below table captions of half the base line.
+%    \begin{macrocode}
+\captionsetup[table]{belowskip=0.5\baselineskip}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{subcaption}
+%  Include the |subcaption| package here. Set the font of the subcaption to footnote size.
+%    \begin{macrocode}
+\RequirePackage[font+=footnotesize]{subcaption}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{booktabs}
+% For the usage of ``nice'' tables, the package |booktabs| is loaded. It allows proper rules at top, bottom and in the middle of tables. General rule: only horizontal lines, vertical ones are usually redundant. The table environment could look like this:
+% \begin{verbatim}
+%     \begin{table}
+%       \centering
+%       \begin{tabular}{l l l}
+%         \toprule
+%         headline & headline \\
+%         \midrule
+%         content & content \\
+%         \bottomrule
+%       \end{tabular}
+%       \caption{Table caption}
+%       \label{tab:table}
+%     \end{table}
+% \end{verbatim}
+%
+%    \begin{macrocode}
+\RequirePackage{booktabs}
+%    \end{macrocode}
+% \end{macro}
+%

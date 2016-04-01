@@ -1,0 +1,70 @@
+%
+% \subsection{Draft Settings}
+% \label{sec:draft-settings}
+%
+% This section introduces a couple of packages and settings that will be
+% activated only for the options |draft| or |lightdraft| (a draft version
+% without the distracting rulers at the top and bottom of the pages).
+%
+% First define a warning that will be issued for option |lightdraft| since this
+% is a class-specific feature.
+%
+%    \begin{macrocode}
+\newcommand*{\issuelightdraftwarning}{\ktxreprt@warning{%
+    Option "lightdraft" is set. To get full draft features,\MessageBreak
+    set option "draft" (and deactivate "lightdraft"). If \MessageBreak
+    this is meant to be a final version, deactivate the \MessageBreak
+    lightdraft and draft option or set the option "final".\MessageBreak}
+}
+%    \end{macrocode}
+%
+% \begin{macro}{lightdraft}
+%   If the option |lightdraft| is set, also switch the boolean |draft| to
+%   |true|. The only real difference is that the underlying KOMA script class
+%   won't notice that draft features are used. Otherwise, the rulers would be
+%   switched on.
+%    \begin{macrocode}
+\ifthenelse{\boolean{ktxreprt@lightdraft}}{%
+  \setboolean{ktxreprt@draft}{true}
+}{}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{draft}
+%   Now the custom features for the draft option are set. This includes a draft
+%   watermark with the package |draftwatermark| that will be set in the
+%   background of every page. The package |prelim2e| sets a draft notice at the
+%   very bottom of every page.
+%    \begin{macrocode}
+\ifthenelse{\boolean{ktxreprt@draft}}{%
+  \RequirePackage{draftwatermark}%
+  \SetWatermarkLightness{0.9}%
+  \SetWatermarkScale{0.7}%
+  \SetWatermarkText{Preliminary}%
+  \ifthenelse{\boolean{ktxreprt@ngerman}}{%
+    \PassOptionsToPackage{german}{prelim2e}%
+  }{}%
+  \RequirePackage[scrtime]{prelim2e}%
+%    \end{macrocode}
+% Now crosscheck whether the lightdraft option is set and forward that
+% information to KOMA script. KOMA will only use draft settings if |draft| is
+% set, NOT for |lightdraft|. For the traditional |draft| option, the package
+% |showframe| will also be loaded to display a frame around the text areas.
+%    \begin{macrocode}
+  \ifthenelse{\boolean{ktxreprt@lightdraft}}{%
+    \issuelightdraftwarning
+    \KOMAoptions{draft=false}
+  }{
+    \RequirePackage{showframe}%
+    \KOMAoptions{draft=true}%
+  }
+%    \end{macrocode}
+% If the boolean |draft| is set to false, also make sure that KOMA script will
+% get this message.
+%    \begin{macrocode}
+}{%
+  \KOMAoptions{draft=false}
+}
+%    \end{macrocode}
+% \end{macro}
+%

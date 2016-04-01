@@ -1,0 +1,65 @@
+% \subsection{References}
+% \label{sec:impl-refer}
+%
+% The following code will include the |hyperref| package, which should always be
+% the last package loaded, as well as the package |cleveref|.
+% \begin{macro}{option hyperref}
+%   The package will only be loaded when the corresponding option is set to
+%   |hyperref=true|. In case the user wants to add a package that conflicts with
+%   hyperref if its loaded first, turn hyperref off via |hyperref=false|.
+%    \begin{macrocode}
+\ifthenelse{\boolean{ktxreprt@hyperref}}{%
+%    \end{macrocode}
+% Defining some colours now to mark the links within the document in
+% non-standard colours.
+%    \begin{macrocode}
+  \definecolor{Maroon}{cmyk}{0, 0.87, 0.68, 0.32}
+  \definecolor{RoyalBlue}{cmyk}{1, 0.50, 0, 0}
+  \definecolor{Black}{cmyk}{0, 0, 0, 0}
+  \definecolor{webgreen}{rgb}{0,.5,0}
+  \definecolor{webbrown}{rgb}{.6,0,0}
+%    \end{macrocode}
+% The following options are called: Do not use colour boxes for linking, but
+% coloured text instead. Use the specified colours for URL, citations and
+% links. Additionally, do not link the names in the TOC, but rather the page
+% numbers.
+%    \begin{macrocode}
+  \RequirePackage[%
+          colorlinks = true,%
+          urlcolor   = webbrown,%
+          citecolor  = webgreen,%
+          linkcolor  = RoyalBlue,%
+          linktocpage = true,%
+          ]{hyperref}
+%    \end{macrocode}
+% Now also call the cleveref package for intelligent references. They can be
+% used via |\cref{}| commands instead of |\ref{}| and include the \emph{type} of
+% the reference within the reference itself (also linked).
+%    \begin{macrocode}
+  \RequirePackage[nameinlink, capitalise]{cleveref}
+%    \end{macrocode}
+% Apparently, some of the German abbreviations for equations and tables were
+% missing. This is a temporary hack to add them to |cleveref|.
+%    \begin{macrocode}
+  \addto\captionsngerman{
+    \if@cref@abbrev
+    \crefname{equation}{Gl.}{Gl.}
+    \Crefname{equation}{Gleichung}{Gleichungen}
+    \crefname{table}{Tab.}{Tab.}
+    \Crefname{table}{Tabelle}{Tabellen}
+    \fi
+  }
+%    \end{macrocode}
+% If option "web" is given to the class, do everything as described above. For
+% option "print", hide links, i.e. make them black again.
+%    \begin{macrocode}
+  \ifthenelse{\boolean{ktxreprt@web}}{%
+    \relax % do nothing
+  }{
+    \hypersetup{hidelinks}
+  }  
+}{%
+  \relax  % do nothing
+}
+%    \end{macrocode}
+% \end{macro}

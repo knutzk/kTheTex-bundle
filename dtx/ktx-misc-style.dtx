@@ -1,0 +1,165 @@
+%
+% \subsection{Miscellaneous Page Style}
+% \label{sec:misc-page-style}
+%
+% \begin{macro}{microtype}
+%   Optimise text spread with microtype package. First make a check whether the
+%   |microtype| option has been set.
+%    \begin{macrocode}
+\ifthenelse{\boolean{ktxreprt@microtype}}{%
+%    \end{macrocode}
+% Now load package |microtype|. Options include: use language information from
+% the babel package to determine kerning etc. Set stretch and shrink to a value
+% of 10 (20 is default). And always use final=true, i.e. ignore draft options
+% from the class in order to \emph{always} run |microtype|. To really turn it
+% off, use the option |microtype=false|.
+%    \begin{macrocode}
+  \RequirePackage[babel   = true,%
+                  stretch = 10,%
+                  shrink  = 10,%
+                  final   = true,%
+                  ]{microtype}
+%    \end{macrocode}
+% Issue a warning if package |microtype| is not loaded.
+%    \begin{macrocode}
+ }{%
+   \ktxreprt@warning{Microtype package not loaded.}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{letterspacing}
+%   Now adjust the letter spacing for the small-caps font (in the standard
+%   settings, the spacing is way too small). For that, use the |microtype|
+%   package. First, check if |microtype| was loaded or not. If this is not the
+%   case, load the package |letterspacing| which is part of the |microtype|
+%   package. Maybe the latter one was turned off deliberately, so we only want
+%   the letter spacing features here. 
+%    \begin{macrocode}
+\@ifpackageloaded{microtype}{
+  \relax
+}{%
+  \RequirePackage{letterspace}}
+%    \end{macrocode}
+% Now first provide commands for fully-capitalised and only-small-caps fonts. By
+% default, those commands work fine, but always issue a warning because the
+% spacing is not adjusted.
+%    \begin{macrocode}
+\newrobustcmd{\ktxreprt@allcaps}[1]{%
+  \ktxreprt@warning{Spacing of small caps not adjusted! Using
+    default\MessageBreak spacing now.}\textsc{\MakeUppercase{#1}}}
+\newrobustcmd{\ktxreprt@lowcaps}[1]{%
+  \ktxreprt@warning{Spacing of small caps not adjusted! Using
+    default\MessageBreak spacing now.}\textsc{\MakeLowercase{#1}}}
+%    \end{macrocode}
+% Check if either |letterspacing| or |microtype| were loaded before applying the
+% spacing corrections.
+%    \begin{macrocode}
+\ifboolexpr{ test {\@ifpackageloaded{letterspace}} or
+             test {\@ifpackageloaded{microtype}} }{%
+  \ktxreprt@info{Using letterspacing options of microtype package.}
+  \renewrobustcmd{\ktxreprt@allcaps}[1]{%
+                  \textls[150]{\MakeUppercase{#1}}}
+  \renewrobustcmd{\ktxreprt@lowcaps}[1]{%
+                  \textls[50]{\textsc{\MakeLowercase{#1}}}}
+%    \end{macrocode}
+% Also apply the spacing corrections for the standard |\textsc| command.
+%    \begin{macrocode}
+  \let\ktxreprt@textsc@old\textsc
+  \renewcommand*{\textsc}[1]{\textls[50]{\ktxreprt@textsc@old{#1}}}
+%    \end{macrocode}
+% If none of the packages was loaded, do nothing (warnings will be printed when
+% all-caps or low-caps are used).
+%    \begin{macrocode}
+}{%
+  \relax
+}
+%    \end{macrocode}
+% Finally, provide global commands for the defined fonts: |\textsca| and
+% |\textscl|.
+%    \begin{macrocode}
+\let\textsca\ktxreprt@allcaps
+\let\textscl\ktxreprt@lowcaps
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \subsection{Trash Section}
+% \label{sec:trash-section}
+%
+% \begin{macro}{alles}
+%   DEBUG BESCHREIBUNG FEHLT
+%    \begin{macrocode}
+\linespread{1.12}
+\KOMAoptions{DIV=last}
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{alles}
+%   Declare essential text formatting commands (robust, no dependencies).
+%    \begin{macrocode}
+\newcommand*{\ktxreprt@textsw}[1]{\textit{#1}}
+\newcommand*{\ktxreprt@swshape}{\itshape}
+\ifdefstring{\ktxreprt@font}{minion}{%
+  \renewcommand*{\ktxreprt@textsw}[1]{\textsw{#1}}
+  \renewcommand*{\ktxreprt@swshape}{\swshape}
+}{}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{alles}
+%    \begin{macrocode}
+\RequirePackage[utf8]{inputenc}         % encoding of document is UTF8
+\RequirePackage{babel}                  % language support (hyphenation etc.)
+\RequirePackage{amsmath}                % math package
+\RequirePackage[autostyle=true]{csquotes} % sync quoting style with language
+\RequirePackage{enumitem}               % control layout of lists
+\RequirePackage[T1]{fontenc}            % fontenc T1 (includes Umlaute)
+\RequirePackage{graphicx}               % support for graphics inclusion
+\RequirePackage{xcolor}                 % support for custom colours
+\RequirePackage{xspace}                 % custom commands do not eat spaces
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{alles}
+%    \begin{macrocode}
+\numberwithin{equation}{section}        % include section in equation label
+\numberwithin{table}{section}           % ------- " -------- table label
+\numberwithin{figure}{section}          % ------- " -------- figure label
+\graphicspath{{./figures/}}             % ==> look for figures in folder
+\setlist{itemsep=-1ex}                 % ==> smaller spacing between items
+\setlist[enumerate]{itemsep=0.1\baselineskip}
+\setlist{leftmargin=1.5em}
+\setlength{\parskip}{0pt}% plus 0.3\baselineskip}
+\setlist{nosep}
+%% This might be interesting for an option to change to articles
+%% (no chapters)
+%% \renewcommand*\thesection{\arabic{section}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{alles}
+%   Alter some LaTeX defaults for better treatment of figures: See p.105 of "TeX Unbound" for suggested values. See pp. 199-200 of Lamport's "LaTeX" book for details. General parameters, for ALL pages:
+%    \begin{macrocode}
+\renewcommand{\topfraction}{0.9}	% max fraction of floats at top
+\renewcommand{\bottomfraction}{0.8}	% max fraction of floats at bottom
+%    \end{macrocode}
+% Parameters for TEXT pages (not float pages):
+%    \begin{macrocode}
+\setcounter{topnumber}{2}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{4}             % 2 may work better
+\setcounter{dbltopnumber}{2}            % for 2-column pages
+\renewcommand{\dbltopfraction}{0.9}	% fit big float above 2-col. text
+\renewcommand{\textfraction}{0.07}	% allow minimal text w. figs
+%    \end{macrocode}
+% Parameters for FLOAT pages (not text pages):
+%    \begin{macrocode}
+\renewcommand{\floatpagefraction}{0.7}	% require fuller float pages
+%    \end{macrocode}
+% N.B.: floatpagefraction MUST be less than topfraction !!
+%    \begin{macrocode}
+\renewcommand{\dblfloatpagefraction}{0.7}	% require fuller float pages
+%    \end{macrocode}
+% \end{macro}
+% 

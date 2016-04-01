@@ -1,0 +1,61 @@
+%
+% \subsection{Bibliography}
+% \label{sec:bibliography}
+%
+% This section sets up the bibliography of the document.
+%
+% \begin{enumerate}
+
+% \item Include package Biblatex for advanced bibliographies. The
+%   styles |numeric| and |numeric-comp| use a numerical reference system (|comp|
+%   compresses multiple citations: [1][2][3] $\to$ [1-3]).
+% \item Include customised bibliography style. The main difference is a
+%   shortened system for displaying journal articles (no title; DOI links are
+%   projected on the journal title).
+% \end{enumerate}
+% \begin{macro}{biblatex}
+%   The biblatex package is loaded according to the option |biblatex|. The
+%   following options are used: Biber as a backend (BibTeX is possible, but
+%   labelled as depcrecated by the authors). Use the numeric-comp style and no
+%   sorting, i.e. the entries in the bibliography are sorted by order of
+%   appearance. Use a maximum of one author name to cite within the text and
+%   don't list more than three authors in the bibliography. Display only the
+%   initials of their first names. And hide all urls.
+%    \begin{macrocode}
+\ifthenelse{\boolean{ktxreprt@biblatex}}{%
+  \PassOptionsToPackage{%
+    backend      = biber,%
+    style        = numeric-comp,%
+    sorting      = none,%
+    maxcitenames = 1,%
+    maxbibnames  = 3,%
+    firstinits   = true,%
+    url          = false,%
+  }{biblatex}
+  \RequirePackage{biblatex}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{kbibstyle}
+%   The following code includes a custom bibliography style. Options
+%   are: |linking| to turn on and off the linking of the journal titles to
+%   DOI/url (default: true). |titles| to display or hide titles of articles
+%   (default: false). |Overwrite| to overwrite the default settings of Biblatex
+%   when it comes to ??? (DEBUG).
+%   
+%   Use via |\RequirePackage[overwrite=false, titles=true]{kbibstyle}|
+% 
+%   DEBUG: include package code here as well
+%    \begin{macrocode}
+  \RequirePackage[titles=true]{aux/kBibstyle}
+%    \end{macrocode}
+% \end{macro}
+%
+% \noindent
+% Don't do anything when the option |biblatex| is not set.
+%    \begin{macrocode}
+}{%
+  \relax  % do nothing
+}
+%    \end{macrocode}
+%

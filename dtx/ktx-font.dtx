@@ -1,0 +1,69 @@
+%
+% \subsection{Fonts}
+% \label{sec:fonts}
+%
+% In this section, a couple of fonts are proposed and their settings optimised for usage with this class. The fonts can be chosen with the option |fonts|. Currently, three types are available: MinionPro (proprietary), Kepler fonts, mathpazo.
+%
+%    \begin{macrocode}
+\IfEqCase*{\ktxreprt@font}{%
+%    \end{macrocode}
+%
+% \begin{macro}{font=minion}
+%   Choose MinionPro as the main font and MyriadPro as a supplementing
+%   sans-serif font for the main text. Those fonts are only available as
+%   proprietary fonts, so make sure your system provides them first!
+%
+%   The given options include old-style numerals, custom MinionPro integral
+%   symbols, swashed italics capitals and Greek italics (also for the Greek
+%   capital letters).
+%    \begin{macrocode}
+  {minion}{%
+    \RequirePackage{MnSymbol}%
+    \RequirePackage[mathlf,%
+                    textosf,%
+                    minionint,%
+                    swash,%
+                    italicgreek,%
+                    ]{MinionPro}%
+    \RequirePackage[lf,scale=0.92,sansmath]{MyriadPro}}%
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{font=kpfonts}
+%   Load the package |kpfonts| for the main font and |berasans| for the
+%   sans-serif font. Given options include slanted Greek letters, old-style
+%   numerals and the partial derivative symbol non-slanted.
+%    \begin{macrocode}
+  {kpfonts}{%
+    \RequirePackage[slantedGreeks,oldstylenums,partialup]{kpfonts}%
+    \RequirePackage[scaled=0.86]{berasans}}%
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{font=mathpazo}
+%   Load the package |mathpazo| for the main font and |helvet| (Helvetica) for
+%   the sans-serif font. Use a scaled version for the latter one.
+%    \begin{macrocode}
+  {mathpazo}{%
+    \RequirePackage{mathpazo}%
+    \RequirePackage[scaled]{helvet}}%
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{font=false}
+%   Do nothing here. This leaves the choice of the font to the user -- otherwise
+%   the standard font Computer Modern will be used.
+%    \begin{macrocode}
+  {false}{}%
+%    \end{macrocode}
+% \end{macro}
+%
+% \noindent
+% Issue an error when the given font type is unknown.
+%    \begin{macrocode}
+}[\ktxreprt@error{Unknown font: "\ktxreprt@font"}{%
+  The given font is unknown. ktxreprt class supports the fonts kpfonts,
+  mathpazo, minion and CM. If you want to use your own font
+  declarations, use option "font=false".}]
+%    \end{macrocode}
+%

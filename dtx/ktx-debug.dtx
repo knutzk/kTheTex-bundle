@@ -1,0 +1,28 @@
+%
+% \subsection{Debugging}
+% \label{sec:debugging}
+%
+% \begin{macro}{debug}
+%   If option |debug| is set, then the code will stop after the following
+%   lines. DEBUG: this should probably contain more (does it crash?).
+%    \begin{macrocode}
+\ifthenelse{\boolean{ktxreprt@debug}}{%
+  \usepackage{amsmath,graphicx,float,biblatex}
+  \let\marginnote\relax
+  \let\cref\relax
+  \let\href\relax
+  \let\setstretch\relax
+  \let\toprule\relax
+  \let\midrule\relax
+  \let\bottomrule\relax
+  \let\textscl\textsc
+  \let\textsca\textsc
+  % \let\marginpar\relax
+  \newcommand*{\subcaptionbox}[2][]{}
+  \endinput
+}{%
+  \relax  % do nothing
+}
+%    \end{macrocode}
+% \end{macro}
+%

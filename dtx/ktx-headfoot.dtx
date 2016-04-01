@@ -1,0 +1,125 @@
+%
+% \subsection{Headers \& Footers}
+% \label{sec:headers--footers}
+%
+% Load the KOMA script package which is responsible for the header/footer design
+% of a document: |scrlayer-scrpage|. Set the style of the pages to running heads
+% by using |scrheadings| and mark the chapter and section titles to be put in the
+% headers of the pages.
+%
+%    \begin{macrocode}
+\RequirePackage{scrlayer-scrpage}
+\pagestyle{scrheadings}
+\automark[section]{chapter}
+%    \end{macrocode}
+%
+%
+% \subsubsection{Where to Put the Page Numbers}
+% \label{sec:where-put-page}
+%
+% At first, the option |pagenumberstop| is checked. When the option is set to
+% true, the page numbers will be put in the outer margin next to the running
+% heads. Otherwise, the page numbers will appear in the outer footer (standard).
+%
+% First define the custom commands to put the page numbers in the margin.
+%    \begin{macrocode}
+\let\ktxreprt@thepage@l\empty
+\let\ktxreprt@thepage@r\empty
+%    \end{macrocode}
+%
+% \begin{macro}{pagenumberstop}
+%   Now check whether the option had been set, put the number to the margin and
+%   clear the footer.
+%    \begin{macrocode}
+\ifthenelse{\boolean{ktxreprt@pagenumberstop}}{%
+  \renewcommand*{\ktxreprt@thepage@l}{\llap{\thepage\kern1.5em}}
+  \renewcommand*{\ktxreprt@thepage@r}{\rlap{\kern1.5em\thepage}}
+  \ofoot[]{}
+  \cfoot[]{}
+}{}
+%    \end{macrocode}
+% \end{macro}
+%
+% \noindent
+% And now put everything to the outer headers.
+%    \begin{macrocode}
+\lehead[\ktxreprt@thepage@l]{\ktxreprt@thepage@l\headmark}
+\rohead[\ktxreprt@thepage@r]{\headmark\ktxreprt@thepage@r}
+\chead[]{}
+%    \end{macrocode}
+%
+%
+% \subsubsection{Fix the Header Style}
+% \label{sec:fix-header-style}
+%
+% In this part of the code, the headers and footers are fixed. Depending on the
+% settings of the previous section, the headers may be adjusted to the headings
+% style. Otherwise, the style can be set with the |header| option.
+%
+%    \begin{macrocode}
+\IfEqCase*{\ktxreprt@header}{%
+%    \end{macrocode}
+%
+% \begin{macro}{header=bringhurst}
+% This style follows the style of the headings that are used by Bringhurst. If
+% the option |pagenumberstop| is set, the page numbers will be within the outer
+% margin of the pages.
+%    \begin{macrocode}
+  {bringhurst}{%
+    \lehead{\small\ktxreprt@thepage@l\upshape%
+            \ktxreprt@lowcaps{\headmark}}%
+    \rohead{\small\ktxreprt@textsw{\headmark}\ktxreprt@thepage@r}}%
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{header=italics}
+%   This style sets the runnings heads to italics.
+%    \begin{macrocode}
+  {italics}{%
+    \addtokomafont{pagehead}{\small\itshape}}%
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{header=swash}
+%   And this style to the \emph{swash} letters (depending on the chosen font,
+%   this might be the same as the italics option).
+%    \begin{macrocode}
+  {swash}{%
+    \addtokomafont{pagehead}{\small\ktxreprt@swshape}}%
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{header=sansserif}
+%   And the sans-serif option, again including the page numbers in the outer
+%   margin if |pagenumberstop| is set.
+%    \begin{macrocode}
+  {sansserif}{%
+    \KOMAoptions{headsepline}
+    \setkomafont{pagehead}{\sffamily\upshape\footnotesize}%
+    \lehead[\ktxreprt@thepage@l]{\ktxreprt@thepage@l%
+                                \ktxreprt@allcaps{\headmark}}%
+    \rohead[\ktxreprt@thepage@r]{\ktxreprt@allcaps{\headmark}%
+                                \ktxreprt@thepage@r}}%
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{header=default}
+%   Don't change anything when |header=default| is used.
+%    \begin{macrocode}
+  {default}{}%
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{header=adjust}
+%   DEBUG: Here should come an error message because the adjustment should have
+%   been set in the previous section already.
+%    \begin{macrocode}
+  {adjust}{}%
+%    \end{macrocode}
+% \end{macro}
+% 
+% \noindent
+% And return an error when the given option is unknown.
+%    \begin{macrocode}
+}[\ktxreprt@error{Unknown option header=\ktxreprt@header}{}]
+%    \end{macrocode}

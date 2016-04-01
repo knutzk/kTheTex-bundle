@@ -1,0 +1,269 @@
+%
+% Titelseite fuer das Master-F-Praktikum
+%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{kPrakt}[2015/07/15 v0.1 Title pages for lab courses^^J
+\@spaces\@spaces\@spaces\space\space\space (specifically: Faculty of Physics, Univ. of Goettingen)^^J
+\@spaces\@spaces\@spaces\space\space\space Copyright (C) Knut Zoch^^J]
+% maximum error/warning width: 65
+\newcommand{\kPrakt@error}[2]{\PackageError{kprakt}{#1}{#2}}
+\newcommand{\kPrakt@warning}[1]{\PackageWarning{kprakt}{#1}}
+
+\RequirePackage{calc}
+\RequirePackage{etoolbox}
+\RequirePackage{ifthen}
+\RequirePackage{kvoptions}
+\RequirePackage{letterspace}
+\RequirePackage{xcolor}
+\RequirePackage{xstring}
+
+\DeclareBoolOption[false]{bewertet}
+\DeclareBoolOption[true]{coverpage}
+\DeclareStringOption[bachelor]{prakt}
+
+\ProcessKeyvalOptions*
+
+
+
+% Check whether a KOMA class has been loaded. Otherwise, load KOMA package
+% scrextend which gives the basic features to design this titlepage.
+\@ifundefined{KOMAClassName}{%
+  \PassOptionsToPackage{extendedfeature=title}{scrextend}
+  \RequirePackage{scrextend}
+  \relax
+}{}
+
+% Set KOMA option for cover page and adjust margins.
+\ifthenelse{\boolean{kPrakt@coverpage}}{%
+  \KOMAoptions{titlepage=firstiscover}
+  \renewcommand{\coverpagebottommargin}{1in}
+  \renewcommand{\coverpagetopmargin}{1in}
+  \renewcommand{\coverpageleftmargin}{1in}
+  \renewcommand{\coverpagerightmargin}{1in}
+}{
+  \kPrakt@warning{%
+    Option "coverpage" is deactivated. To make full use\MessageBreak
+    of the functionality of the kPrakt package, activate\MessageBreak
+    the "coverpage" option}
+}
+
+% Define error messages for missing commands.
+\def\kPrakt@Author{\kPrakt@error{%
+    Author not set. Please set the\MessageBreak
+    author by using the \noexpand\reportAuthor command}{}}
+\def\kPrakt@AuthorMail{\kPrakt@error{%
+    Author's email not set. Please set\MessageBreak
+    the author's email by using the \noexpand\reportAuthorMail\MessageBreak
+    command}{}}
+\def\kPrakt@Exp{\kPrakt@error{%
+    Experiment (number) not set. Please\MessageBreak
+    set the experiment by using the \noexpand\reportExperiment\MessageBreak
+    command}{}}
+\def\kPrakt@LabDate{\kPrakt@error{%
+    Implementation date not set. Please\MessageBreak
+    set the date of implementation by using the\MessageBreak
+    \noexpand\reportDate command}{}}
+\def\kPrakt@Referee{\kPrakt@error{%
+    Referee not set. Please set the\MessageBreak
+    referee by using the \noexpand\reportReferee command}{}}
+\ifdefstring{\kPrakt@prakt}{master}{%
+  \def\kPrakt@SubDate{\kPrakt@warning{%
+      Submission date not set. The submission date can be\MessageBreak
+      set by using the \noexpand\reportSubDate command.\MessageBreak}}
+}{%
+  \def\kPrakt@SubDate{\kPrakt@error{%
+      Submission date not set. Please set\MessageBreak
+      the submission date by using the \noexpand\reportSubDate\MessageBreak
+      command}{}}
+}  
+\def\kPrakt@Supervisor{\kPrakt@error{%
+    Supervisor not set. Please set the\MessageBreak
+    supervisor by using the \noexpand\reportSupervisor command}{}}
+\def\kPrakt@Title{\kPrakt@error{%
+    Title of the document not set.\MessageBreak
+    Please set the document title by using the\MessageBreak
+    \noexpand\reportTitle command}{}}
+
+% Define commands to be set by the author.
+\newcommand{\reportAuthor}[2][]{\def\kPrakt@Author{#2}\def\kPrakt@AuthorTwo{#1}}
+\newcommand{\reportAuthorMail}[2][%
+  (2nd Author's email)\kReport@warning{2nd author's email not set.}]{%
+  \def\kPrakt@AuthorMail{#2}\def\kPrakt@AuthorMailTwo{#1}}
+\newcommand{\reportDate}{\def\kPrakt@LabDate}
+\newcommand{\reportSubmissionDate}{\def\kPrakt@SubDate}
+\newcommand{\reportExperiment}{\def\kPrakt@Exp}
+\newcommand{\reportTitle}{\def\kPrakt@Title}
+\newcommand{\reportSupervisor}{\def\kPrakt@Supervisor}
+\newcommand{\reportReferee}{\def\kPrakt@Referee}
+
+
+% Set title head, subject, and title of titlepage.
+\IfEqCase*{\kPrakt@prakt}{%
+  {bachelor}{%
+    \titlehead{%
+      \vspace*{1\baselineskip minus 1\baselineskip}
+      \large\scshape
+      \centering
+      \textls[150]{Anfängerpraktikum der Fakultät für Physik} \\
+      \textls[150]{Universität Göttingen} \\
+    }%
+
+    \title{%
+      \vspace*{2\baselineskip minus 2\baselineskip}
+      % \vspace*{0pt minus 0.5\baselineskip}
+      \centering
+      \normalfont\Huge\bfseries\color{black}
+      \rule{\textwidth}{0.5pt}\\[0.5\baselineskip]
+      Versuch \kPrakt@Exp\\
+      \kPrakt@Title\\
+      \rule{\textwidth}{0.5pt}
+    }
+  }% end of bachelor
+  {master}{%
+    % Check if option "bewertet" was given and issue warning.
+    \ifthenelse{\boolean{kPrakt@bewertet}}{%
+      \kPrakt@warning{%
+        Option "bewertet" is set although the used lab course\MessageBreak
+        type does not support that. The option "bewertet" will\MessageBreak
+        be ignored.}
+    }{}
+
+    \titlehead{%
+      \vspace*{1\baselineskip minus 1\baselineskip}
+      \Large\bfseries
+      \centering
+      Master Forschungspraktikum \\
+      Fakultät für Physik, Universität Göttingen \\
+      \rule{\textwidth}{0.5pt}
+    }%
+
+    \subject{%
+      \vspace*{0pt minus 0.5\baselineskip}
+      \Huge\bfseries
+      \centering
+      Ausarbeitung \\
+      zum Versuch \kPrakt@Exp
+    }
+    
+    \title{%
+      \normalfont\normalsize
+      \vspace*{0pt minus 1\baselineskip}
+      \Huge\color{black}
+      \kPrakt@Title
+    }
+  }% end of master
+}[% What if unknown lab course type is entered?
+\kPrakt@error{Unknown lab course type: prakt=\kPrakt@prakt. Possible\MessageBreak options are "prakt=bachelor" and "prakt=master"}{}]
+
+
+% Use empty date and author fields.
+\date{}
+\author{}
+
+
+% Set publishers (miscellaneous info).
+\publishers{%
+  \normalsize\raggedright
+  \renewcommand{\arraystretch}{1.5}
+  \renewcommand{\tabcolsep}{0pt}
+
+  \newlength{\kPrakt@halflength}
+  \setlength{\kPrakt@halflength}{0.49\textwidth}
+
+  % Set the correct separation length between columns by measuring the
+  % word length (+ 2em).
+  \newlength{\kPrakt@lskiplength}
+  \let\kPrakt@lskip\empty
+
+
+  % Now check which type of lab report this is.
+  \IfEqCase*{\kPrakt@prakt}{%
+    {bachelor}{%
+      \vspace*{5\baselineskip minus 7\baselineskip}
+
+      \setlength{\kPrakt@lskiplength}{%
+        \kPrakt@halflength-2em-\widthof{Datum der Durchführung:}}
+      \renewcommand{\kPrakt@lskip}{\hspace*{\kPrakt@lskiplength}}
+
+      \begin{center}
+        \begin{tabular}{p{\kPrakt@halflength}p{\kPrakt@halflength}}
+          \ifthenelse{\boolean{kPrakt@bewertet}}{%
+            \kPrakt@lskip Praktikant:       & \kPrakt@Author       \\
+            \kPrakt@lskip E-Mail:           & \kPrakt@AuthorMail   \\
+            \ifdefstring{\kPrakt@AuthorTwo}{}{}{%
+              \kPrakt@lskip Mitarbeiter:    & \kPrakt@AuthorTwo    \\
+            }
+          }{%
+            \ifdefstring{\kPrakt@AuthorTwo}{}{%
+              \kPrakt@lskip Praktikant:     & \kPrakt@Author       \\
+              \kPrakt@lskip E-Mail:         & \kPrakt@AuthorMail   \\
+            }{%
+              \kPrakt@lskip Praktikanten:   & \kPrakt@Author       \\
+                                            & \kPrakt@AuthorTwo    \\
+              \kPrakt@lskip E-Mail:         & \kPrakt@AuthorMail   \\
+                                            & \kPrakt@AuthorMailTwo\\
+            }
+          }
+          \kPrakt@lskip Betreuer(in):       & \kPrakt@Supervisor   \\
+          \kPrakt@lskip Datum der Durchführung: & \kPrakt@LabDate  \\
+          \kPrakt@lskip Datum der Abgabe:   & \kPrakt@SubDate      \\
+        \end{tabular}
+
+        \vspace*{3\baselineskip minus 2\baselineskip}
+
+        \fbox{%
+          \begin{minipage}[t][4em][t]{12em}
+            \ifthenelse{\boolean{kPrakt@bewertet}}{%
+              eingegangen:
+            }{%
+              Testat:
+            }
+          \end{minipage}
+        }
+      \end{center}
+      
+      \vspace*{2\baselineskip minus 2\baselineskip}
+    }% end of bachelor
+    {master}{%
+      \vspace*{0pt minus 2\baselineskip}
+
+      \setlength{\kPrakt@lskiplength}{%
+        \kPrakt@halflength-2em-\widthof{Datum Versuchsdurchführung:}}
+      \renewcommand{\kPrakt@lskip}{\hspace*{\kPrakt@lskiplength}}
+
+      \begin{center}
+        \begin{tabular}{p{\kPrakt@halflength}p{\kPrakt@halflength}}
+          \kPrakt@lskip Name:               & \kPrakt@Author       \\
+          \kPrakt@lskip E-Mail:             & \kPrakt@AuthorMail   \\
+          \kPrakt@lskip Datum Versuchsdurchführung: & \kPrakt@LabDate \\
+          \kPrakt@lskip Name Betreuer(in):  & \kPrakt@Supervisor   \\
+          \kPrakt@lskip Unterschrift:       & \\
+        \end{tabular}
+      \end{center}
+
+      \vspace*{1\baselineskip minus 1\baselineskip}
+
+      \begin{center}
+        \Large\bfseries
+        Abgabe
+      \end{center}
+
+      \begin{tabular}{p{\kPrakt@halflength}p{\kPrakt@halflength}}
+        \kPrakt@lskip Datum:~~\kPrakt@SubDate  & Unterschrift Betreuer(in):
+      \end{tabular}
+
+      \vspace*{1\baselineskip minus 1\baselineskip}
+
+      \begin{center}
+        \Large\bfseries
+        Testat
+      \end{center}
+
+      \begin{tabular}{p{\kPrakt@halflength}p{\kPrakt@halflength}}
+        \kPrakt@lskip Datum:       & Name Prüfer(in):~~ \kPrakt@Referee \\
+        \kPrakt@lskip Punktezahl:  & Unterschrift:
+      \end{tabular}
+    }% end of master
+  }
+}
+\endinput

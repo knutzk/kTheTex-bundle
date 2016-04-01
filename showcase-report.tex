@@ -1,0 +1,120 @@
+%% Hauptdatei
+
+\documentclass[% P L A C E   O P T I O N S   B E L O W
+               % draft,%                % activate for full draft features
+               % lightdraft,%           % activate for watermarks
+               english,%                % specify language
+               font=minion,%            % set the standard font
+               fontsize=11pt,%
+               DIV=9,%                  % Text area calculation factor
+               BCOR=4mm,%
+               overlappingheadings=true,%
+               titlepage=firstiscover,%
+               ]{ktxreprt}
+
+\usepackage{leading}
+\leading{14pt}
+
+\setlength{\topmargin}{0.16666\textwidth-1in}
+\setlength{\textheight}{42\baselineskip-2pt}
+
+% Currently not needed packages (delete them?)
+% \RequirePackage{comment}                % comment whole parts of text
+% \RequirePackage[shortcuts]{extdash}     % dash commands for compound words
+% \RequirePackage{float}                  % force floats to put "here" [!H]
+% \RequirePackage{multirow}               % multi-row support for tables
+% \RequirePackage{rotating}               % flip floats
+% \RequirePackage{todonotes}              % add to-do notes to text
+% \RequirePackage{units}                  % correct units typesetting
+% \RequirePackage{wrapfig}                % wrap text around figures
+% % \begin{macro}{alles}
+% %   Customisation of the appearance of dates.
+% %   \begin{itemize}
+% %   \item Fix dates with: |\newdate{name}{dd}{mm}{yyyy}|
+% %   \item Display dates with: |\displaydate{name} (or the usual \today)|
+% %   \item Customise appearance e.g. with |\ddmmyyyydate| |\longdate|
+% %   \item Change separator (e.g. ".", "/") via |\renewcommand{\dateseparator}{xxx}|
+% %   \end{itemize}
+% %    \begin{macrocode}
+% \RequirePackage{datetime}
+% %    \end{macrocode}
+% % \end{macro}
+% %
+
+
+% Farbiger Titel
+\let\oldtitle\title
+\renewcommand*{\title}[1]{\oldtitle{\mdseries\normalfont\color{Maroon}#1}}
+
+% Redefinition of figure environment
+\let\oldfigure\figure
+\let\oldendfigure\endfigure
+\renewenvironment{figure}{\begingroup\mathversion{sans}\oldfigure}{\oldendfigure\endgroup}
+
+% Packages for this document.
+\usepackage{blindtext}
+\usepackage{layout}
+
+
+%  S E T   D O C U M E N T   P R O P E R T I E S
+% ==========================================================
+\author{Knut Zoch}
+\title{LaTeX Style Sample}
+
+% Add bibliography files to the document.
+\bibliography{aux/bibliography}
+
+% User defined commands and abbreviations.
+\input{aux/abbreviations}
+
+
+%  B E G I N N I N G   O F   D O C U M E N T
+% ==========================================================
+\begin{document}
+% \pagestyle{empty}
+
+\frontmatter
+\maketitle
+\thispagestyle{empty}
+\cleardoublepage
+
+\tableofcontents
+\thispagestyle{plain}
+\cleardoublepage
+
+\mainmatter
+
+% First and second section with pure text and levels (headings, lists)
+\include{tex/levels}
+
+% Third section with some maths
+\include{tex/maths}
+
+% Fourth section with different font examples
+\include{tex/font}
+
+% Fifth section with miscellaneous contents
+\include{tex/misc}
+
+
+% Print the bibliography
+\clearpage
+\printbibliography
+
+
+% Start appendices
+\clearpage
+\appendix
+\include{tex/todo}
+
+\include{tex/layout}
+
+
+\end{document}
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

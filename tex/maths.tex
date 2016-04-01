@@ -1,0 +1,35 @@
+% Section with some maths
+
+\chapter{Some Section with Maths}
+\blindmathpaper
+
+
+\section{Maths Including Subequations and Labelling}
+\label{sec:maths-incl-subeq}
+\blindtext
+\newcommand{\iu}{{i\mkern1mu}}
+\vspace{-.4cm}
+\begin{subequations}
+  \begin{align}
+    \iu \hbar \partial_t \Psi &= - \iu \hbar c \sum_{i=1}^3 \alpha_i \partial_i \Psi + \beta m c^2 \Psi\\ &= \left( c \vec \alpha \cdot \vec p + \beta m c^2 \right) \Psi \\
+    \Longrightarrow \quad 0 &= \left( \iu \hbar \gamma^\mu \partial_\mu - mc \right) \Psi
+  \end{align}
+\end{subequations}
+\blindtext
+\begin{align}
+  F(x,y)=0 ~~\mbox{and}~~
+  \left| \begin{array}{ccc}
+           F''_{xx} & F''_{xy} &  F'_x \\
+           F''_{yx} & F''_{yy} &  F'_y \\
+           F'_x     & F'_y     & 0
+         \end{array}\right| = 0
+\label{eq:1}
+\end{align}
+\blindtext
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../diss"
+%%% End:

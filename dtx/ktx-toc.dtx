@@ -1,0 +1,51 @@
+% \subsection{Table of Contents}
+% \label{sec:impl-toc}
+%
+% The following part of the code sets up the table of contents of the
+% document. This is done via the package |tocloft|.
+% \begin{macro}{option tocloft}
+%   Only load the package and change the TOC, when option |tocloft=true| is
+%   given to the class.
+%    \begin{macrocode}
+\ifthenelse{\boolean{ktxreprt@tocloft}}{%
+  \RequirePackage{tocloft}
+%    \end{macrocode}
+% Change all the fonts to standard serif fonts and adjust the font sizes for the
+% table of contents.
+%    \begin{macrocode}
+  \renewcommand*{\cftchapfont}{\rmfamily\large}
+  \renewcommand*{\cftsecfont}{\rmfamily\normalfont}
+  \renewcommand*{\cftsecpagefont}{\rmfamily\normalfont}
+  \renewcommand*{\cftsubsecfont}{\rmfamily\small}
+  \renewcommand*{\cftsubsecpagefont}{\rmfamily\small}
+%    \end{macrocode}
+% Remove the dotted leaders in the TOC.
+%    \begin{macrocode}
+  \renewcommand*{\cftchapleader}{\quad}
+  \renewcommand*{\cftchapafterpnum}{\cftparfillskip}
+  \renewcommand*{\cftsecleader}{\quad}
+  \renewcommand*{\cftsecafterpnum}{\cftparfillskip}
+  \renewcommand*{\cftsubsecleader}{\quad}
+  \renewcommand*{\cftsubsecafterpnum}{\cftparfillskip}
+  \renewcommand*{\cftpnumalign}{l}
+%    \end{macrocode}
+% Change parskip for TOC (larger skip above section)
+%    \begin{macrocode}
+  \setlength{\cftbeforesecskip}{1.0ex}
+  \setlength{\cftparskip}{0ex}
+%    \end{macrocode}
+% Change sections to be overlapping (currently not used)
+%    \begin{macrocode}
+  % \setlength{\cftsecnumwidth}{0pt}
+  % \setlength{\cftsubsecindent}{0pt}
+  % \renewcommand*{\cftsecpresnum}{\llap\bgroup}
+  % \renewcommand*{\cftsecaftersnum}{\quad\egroup}
+%    \end{macrocode}
+% Only list everything up to the level of subsections in the TOC
+%    \begin{macrocode}
+  \setcounter{tocdepth}{2}
+}{%
+  \relax  % do nothing
+}
+%    \end{macrocode}
+% \end{macro} 

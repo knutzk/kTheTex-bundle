@@ -1,0 +1,81 @@
+%%
+%% kTheTex-bundle.ins
+%% Copyright 2016 Knut Zoch <knut DOT zoch AT gmail DOT com>
+% 
+% This work may be distributed and/or modified under the conditions of the LaTeX
+% Project Public License, either version 1.3 of this license or (at your option)
+% any later version.  The latest version of this license is in
+% http://www.latex-project.org/lppl.txt and version 1.3 or later is part of all
+% distributions of LaTeX version 2005/12/01 or later.
+% 
+% This work has the LPPL maintenance status `maintained'.
+% 
+% The Current Maintainer of this work is Knut Zoch.
+% 
+% This work consists of the files kTheTex-bundle.dtx, kTheTex-bundle.ins,
+% dtx/ktx-base.dtx, dtx/ktx-bibliography.dtx, dtx/ktx-debug.dtx,
+% dtx/ktx-drafting.dtx, dtx/ktx-floats.dtx, dtx/ktx-font.dtx,
+% dtx/ktx-headfoot.dtx, dtx/ktx-headings.dtx, dtx/ktx-misc-style.dtx,
+% dtx/ktx-references.dtx, dtx/ktx-toc.dtx and the derived file ktxreprt.sty.
+%
+
+\input docstrip.tex
+\keepsilent
+
+\usedir{tex/latex/kTheTex-bundle}
+
+\preamble
+
+This is a generated file.
+
+Copyright 2016 Knut Zoch <knut DOT zoch AT gmail DOT com>
+
+This work may be distributed and/or modified under the conditions of the LaTeX
+Project Public License, either version 1.3 of this license or (at your option)
+any later version.  The latest version of this license is in
+http://www.latex-project.org/lppl.txt and version 1.3 or later is part of all
+distributions of LaTeX version 2005/12/01 or later.
+
+This work has the LPPL maintenance status `maintained'.
+
+The Current Maintainer of this work is Knut Zoch.
+
+This work consists of the files kTheTex-bundle.dtx, kTheTex-bundle.ins,
+dtx/ktx-base.dtx, dtx/ktx-bibliography.dtx, dtx/ktx-debug.dtx,
+dtx/ktx-drafting.dtx, dtx/ktx-floats.dtx, dtx/ktx-font.dtx,
+dtx/ktx-headfoot.dtx, dtx/ktx-headings.dtx, dtx/ktx-misc-style.dtx,
+dtx/ktx-references.dtx, dtx/ktx-toc.dtx and the derived file ktxreprt.sty.
+
+\endpreamble
+
+\generate{\file{ktxreprt.cls}{%
+            \from{kTheTex-bundle.dtx}{class}%
+            \from{dtx/ktx-base.dtx}{}%
+            \from{dtx/ktx-debug.dtx}{}%
+            \from{dtx/ktx-font.dtx}{}%
+            \from{dtx/ktx-drafting.dtx}{}%
+            \from{dtx/ktx-misc-style.dtx}{}%
+            \from{dtx/ktx-headings.dtx}{}%
+            \from{dtx/ktx-headfoot.dtx}{}%
+            \from{dtx/ktx-floats.dtx}{}%
+            \from{dtx/ktx-bibliography.dtx}{}%
+            \from{dtx/ktx-toc.dtx}{}%
+            \from{dtx/ktx-references.dtx}{}%
+}}
+
+\obeyspaces
+\Msg{*************************************************************}
+\Msg{*                                                           *}
+\Msg{* To finish the installation you have to move the following *}
+\Msg{* file into a directory searched by TeX:                    *}
+\Msg{*                                                           *}
+\Msg{*     ktxreprt.cls                                          *}
+\Msg{*                                                           *}
+\Msg{* To produce the documentation run the file                 *}
+\Msg{* kTheTex-bundle.dtx through LaTeX.                         *}
+\Msg{*                                                           *}
+\Msg{* Happy TeXing!                                             *}
+\Msg{*                                                           *}
+\Msg{*************************************************************}
+
+\endbatchfile

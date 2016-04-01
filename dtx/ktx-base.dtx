@@ -1,0 +1,149 @@
+
+% Require essential packages for setting up the class options. Without the
+% following packages, the basic setup will not be possible.
+%    \begin{macrocode}
+\RequirePackage{etoolbox}[2011/01/03]
+\RequirePackage{ifthen}[1999/01/07]
+\RequirePackage{kvoptions}[2011/06/30]
+\RequirePackage{xstring}[2012/10/24]
+%    \end{macrocode}
+%
+% \noindent
+% Provide macros for warning, info, and error commands to easily access them
+% within the code.
+%    \begin{macrocode}
+\newcommand*{\ktxreprt@warning}[1]{\ClassWarning{ktxreprt}{#1}}
+\newcommand*{\ktxreprt@info}[1]{\ClassInfo{ktxreprt}{#1}}
+\newcommand*{\ktxreprt@error}[2]{\ClassError{ktxreprt}{#1}{#2}}
+%    \end{macrocode}
+% 
+%
+% \subsection{Declaration of Class Options}
+% \label{sec:decl-class-opti}
+%
+% \begin{macro}{feature options}
+%   Turn additional features of the class on or off.
+%    \begin{macrocode}
+\DeclareBoolOption[true]{biblatex}
+\DeclareBoolOption[true]{hyperref}
+\DeclareBoolOption[true]{microtype}
+\DeclareBoolOption[true]{tocloft}
+\DeclareBoolOption[true]{web}
+\DeclareComplementaryOption{print}{web}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{debug option}
+% The following option |debug| gives access to a version of the class for
+% debugging only (all unnecessary packages deactivated). 
+%    \begin{macrocode}
+\DeclareBoolOption[false]{debug}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{draft options}
+%   Additionally, |draft| and |lightdraft| options are available.
+%    \begin{macrocode}
+\DeclareBoolOption[false]{draft}
+\DeclareComplementaryOption{final}{draft}
+\DeclareBoolOption[false]{lightdraft}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{style options}
+%   These options affect the style of the document.
+%    \begin{macrocode}
+\DeclareStringOption[false]{font}
+\DeclareStringOption[adjust]{header}
+\DeclareStringOption[sansserif]{headings}
+\DeclareBoolOption[true]{pagenumberstop}
+\DeclareBoolOption[false]{overlappingheadings}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{comp options}
+%   The following options are only available because there are compatibility
+%   issues with the KOMA script classes. For some reason, |headinclude| and
+%   |footinclude| for the geometry calculation are not forwarded to the KOMA
+%   script class properly. Option |ngerman| is specified to allow forwarding of
+%   the language to the |prelim2e| draft package.
+%    \begin{macrocode}
+\DeclareBoolOption[true]{headinclude}
+\DeclareBoolOption[false]{footinclude}
+\DeclareBoolOption[false]{ngerman}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \subsection{Call the Base Class}
+% \label{sec:call-base-class}
+%
+% Call the following options for the parent class:
+% \begin{itemize}
+% \item Put the bibliography to the table of contents.
+% \item Use a font size of 12 points.
+% \item Use a two-sided layout.
+% \item Calculate the optimal page division factor (see KOMA script
+%   documentation).
+% \end{itemize}
+%    \begin{macrocode}
+\PassOptionsToClass{bibliography = totoc,%
+                    fontsize     = 12pt,%
+                    twoside      = yes,%
+                    DIV          = calc,%
+                    }{scrbook}
+%    \end{macrocode}
+%
+% \noindent
+% This class is based on the scrbook class from the KOMA script family. The
+% class will be loaded with the following options by default (options in
+% parentheses are the default values of scrtartcl):
+%   \begin{table}[ht]
+%     \centering
+%     \begin{tabular}{ll}
+%         bibliography = totoc         & display bibliography in TOC \\
+%         BCOR         = (0mm)         & binding correction for margins \\
+%         DIV          = calc          & page division factor  \\
+%         fontsize     = 12pt          & set font size \\
+%         footinclude  = (no)          & include footer in DIV calculation \\
+%         headinclude  = yes           & include header in DIV calculation \\
+%         headsepline  = (no)          & separate header and text with line \\
+%         paper        = (a4)          & set paper size \\
+%         titlepage    = (no)          & titlepage: yes/no/firstiscover \\
+%         twoside      = yes           & twosided/singlesided document \\
+%       \end{tabular}
+%       \caption{Options transferred to the base class.}
+%   \label{tab:options}
+% \end{table}
+% 
+% \noindent
+% Now pass all unknown options to the base class and process all options
+% (also the given default values). Then load the base class.
+%    \begin{macrocode}
+\DeclareDefaultOption{\PassOptionsToClass{\CurrentOption}{scrbook}}
+\ProcessKeyvalOptions*
+\LoadClass{scrbook}
+%    \end{macrocode}
+%
+% \begin{macro}{hack options}
+%   Hack for passing the headinclude option from this class correctly to the
+%   base class.
+%    \begin{macrocode}
+\ifthenelse{\boolean{ktxreprt@headinclude}}{%
+  \KOMAoptions{headinclude=true}
+}{%
+  \KOMAoptions{headinclude=false}
+}
+%    \end{macrocode}
+%
+% \noindent
+% Same hack for the footinclude option.
+%    \begin{macrocode}
+\ifthenelse{\boolean{ktxreprt@footinclude}}{%
+  \KOMAoptions{footinclude=true}
+}{%
+  \KOMAoptions{footinclude=false}
+}
+%    \end{macrocode}
+% \end{macro}
+%

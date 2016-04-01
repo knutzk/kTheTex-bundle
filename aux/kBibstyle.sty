@@ -1,0 +1,236 @@
+% # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+%     $HOME/texmf/tex/latex/knut/kBibstyle.sty                                #
+%                                                                             #
+%     This is a custom-defined BibLaTeX bibliography style; it depends on     #
+%     the BibLaTeX package and Biber backend (BibTeX as backend is            #
+%     deprecated). The bibliography customizes the standard style             #
+%     numeric/numeric-comp of the entry type "@article" by reducing the       #
+%     entries to the most essential information.                              #
+%     All changes in detail:                                                  #
+%       - Only years are considered for date information (field like month,   #
+%         day, endmonth etc. are ignored).                                    #
+%       - Does not display an "In:" for articles published in a journal.      #
+%       - Adds a field collaboration after the authors' names, i.e. Author A, #
+%         Author B (Collaboration).                                           #
+%       - Instead of printing the DOI or the URL given in a .bib-file entry   #
+%         after the journal information, the journal title, volume, issue are #
+%         used for hyperlinking.                                              #
+%       - The order is changed to journal, volume, issue, pages, year (latter #
+%         one in parentheses).                                                #
+%       - The standard separator is changed to a comma, bibliography entries  #
+%         do not end in a full stop anymore.                                  #
+%       - Only print the starting page when citing articles.                  #
+%       - Print the volume in bold letters and the title emphasised.          #
+%                                                                             #
+%     The package comes with the following options:                           #
+%       - titles=true/false shows or hides all titles of the entry type       #
+%         article. Default is titles=false.                                   #
+%       - overwrite=true/false overwrites the Biblatex package options doi,   #
+%         url, isbn, firstinits. Default is overwrite=true which activates    #
+%         doi=false, url=false, isbn=false, firstinits=true.                  #
+%       - linking=true/false activates/deactivates the hyperlinking of the    #
+%         journal titles with the DOI/URL links. Default is linking=true.     #
+%                                                                             #
+%     ==> Use as follows:                                                     #
+%     \usepackage[backend=biber,style=numeric]{biblatex}                      #
+%     \usepackage[options]{kBibstyle}                                         #
+%                                                                             #
+%                                                                             #
+%     Copyright 2014 Knut Zoch                                                #
+% # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{kBibstyle}[2014/12/15]
+\RequirePackage{biblatex}
+
+
+% Define the package options.
+\newif\if@linking
+\DeclareOption{linking=true}{\@linkingtrue}
+\DeclareOption{linking=false}{\@linkingfalse}
+
+\newif\if@overwrite
+\DeclareOption{overwrite=true}{\@overwritetrue}
+\DeclareOption{overwrite=false}{\@overwritefalse}
+
+\newif\if@title
+\DeclareOption{titles=true}{\@titletrue}
+\DeclareOption{titles=false}{\@titlefalse}
+
+
+% Execute default options, then relax.
+\ExecuteOptions{linking=true,overwrite=true}
+\ProcessOptions\relax
+
+
+% The following part was copied from the original BibLaTeX files and is
+% slightly modified. All changes/additions are marked.
+\DeclareSortingScheme{ymdnt}{
+  \sort{
+    \field{presort}
+  }
+  \sort[final]{
+    \field{sortkey}
+  }
+  \sort{
+    \field{sortyear}
+    \field{year}
+    \literal{9999}
+  }
+  \sort{
+    \field[padside=left,padwidth=2,padchar=0]{month}
+    \literal{00}
+  }
+  \sort{
+    \field[padside=left,padwidth=2,padchar=0]{day}
+    \literal{00}
+  }
+  \sort{
+    \field{sortname}
+    \field{author}
+    \field{editor}
+    \field{translator}
+    \field{sorttitle}
+    \field{title}
+  }
+  \sort{
+    \field{sorttitle}
+    \field{title}
+  }
+}
+
+
+% The following part was copied from the original BibLaTeX files and is
+% slightly modified. All changes/additions are marked.
+\DeclareBibliographyDriver{article}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/translator+others}%
+  \setunit{\addspace}                   % line added
+  \printfield{usera}%                   % line added
+  \setunit{\labelnamepunct}\newblock
+  \usebibmacro{title}%
+  \newunit
+  \printlist{language}%
+  \newunit\newblock
+  \usebibmacro{byauthor}%
+  \newunit\newblock
+  \usebibmacro{bytranslator+others}%
+  \newunit\newblock
+  \printfield{version}%
+  \newunit\newblock
+  % \usebibmacro{in:}%                  % commented
+  \printtext[doilink]{%                 % line added (see below for definition)
+  \usebibmacro{journal+issuetitle}%     % macro changed (see below)
+  \newunit
+  \usebibmacro{byeditor+others}%
+  \newunit
+  \usebibmacro{note+pages}%
+  }%                                    % line added
+  \setunit{\addspace}%                  % line added
+  \usebibmacro{date}%                   % line added
+  \newunit\newblock
+  \iftoggle{bbx:isbn}
+    {\printfield{issn}}
+    {}%
+  \newunit\newblock
+  \usebibmacro{doi+eprint+url}%
+  \newunit\newblock
+  \usebibmacro{addendum+pubstate}%
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \newunit\newblock
+  \iftoggle{bbx:related}
+    {\usebibmacro{related:init}%
+     \usebibmacro{related}}
+    {}%
+  \usebibmacro{finentry}}
+
+
+% Renew macro for journal+issue (w/o date).
+\renewbibmacro*{journal+issuetitle}{%
+  \usebibmacro{journal}%
+  \setunit*{\addspace}%
+  \iffieldundef{series}
+    {}
+    {\newunit
+     \printfield{series}%
+     \setunit{\addspace}}%
+  \usebibmacro{volume+number+eid}%
+  \setunit{\addspace}%
+  % \usebibmacro{issue+date}%           % substituted
+  \usebibmacro{issue}%                  % line added
+  \setunit{\addcolon\space}%
+  \usebibmacro{issue}%
+  \newunit}
+
+
+% Use comma separation instead of colons and do not close with a colon.
+\renewcommand*{\newunitpunct}{\addcomma\space}
+\renewcommand*{\finentrypunct}{}
+
+
+% Define field "doilink" (uses inserted text as hyperlink).
+\if@linking
+  \DeclareFieldFormat{doilink}{%
+    \iffieldundef{doi}{%
+    \iffieldundef{url}{#1}%
+    {\href{\thefield{url}}{#1}}}
+    {\href{http://dx.doi.org/\thefield{doi}}{#1}}}
+\else
+  \DeclareFieldFormat{doilink}{#1}
+\fi
+
+
+% Adjust field formats.
+\DeclareFieldFormat[article]{date}{\mkbibparens{#1}}
+\DeclareFieldFormat*{title}{\mkbibemph{#1}}
+\DeclareFieldFormat{volume}{\textbf{#1}\space}
+\DeclareFieldFormat{journaltitle}{#1}
+\DeclareFieldFormat{pages}{\mkfirstpage{#1}}
+\DeclareFieldFormat{usera}{\mkbibparens{#1}} % format collaboration field
+
+
+% Declare a map from field "collaboration" to "usera".
+\DeclareSourcemap{
+  \maps[datatype=bibtex,overwrite=true]{
+    \map{
+      \step[fieldsource=Collaboration, final=true]
+      \step[fieldset=usera, origfieldval, final=true]
+    }
+  }
+}
+
+
+% Clear the following fields for all bib entries
+% (does NOT touch the .bib file itself).
+\AtEveryBibitem{%
+  \clearfield{day}%
+  \clearfield{month}%
+  \clearfield{endday}%
+  \clearfield{endmonth}%
+  \clearfield{issue}%
+  \clearfield{number}%
+}
+
+
+% Overwrite biblatex options (default=yes).
+\if@overwrite
+\ExecuteBibliographyOptions{doi=false}
+\ExecuteBibliographyOptions{url=false}
+\ExecuteBibliographyOptions{isbn=false}
+\ExecuteBibliographyOptions{firstinits=true}
+\else
+\fi
+
+
+% Hide the titles if option is given (default=yes).
+\if@title
+\else
+\AtEveryBibitem{\clearfield{title}}
+\fi
+
+\endinput
+
+% End of file: $HOME/texmf/tex/latex/knut/kBibstyle.sty

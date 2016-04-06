@@ -123,9 +123,16 @@
 %
 % \begin{macro}{alles}
 %    \begin{macrocode}
-\numberwithin{equation}{section}        % include section in equation label
-\numberwithin{table}{section}           % ------- " -------- table label
-\numberwithin{figure}{section}          % ------- " -------- figure label
+%<*report>
+\numberwithin{equation}{section}
+\numberwithin{table}{section}
+\numberwithin{figure}{section}
+%</report>
+%<*thesis>
+\numberwithin{equation}{chapter}
+\numberwithin{table}{chapter}
+\numberwithin{figure}{chapter}
+%</thesis>
 \graphicspath{{./figures/}}             % ==> look for figures in folder
 \setlist{itemsep=-1ex}                 % ==> smaller spacing between items
 \setlist[enumerate]{itemsep=0.1\baselineskip}

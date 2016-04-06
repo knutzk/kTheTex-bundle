@@ -1,3 +1,69 @@
+% \iffalse meta-comment
+%
+%% kTheTex-bundle.dtx
+%% Copyright 2016 Knut Zoch <knut DOT zoch AT gmail DOT com>
+% 
+% This work may be distributed and/or modified under the conditions of the LaTeX
+% Project Public License, either version 1.3 of this license or (at your option)
+% any later version.  The latest version of this license is in
+% http://www.latex-project.org/lppl.txt and version 1.3 or later is part of all
+% distributions of LaTeX version 2005/12/01 or later.
+% 
+% This work has the LPPL maintenance status `maintained'.
+% 
+% The Current Maintainer of this work is Knut Zoch.
+% 
+% This work consists of the files kTheTex-bundle.dtx, kTheTex-bundle.ins,
+% dtx/ktx-base.dtx, dtx/ktx-bibliography.dtx, dtx/ktx-debug.dtx,
+% dtx/ktx-drafting.dtx, dtx/ktx-floats.dtx, dtx/ktx-font.dtx,
+% dtx/ktx-headfoot.dtx, dtx/ktx-headings.dtx, dtx/ktx-misc-style.dtx,
+% dtx/ktx-references.dtx, dtx/ktx-toc.dtx and the derived file ktxreprt.sty.
+% \fi
+%
+% \iffalse
+%<*driver>
+\ProvidesFile{dtx/ktx-headings.dtx}
+[2016/04/01 v0.1 ktx-headings]
+%</driver>
+%
+%<*driver>
+\documentclass[draft]{ltxdoc}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+\DocInput{dtx/ktx-headings.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \CheckSum{0}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+%
+% \changes{v1.0}{2016/03/25}{Initial version} %
+% \GetFileInfo{dtx/ktx-headings.dtx} %
+% \DoNotIndex{} %
+% \title{The \textsf{kTheTex-bundle} file \textsf{ktx-headings.dtx}\thanks{This document
+% corresponds to \textsf{ktx-headings.dtx}~\fileversion,
+%   dated \filedate.}}
+% \author{Knut Zoch \\ \texttt{knut.zoch NOSPAM gmail.com}} %
+% \maketitle
 %
 % \subsection{Headings}
 % \label{sec:headings}
@@ -13,6 +79,7 @@
 \let\ktx@sectionformat\sectionformat
 \let\ktx@subsectionformat\subsectionformat
 \let\ktx@subsubsectionformat\subsubsectionformat
+%<*options>
 \ifthenelse{\boolean{ktx@overlappingheadings}}{
   \renewcommand*{\ktx@sectionformat}{%
     \llap{\thesection\autodot\enskip}}
@@ -21,28 +88,34 @@
   \renewcommand*{\ktx@subsubsectionformat}{%
     \llap{\thesubsubsection\autodot\enskip}}
 }{}
+%</options>
 %    \end{macrocode}
 % \end{macro}
-% 
-% \noindent
-% Not the adjustment to the specified headings style starts. Available styles
-% are: bringhurst, bringhurstlarge, italics, sansserif, default.
-%    \begin{macrocode}
-\IfEqCase*{\ktx@headings}{%
-%    \end{macrocode}
 %
-% \begin{macro}{headings=bringhurst}
-%   This style follows the style of Bringhurst's headings.
+%
+% \begin{macro}{headings}
+%
+% Now the adjustment to the specified headings style starts. Style |bringhurst|
+% follows the style of Bringhurst's headings in his book about
+% typography. |bringhurstlarge| is a scaled version of that. Other possible
+% options are |italics| and |sansserif|, with the latter one being the
+% standard. If no adjustments to the headings are supposed to be made by the
+% class, use option |headings=false|.
+%
+% Each option by itself checks if |header=adjust| is set and then sets the
+% correct header type according to the style of the headings. See in that
+% section for more documentation.
+%
+% DEBUG: Not completely sure yet, whether the possibility to generate it with
+% options is a good idea or not.
+%
 %    \begin{macrocode}
+%<*options>
+\IfEqCase*{\ktx@headings}{%
   {bringhurst}{%
     \renewcommand*{\sectionformat}{\ktx@sectionformat}%
     \renewcommand*{\subsectionformat}{\ktx@subsectionformat}%
     \renewcommand*{\subsubsectionformat}{\ktx@subsubsectionformat}%
-%    \end{macrocode}
-% 
-%   \noindent
-%   DEBUG: Hier wird gerade noch dran gearbeitet.
-%    \begin{macrocode}
     \addtokomafont{sectioning}{\normalsize\mdseries\rmfamily}%
     \setkomafont{section}{\ktx@lowcaps}%
     \setkomafont{subsection}{\ktx@swshape}%
@@ -64,21 +137,10 @@
     \RedeclareSectionCommand[%
        beforeskip=-1\baselineskip,%
        ]{paragraph}
-%    \end{macrocode}
-% 
-% \noindent
-% Set the correct style for header/footer if it was set to |adjusted|.
-%    \begin{macrocode}
     \ifdefstring{\ktx@header}{adjust}{%
       \renewcommand*{\ktx@header}{bringhurst}
     }{}%
   }%
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{headings=bringhurstlarge}
-% A modified version of Bringhurst style headings which are quite a bit larger.
-%    \begin{macrocode}
   {bringhurstlarge}{%
     \renewcommand*{\sectionformat}{\ktx@sectionformat}%
     \renewcommand*{\subsectionformat}{\ktx@subsectionformat}%
@@ -90,45 +152,22 @@
     \addtokomafont{paragraph}{\normalsize\textsc}%
     \RedeclareSectionCommand[afterskip=-0.5em]{paragraph}
     \addtokomafont{pagehead}{\small}%
-%    \end{macrocode}
-% 
-% \noindent
-% Set the correct style for header/footer if it was set to |adjusted|.
-%    \begin{macrocode}
     \ifdefstring{\ktx@header}{adjust}{%
       \renewcommand*{\ktx@header}{bringhurst}
     }{}%
   }%
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{headings=italics}
-%   An italics version of the headings (not touching the font sizes).
-%    \begin{macrocode}
   {italics}{%
     \renewcommand*{\sectionformat}{\ktx@sectionformat}%
     \renewcommand*{\subsectionformat}{\ktx@subsectionformat}%
     \renewcommand*{\subsubsectionformat}{\ktx@subsubsectionformat}%
     \addtokomafont{disposition}{\mdseries\rmfamily\ktx@swshape}%
     \RedeclareSectionCommand[afterskip=-0.5em]{paragraph}
-%    \end{macrocode}
-% 
-% \noindent
-% Set the correct style for header/footer if it was set to |adjusted|.
-%    \begin{macrocode}
     \ifdefstring{\ktx@header}{adjust}{%
       \renewcommand*{\ktx@header}{italics}
     }{}
   }%
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{headings=sansserif}
-%   A sans-serif version of the headings (not touching the font sizes). Within
-%   the style, the headings are also set to a dark grey colour because the black
-%   ones are too heavily weighted.
-%    \begin{macrocode}
   {sansserif}{%
+%</options>
     \definecolor{darkgray}{gray}{0.35}
     \addtokomafont{disposition}{\bfseries\sffamily\color{darkgray}}
     \addtokomafont{title}{\color{black}}
@@ -136,28 +175,14 @@
     \renewcommand*{\subsectionformat}{\ktx@subsectionformat}%
     \renewcommand*{\subsubsectionformat}{\ktx@subsubsectionformat}%
     \addtokomafont{paragraph}{\normalsize\rmfamily\textsc}%
-%    \end{macrocode}
-% 
-% \noindent
-% Set the correct style for header/footer if it was set to |adjusted|.
-%    \begin{macrocode}
+%<*options>
     \ifdefstring{\ktx@header}{adjust}{%
       \renewcommand*{\ktx@header}{sansserif}
     }{}
   }%
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{headings=default}
-% Don't adjust anything with this option.
-%    \begin{macrocode}
   {default}{}%
+}[\ktx@error{unknown heading style heading=\ktx@headings}{}]
+%</options>
 %    \end{macrocode}
 % \end{macro}
-%
-% \noindent
-% Report an error when an unknown option is given.
-%    \begin{macrocode}
-}[\ktx@error{unknown heading style heading=\ktx@headings}{}]
-%    \end{macrocode}
 %

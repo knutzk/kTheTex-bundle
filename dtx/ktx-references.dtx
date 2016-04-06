@@ -8,7 +8,7 @@
 %   |hyperref=true|. In case the user wants to add a package that conflicts with
 %   hyperref if its loaded first, turn hyperref off via |hyperref=false|.
 %    \begin{macrocode}
-\ifthenelse{\boolean{ktxreprt@hyperref}}{%
+\ifthenelse{\boolean{ktx@hyperref}}{%
 %    \end{macrocode}
 % Defining some colours now to mark the links within the document in
 % non-standard colours.
@@ -53,7 +53,7 @@
 % If option "web" is given to the class, do everything as described above. For
 % option "print", hide links, i.e. make them black again.
 %    \begin{macrocode}
-  \ifthenelse{\boolean{ktxreprt@web}}{%
+  \ifthenelse{\boolean{ktx@web}}{%
     \relax % do nothing
   }{
     \hypersetup{hidelinks}

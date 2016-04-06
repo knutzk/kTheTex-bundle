@@ -10,7 +10,7 @@
 % is a class-specific feature.
 %
 %    \begin{macrocode}
-\newcommand*{\issuelightdraftwarning}{\ktxreprt@warning{%
+\newcommand*{\issuelightdraftwarning}{\ktx@warning{%
     Option "lightdraft" is set. To get full draft features,\MessageBreak
     set option "draft" (and deactivate "lightdraft"). If \MessageBreak
     this is meant to be a final version, deactivate the \MessageBreak
@@ -24,8 +24,8 @@
 %   won't notice that draft features are used. Otherwise, the rulers would be
 %   switched on.
 %    \begin{macrocode}
-\ifthenelse{\boolean{ktxreprt@lightdraft}}{%
-  \setboolean{ktxreprt@draft}{true}
+\ifthenelse{\boolean{ktx@lightdraft}}{%
+  \setboolean{ktx@draft}{true}
 }{}
 %    \end{macrocode}
 % \end{macro}
@@ -36,12 +36,12 @@
 %   background of every page. The package |prelim2e| sets a draft notice at the
 %   very bottom of every page.
 %    \begin{macrocode}
-\ifthenelse{\boolean{ktxreprt@draft}}{%
+\ifthenelse{\boolean{ktx@draft}}{%
   \RequirePackage{draftwatermark}%
   \SetWatermarkLightness{0.9}%
   \SetWatermarkScale{0.7}%
   \SetWatermarkText{Preliminary}%
-  \ifthenelse{\boolean{ktxreprt@ngerman}}{%
+  \ifthenelse{\boolean{ktx@ngerman}}{%
     \PassOptionsToPackage{german}{prelim2e}%
   }{}%
   \RequirePackage[scrtime]{prelim2e}%
@@ -51,7 +51,7 @@
 % set, NOT for |lightdraft|. For the traditional |draft| option, the package
 % |showframe| will also be loaded to display a frame around the text areas.
 %    \begin{macrocode}
-  \ifthenelse{\boolean{ktxreprt@lightdraft}}{%
+  \ifthenelse{\boolean{ktx@lightdraft}}{%
     \issuelightdraftwarning
     \KOMAoptions{draft=false}
   }{

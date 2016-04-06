@@ -5,7 +5,7 @@
 % In this section, a couple of fonts are proposed and their settings optimised for usage with this class. The fonts can be chosen with the option |fonts|. Currently, three types are available: MinionPro (proprietary), Kepler fonts, mathpazo.
 %
 %    \begin{macrocode}
-\IfEqCase*{\ktxreprt@font}{%
+\IfEqCase*{\ktx@font}{%
 %    \end{macrocode}
 %
 % \begin{macro}{font=minion}
@@ -61,8 +61,8 @@
 % \noindent
 % Issue an error when the given font type is unknown.
 %    \begin{macrocode}
-}[\ktxreprt@error{Unknown font: "\ktxreprt@font"}{%
-  The given font is unknown. ktxreprt class supports the fonts kpfonts,
+}[\ktx@error{Unknown font: "\ktx@font"}{%
+  The given font is unknown. ktx class supports the fonts kpfonts,
   mathpazo, minion and CM. If you want to use your own font
   declarations, use option "font=false".}]
 %    \end{macrocode}

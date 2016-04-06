@@ -10,15 +10,15 @@
 % \begin{macro}{overlappingheadings}
 %   Check if headings are set to be overlapping or not
 %    \begin{macrocode}
-\let\ktxreprt@sectionformat\sectionformat
-\let\ktxreprt@subsectionformat\subsectionformat
-\let\ktxreprt@subsubsectionformat\subsubsectionformat
-\ifthenelse{\boolean{ktxreprt@overlappingheadings}}{
-  \renewcommand*{\ktxreprt@sectionformat}{%
+\let\ktx@sectionformat\sectionformat
+\let\ktx@subsectionformat\subsectionformat
+\let\ktx@subsubsectionformat\subsubsectionformat
+\ifthenelse{\boolean{ktx@overlappingheadings}}{
+  \renewcommand*{\ktx@sectionformat}{%
     \llap{\thesection\autodot\enskip}}
-  \renewcommand*{\ktxreprt@subsectionformat}{%
+  \renewcommand*{\ktx@subsectionformat}{%
     \llap{\thesubsection\autodot\enskip}}
-  \renewcommand*{\ktxreprt@subsubsectionformat}{%
+  \renewcommand*{\ktx@subsubsectionformat}{%
     \llap{\thesubsubsection\autodot\enskip}}
 }{}
 %    \end{macrocode}
@@ -28,25 +28,25 @@
 % Not the adjustment to the specified headings style starts. Available styles
 % are: bringhurst, bringhurstlarge, italics, sansserif, default.
 %    \begin{macrocode}
-\IfEqCase*{\ktxreprt@headings}{%
+\IfEqCase*{\ktx@headings}{%
 %    \end{macrocode}
 %
 % \begin{macro}{headings=bringhurst}
 %   This style follows the style of Bringhurst's headings.
 %    \begin{macrocode}
   {bringhurst}{%
-    \renewcommand*{\sectionformat}{\ktxreprt@sectionformat}%
-    \renewcommand*{\subsectionformat}{\ktxreprt@subsectionformat}%
-    \renewcommand*{\subsubsectionformat}{\ktxreprt@subsubsectionformat}%
+    \renewcommand*{\sectionformat}{\ktx@sectionformat}%
+    \renewcommand*{\subsectionformat}{\ktx@subsectionformat}%
+    \renewcommand*{\subsubsectionformat}{\ktx@subsubsectionformat}%
 %    \end{macrocode}
 % 
 %   \noindent
 %   DEBUG: Hier wird gerade noch dran gearbeitet.
 %    \begin{macrocode}
     \addtokomafont{sectioning}{\normalsize\mdseries\rmfamily}%
-    \setkomafont{section}{\ktxreprt@lowcaps}%
-    \setkomafont{subsection}{\ktxreprt@swshape}%
-    \setkomafont{subsubsection}{\ktxreprt@swshape}%
+    \setkomafont{section}{\ktx@lowcaps}%
+    \setkomafont{subsection}{\ktx@swshape}%
+    \setkomafont{subsubsection}{\ktx@swshape}%
     \setkomafont{paragraph}{\textsc}%
     \addtokomafont{pagehead}{\small}%
     \RedeclareSectionCommand[%
@@ -69,8 +69,8 @@
 % \noindent
 % Set the correct style for header/footer if it was set to |adjusted|.
 %    \begin{macrocode}
-    \ifdefstring{\ktxreprt@header}{adjust}{%
-      \renewcommand*{\ktxreprt@header}{bringhurst}
+    \ifdefstring{\ktx@header}{adjust}{%
+      \renewcommand*{\ktx@header}{bringhurst}
     }{}%
   }%
 %    \end{macrocode}
@@ -80,13 +80,13 @@
 % A modified version of Bringhurst style headings which are quite a bit larger.
 %    \begin{macrocode}
   {bringhurstlarge}{%
-    \renewcommand*{\sectionformat}{\ktxreprt@sectionformat}%
-    \renewcommand*{\subsectionformat}{\ktxreprt@subsectionformat}%
-    \renewcommand*{\subsubsectionformat}{\ktxreprt@subsubsectionformat}%
+    \renewcommand*{\sectionformat}{\ktx@sectionformat}%
+    \renewcommand*{\subsectionformat}{\ktx@subsectionformat}%
+    \renewcommand*{\subsubsectionformat}{\ktx@subsubsectionformat}%
     \addtokomafont{disposition}{\mdseries\rmfamily}%
-    \addtokomafont{section}{\ktxreprt@lowcaps}%
-    \addtokomafont{subsection}{\ktxreprt@swshape}%
-    \addtokomafont{subsubsection}{\ktxreprt@swshape}%
+    \addtokomafont{section}{\ktx@lowcaps}%
+    \addtokomafont{subsection}{\ktx@swshape}%
+    \addtokomafont{subsubsection}{\ktx@swshape}%
     \addtokomafont{paragraph}{\normalsize\textsc}%
     \RedeclareSectionCommand[afterskip=-0.5em]{paragraph}
     \addtokomafont{pagehead}{\small}%
@@ -95,8 +95,8 @@
 % \noindent
 % Set the correct style for header/footer if it was set to |adjusted|.
 %    \begin{macrocode}
-    \ifdefstring{\ktxreprt@header}{adjust}{%
-      \renewcommand*{\ktxreprt@header}{bringhurst}
+    \ifdefstring{\ktx@header}{adjust}{%
+      \renewcommand*{\ktx@header}{bringhurst}
     }{}%
   }%
 %    \end{macrocode}
@@ -106,18 +106,18 @@
 %   An italics version of the headings (not touching the font sizes).
 %    \begin{macrocode}
   {italics}{%
-    \renewcommand*{\sectionformat}{\ktxreprt@sectionformat}%
-    \renewcommand*{\subsectionformat}{\ktxreprt@subsectionformat}%
-    \renewcommand*{\subsubsectionformat}{\ktxreprt@subsubsectionformat}%
-    \addtokomafont{disposition}{\mdseries\rmfamily\ktxreprt@swshape}%
+    \renewcommand*{\sectionformat}{\ktx@sectionformat}%
+    \renewcommand*{\subsectionformat}{\ktx@subsectionformat}%
+    \renewcommand*{\subsubsectionformat}{\ktx@subsubsectionformat}%
+    \addtokomafont{disposition}{\mdseries\rmfamily\ktx@swshape}%
     \RedeclareSectionCommand[afterskip=-0.5em]{paragraph}
 %    \end{macrocode}
 % 
 % \noindent
 % Set the correct style for header/footer if it was set to |adjusted|.
 %    \begin{macrocode}
-    \ifdefstring{\ktxreprt@header}{adjust}{%
-      \renewcommand*{\ktxreprt@header}{italics}
+    \ifdefstring{\ktx@header}{adjust}{%
+      \renewcommand*{\ktx@header}{italics}
     }{}
   }%
 %    \end{macrocode}
@@ -132,17 +132,17 @@
     \definecolor{darkgray}{gray}{0.35}
     \addtokomafont{disposition}{\bfseries\sffamily\color{darkgray}}
     \addtokomafont{title}{\color{black}}
-    \renewcommand*{\sectionformat}{\ktxreprt@sectionformat}%
-    \renewcommand*{\subsectionformat}{\ktxreprt@subsectionformat}%
-    \renewcommand*{\subsubsectionformat}{\ktxreprt@subsubsectionformat}%
+    \renewcommand*{\sectionformat}{\ktx@sectionformat}%
+    \renewcommand*{\subsectionformat}{\ktx@subsectionformat}%
+    \renewcommand*{\subsubsectionformat}{\ktx@subsubsectionformat}%
     \addtokomafont{paragraph}{\normalsize\rmfamily\textsc}%
 %    \end{macrocode}
 % 
 % \noindent
 % Set the correct style for header/footer if it was set to |adjusted|.
 %    \begin{macrocode}
-    \ifdefstring{\ktxreprt@header}{adjust}{%
-      \renewcommand*{\ktxreprt@header}{sansserif}
+    \ifdefstring{\ktx@header}{adjust}{%
+      \renewcommand*{\ktx@header}{sansserif}
     }{}
   }%
 %    \end{macrocode}
@@ -158,6 +158,6 @@
 % \noindent
 % Report an error when an unknown option is given.
 %    \begin{macrocode}
-}[\ktxreprt@error{unknown heading style heading=\ktxreprt@headings}{}]
+}[\ktx@error{unknown heading style heading=\ktx@headings}{}]
 %    \end{macrocode}
 %

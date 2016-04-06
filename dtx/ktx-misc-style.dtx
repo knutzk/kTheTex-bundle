@@ -6,7 +6,7 @@
 %   Optimise text spread with microtype package. First make a check whether the
 %   |microtype| option has been set.
 %    \begin{macrocode}
-\ifthenelse{\boolean{ktxreprt@microtype}}{%
+\ifthenelse{\boolean{ktx@microtype}}{%
 %    \end{macrocode}
 % Now load package |microtype|. Options include: use language information from
 % the babel package to determine kerning etc. Set stretch and shrink to a value
@@ -23,7 +23,7 @@
 % Issue a warning if package |microtype| is not loaded.
 %    \begin{macrocode}
  }{%
-   \ktxreprt@warning{Microtype package not loaded.}
+   \ktx@warning{Microtype package not loaded.}
 }
 %    \end{macrocode}
 % \end{macro}
@@ -45,11 +45,11 @@
 % default, those commands work fine, but always issue a warning because the
 % spacing is not adjusted.
 %    \begin{macrocode}
-\newrobustcmd{\ktxreprt@allcaps}[1]{%
-  \ktxreprt@warning{Spacing of small caps not adjusted! Using
+\newrobustcmd{\ktx@allcaps}[1]{%
+  \ktx@warning{Spacing of small caps not adjusted! Using
     default\MessageBreak spacing now.}\textsc{\MakeUppercase{#1}}}
-\newrobustcmd{\ktxreprt@lowcaps}[1]{%
-  \ktxreprt@warning{Spacing of small caps not adjusted! Using
+\newrobustcmd{\ktx@lowcaps}[1]{%
+  \ktx@warning{Spacing of small caps not adjusted! Using
     default\MessageBreak spacing now.}\textsc{\MakeLowercase{#1}}}
 %    \end{macrocode}
 % Check if either |letterspacing| or |microtype| were loaded before applying the
@@ -57,16 +57,16 @@
 %    \begin{macrocode}
 \ifboolexpr{ test {\@ifpackageloaded{letterspace}} or
              test {\@ifpackageloaded{microtype}} }{%
-  \ktxreprt@info{Using letterspacing options of microtype package.}
-  \renewrobustcmd{\ktxreprt@allcaps}[1]{%
+  \ktx@info{Using letterspacing options of microtype package.}
+  \renewrobustcmd{\ktx@allcaps}[1]{%
                   \textls[150]{\MakeUppercase{#1}}}
-  \renewrobustcmd{\ktxreprt@lowcaps}[1]{%
+  \renewrobustcmd{\ktx@lowcaps}[1]{%
                   \textls[50]{\textsc{\MakeLowercase{#1}}}}
 %    \end{macrocode}
 % Also apply the spacing corrections for the standard |\textsc| command.
 %    \begin{macrocode}
-  \let\ktxreprt@textsc@old\textsc
-  \renewcommand*{\textsc}[1]{\textls[50]{\ktxreprt@textsc@old{#1}}}
+  \let\ktx@textsc@old\textsc
+  \renewcommand*{\textsc}[1]{\textls[50]{\ktx@textsc@old{#1}}}
 %    \end{macrocode}
 % If none of the packages was loaded, do nothing (warnings will be printed when
 % all-caps or low-caps are used).
@@ -78,8 +78,8 @@
 % Finally, provide global commands for the defined fonts: |\textsca| and
 % |\textscl|.
 %    \begin{macrocode}
-\let\textsca\ktxreprt@allcaps
-\let\textscl\ktxreprt@lowcaps
+\let\textsca\ktx@allcaps
+\let\textscl\ktx@lowcaps
 %    \end{macrocode}
 % \end{macro}
 %
@@ -98,11 +98,11 @@
 % \begin{macro}{alles}
 %   Declare essential text formatting commands (robust, no dependencies).
 %    \begin{macrocode}
-\newcommand*{\ktxreprt@textsw}[1]{\textit{#1}}
-\newcommand*{\ktxreprt@swshape}{\itshape}
-\ifdefstring{\ktxreprt@font}{minion}{%
-  \renewcommand*{\ktxreprt@textsw}[1]{\textsw{#1}}
-  \renewcommand*{\ktxreprt@swshape}{\swshape}
+\newcommand*{\ktx@textsw}[1]{\textit{#1}}
+\newcommand*{\ktx@swshape}{\itshape}
+\ifdefstring{\ktx@font}{minion}{%
+  \renewcommand*{\ktx@textsw}[1]{\textsw{#1}}
+  \renewcommand*{\ktx@swshape}{\swshape}
 }{}
 %    \end{macrocode}
 % \end{macro}

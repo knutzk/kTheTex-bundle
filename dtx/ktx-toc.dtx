@@ -7,7 +7,7 @@
 %   Only load the package and change the TOC, when option |tocloft=true| is
 %   given to the class.
 %    \begin{macrocode}
-\ifthenelse{\boolean{ktxreprt@tocloft}}{%
+\ifthenelse{\boolean{ktx@tocloft}}{%
   \RequirePackage{tocloft}
 %    \end{macrocode}
 % Change all the fonts to standard serif fonts and adjust the font sizes for the

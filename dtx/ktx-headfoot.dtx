@@ -23,17 +23,17 @@
 %
 % First define the custom commands to put the page numbers in the margin.
 %    \begin{macrocode}
-\let\ktxreprt@thepage@l\empty
-\let\ktxreprt@thepage@r\empty
+\let\ktx@thepage@l\empty
+\let\ktx@thepage@r\empty
 %    \end{macrocode}
 %
 % \begin{macro}{pagenumberstop}
 %   Now check whether the option had been set, put the number to the margin and
 %   clear the footer.
 %    \begin{macrocode}
-\ifthenelse{\boolean{ktxreprt@pagenumberstop}}{%
-  \renewcommand*{\ktxreprt@thepage@l}{\llap{\thepage\kern1.5em}}
-  \renewcommand*{\ktxreprt@thepage@r}{\rlap{\kern1.5em\thepage}}
+\ifthenelse{\boolean{ktx@pagenumberstop}}{%
+  \renewcommand*{\ktx@thepage@l}{\llap{\thepage\kern1.5em}}
+  \renewcommand*{\ktx@thepage@r}{\rlap{\kern1.5em\thepage}}
   \ofoot[]{}
   \cfoot[]{}
 }{}
@@ -43,8 +43,8 @@
 % \noindent
 % And now put everything to the outer headers.
 %    \begin{macrocode}
-\lehead[\ktxreprt@thepage@l]{\ktxreprt@thepage@l\headmark}
-\rohead[\ktxreprt@thepage@r]{\headmark\ktxreprt@thepage@r}
+\lehead[\ktx@thepage@l]{\ktx@thepage@l\headmark}
+\rohead[\ktx@thepage@r]{\headmark\ktx@thepage@r}
 \chead[]{}
 %    \end{macrocode}
 %
@@ -57,7 +57,7 @@
 % style. Otherwise, the style can be set with the |header| option.
 %
 %    \begin{macrocode}
-\IfEqCase*{\ktxreprt@header}{%
+\IfEqCase*{\ktx@header}{%
 %    \end{macrocode}
 %
 % \begin{macro}{header=bringhurst}
@@ -66,9 +66,9 @@
 % margin of the pages.
 %    \begin{macrocode}
   {bringhurst}{%
-    \lehead{\small\ktxreprt@thepage@l\upshape%
-            \ktxreprt@lowcaps{\headmark}}%
-    \rohead{\small\ktxreprt@textsw{\headmark}\ktxreprt@thepage@r}}%
+    \lehead{\small\ktx@thepage@l\upshape%
+            \ktx@lowcaps{\headmark}}%
+    \rohead{\small\ktx@textsw{\headmark}\ktx@thepage@r}}%
 %    \end{macrocode}
 % \end{macro}
 %
@@ -85,7 +85,7 @@
 %   this might be the same as the italics option).
 %    \begin{macrocode}
   {swash}{%
-    \addtokomafont{pagehead}{\small\ktxreprt@swshape}}%
+    \addtokomafont{pagehead}{\small\ktx@swshape}}%
 %    \end{macrocode}
 % \end{macro}
 %
@@ -96,10 +96,10 @@
   {sansserif}{%
     \KOMAoptions{headsepline}
     \setkomafont{pagehead}{\sffamily\upshape\footnotesize}%
-    \lehead[\ktxreprt@thepage@l]{\ktxreprt@thepage@l%
-                                \ktxreprt@allcaps{\headmark}}%
-    \rohead[\ktxreprt@thepage@r]{\ktxreprt@allcaps{\headmark}%
-                                \ktxreprt@thepage@r}}%
+    \lehead[\ktx@thepage@l]{\ktx@thepage@l%
+                                \ktx@allcaps{\headmark}}%
+    \rohead[\ktx@thepage@r]{\ktx@allcaps{\headmark}%
+                                \ktx@thepage@r}}%
 %    \end{macrocode}
 % \end{macro}
 %
@@ -121,5 +121,5 @@
 % \noindent
 % And return an error when the given option is unknown.
 %    \begin{macrocode}
-}[\ktxreprt@error{Unknown option header=\ktxreprt@header}{}]
+}[\ktx@error{Unknown option header=\ktx@header}{}]
 %    \end{macrocode}

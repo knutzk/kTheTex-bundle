@@ -12,9 +12,13 @@
 % Provide macros for warning, info, and error commands to easily access them
 % within the code.
 %    \begin{macrocode}
-\newcommand*{\ktxreprt@warning}[1]{\ClassWarning{ktxreprt}{#1}}
-\newcommand*{\ktxreprt@info}[1]{\ClassInfo{ktxreprt}{#1}}
-\newcommand*{\ktxreprt@error}[2]{\ClassError{ktxreprt}{#1}{#2}}
+\SetupKeyvalOptions{
+  family=ktx,
+  prefix=ktx@
+}
+\newcommand*{\ktx@warning}[1]{\ClassWarning{ktx}{#1}}
+\newcommand*{\ktx@info}[1]{\ClassInfo{ktx}{#1}}
+\newcommand*{\ktx@error}[2]{\ClassError{ktx}{#1}{#2}}
 %    \end{macrocode}
 % 
 %
@@ -129,7 +133,7 @@
 %   Hack for passing the headinclude option from this class correctly to the
 %   base class.
 %    \begin{macrocode}
-\ifthenelse{\boolean{ktxreprt@headinclude}}{%
+\ifthenelse{\boolean{ktx@headinclude}}{%
   \KOMAoptions{headinclude=true}
 }{%
   \KOMAoptions{headinclude=false}
@@ -139,7 +143,7 @@
 % \noindent
 % Same hack for the footinclude option.
 %    \begin{macrocode}
-\ifthenelse{\boolean{ktxreprt@footinclude}}{%
+\ifthenelse{\boolean{ktx@footinclude}}{%
   \KOMAoptions{footinclude=true}
 }{%
   \KOMAoptions{footinclude=false}

@@ -130,7 +130,6 @@
 %    \begin{macrocode}
 %<*package>
 \DeclareBoolOption[true]{linking}
-\DeclareBoolOption[true]{overwrite}
 \DeclareBoolOption[true]{titles}
 \ProcessKeyvalOptions*
 %</package>
@@ -145,7 +144,8 @@
 %   entries in the bibliography are sorted by order of appearance. Use
 %   a maximum of one author name to cite within the text and don't
 %   list more than three authors in the bibliography. Display only the
-%   initials of their first names. And hide all urls.
+%   initials of their first names. And hide all DOI, URL and ISBN
+%   fields.
 %    \begin{macrocode}
 %<*report|thesis>
 \ifthenelse{\boolean{ktx@biblatex}}{%
@@ -157,20 +157,41 @@
   maxcitenames = 1,%
   maxbibnames  = 3,%
   firstinits   = true,%
+  doi          = false,%
+  isbn         = false,%
   url          = false,%
 }{biblatex}
 \RequirePackage{biblatex}[2015/04/19]
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{kbibstyle}
-% The following part was copied from the original BibLaTeX files and
-% is slightly modified. All changes/additions are marked.
+% \begin{macro}{doilink}
+%   The following code renews the Biblatex definition of
+%   |journal+issuetitle| by including a link to either DOI or URL. For
+%   that, the custom field |doilink| is defined that simply links the
+%   given arguments with either DOI or URL (depending on which of
+%   those fields is non-empty). The redefinition of
+%   |journal+issuetitle| also includes an inclusion of the macro
+%   |pages|, therefore the same macro is removed from |note+pages|.
+%
+%   The following lines are copied from the original Biblatex
+%   definition files, with all changed marked. Used file version:
+%   2015/04/19 v3.0
+%
 %    \begin{macrocode}
-% NO CODE
-%    \end{macrocode}
-% Renew macro for journal+issue (w/o date).
-%    \begin{macrocode}
+%<*package>
+\ifthenelse{\boolean{ktxbbltx@linking}}{%
+%</package>
+\DeclareFieldFormat{doilink}{%
+  \iffieldundef{doi}{%
+    \iffieldundef{url}{#1}%
+    {\href{\thefield{url}}{#1}}}
+  {\href{http://dx.doi.org/\thefield{doi}}{#1}}}
+%<*package>
+}{%
+  \DeclareFieldFormat{doilink}{#1}
+}
+%</package>
 \renewbibmacro*{journal+issuetitle}{% renewed
   \printtext[doilink]{% added
     \usebibmacro{journal}%
@@ -192,40 +213,64 @@
 \renewbibmacro*{note+pages}{% renewed
   \printfield{note}% removed following 2 lines
   \newunit}
-\renewbibmacro{in:}{}
 %    \end{macrocode}
-% Use comma separation instead of colons and do not close with a
-% colon.
-%    \begin{macrocode}
-\renewcommand*{\newunitpunct}{\addcomma\space}
-\renewcommand*{\finentrypunct}{}
-%    \end{macrocode}
-% Define field "doilink" (uses inserted text as hyperlink).
-%    \begin{macrocode}
-%<*package>
-\ifthenelse{\boolean{ktxbbltx@linking}}{%
-%</package>
-\DeclareFieldFormat{doilink}{%
-  \iffieldundef{doi}{%
-    \iffieldundef{url}{#1}%
-    {\href{\thefield{url}}{#1}}}
-  {\href{http://dx.doi.org/\thefield{doi}}{#1}}}
-%<*package>
-}{%
-  \DeclareFieldFormat{doilink}{#1}
-}
-%</package>
-%    \end{macrocode}
-% Adjust field formats.
+% \end{macro}
+%
+% \begin{macro}{general style}
+%   This part of the code applies general style changes. This includes
+%   several redefinitions of field formats, e.g. volumes using bold
+%   face, journal titles using the normal font. Use commas for
+%   separating fields, and do not finish entries with a full stop.
 %    \begin{macrocode}
 \DeclareFieldFormat*{title}{\mkbibemph{#1}}
 \DeclareFieldFormat{volume}{\textbf{#1}\space}
 \DeclareFieldFormat{journaltitle}{#1}
 \DeclareFieldFormat{pages}{\mkfirstpage{#1}}
 \DeclareFieldFormat{usera}{\mkbibparens{#1}}
+\renewcommand*{\newunitpunct}{\addcomma\space}
+\renewcommand*{\finentrypunct}{}
+\renewbibmacro{in:}{}
 %    \end{macrocode}
-% Declare a map from field "collaboration" to "usera".
+% Clear the following fields for all bib entries (does NOT touch the
+% .bib file itself). Only remaining date information should be the years.
 %    \begin{macrocode}
+\AtEveryBibitem{%
+  \clearfield{day}%
+  \clearfield{month}%
+  \clearfield{endday}%
+  \clearfield{endmonth}%
+  \clearfield{issue}%
+  \clearfield{number}%
+}
+%    \end{macrocode}
+% Hide the titles if option is given (default: |titles=true|).
+%    \begin{macrocode}
+%<*package>
+\ifthenelse{\boolean{ktxbbltx@titles}}{%
+  \relax
+}{%
+\AtEveryBibitem{\clearfield{title}}
+}
+%</package>
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{collaboration}
+%   The following code adds another field to bibliography entries of
+%   type |article| with the name of a collaboration. The inclusion is
+%   achieved with a map of the field |collaboration| to the field
+%   |usera| which is then added to the bibmacro |author|. The renewal
+%   of the macro is based on the original code taken from the same
+%   package version of Biblatex as the code earlier in this section.
+%    \begin{macrocode}
+\DeclareSourcemap{
+  \maps[datatype=bibtex,overwrite=true]{
+    \map{
+      \step[fieldsource=Collaboration, final=true]
+      \step[fieldset=usera, origfieldval, final=true]
+    }
+  }
+}
 \renewbibmacro*{author}{% renewed
   \ifboolexpr{
     test \ifuseauthor
@@ -243,51 +288,6 @@
       }% added
     }% added
     {}}
-\DeclareSourcemap{
-  \maps[datatype=bibtex,overwrite=true]{
-    \map{
-      \step[fieldsource=Collaboration, final=true]
-      \step[fieldset=usera, origfieldval, final=true]
-    }
-  }
-}
-%    \end{macrocode}
-% Clear the following fields for all bib entries (does NOT touch the
-% .bib file itself).
-%    \begin{macrocode}
-\AtEveryBibitem{%
-  \clearfield{day}%
-  \clearfield{month}%
-  \clearfield{endday}%
-  \clearfield{endmonth}%
-  \clearfield{issue}%
-  \clearfield{number}%
-}
-%    \end{macrocode}
-% Overwrite biblatex options (default=yes).
-%    \begin{macrocode}
-%<*package>
-\ifthenelse{\boolean{ktxbbltx@overwrite}}{%
-%</package>
-\ExecuteBibliographyOptions{doi=false}
-\ExecuteBibliographyOptions{url=false}
-\ExecuteBibliographyOptions{isbn=false}
-\ExecuteBibliographyOptions{firstinits=true}
-%<*package>
-}{%
-  \relax
-}
-%</package>
-%    \end{macrocode}
-% Hide the titles if option is given (default: |titles=true|).
-%    \begin{macrocode}
-%<*package>
-\ifthenelse{\boolean{ktxbbltx@titles}}{%
-  \relax
-}{%
-\AtEveryBibitem{\clearfield{title}}
-}
-%</package>
 %    \end{macrocode}
 % \end{macro}
 %

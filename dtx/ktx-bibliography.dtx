@@ -141,11 +141,12 @@
 %   |biblatex|. The following options are used: Biber as a backend
 %   (BibTeX is possible, but labelled as depcrecated by the
 %   authors). Use the numeric-comp style and no sorting, i.e. the
-%   entries in the bibliography are sorted by order of appearance. Use
-%   a maximum of one author name to cite within the text and don't
-%   list more than three authors in the bibliography. Display only the
-%   initials of their first names. And hide all DOI, URL and ISBN
-%   fields.
+%   entries in the bibliography are sorted by order of
+%   appearance. Display only the year, not the complete date
+%   information. Use a maximum of one author name to cite within the
+%   text and don't list more than three authors in the
+%   bibliography. Display only the initials of their first names. And
+%   hide all DOI, URL and ISBN fields.
 %    \begin{macrocode}
 %<*report|thesis>
 \ifthenelse{\boolean{ktx@biblatex}}{%
@@ -154,6 +155,7 @@
   backend      = biber,%
   style        = numeric-comp,%
   sorting      = none,%
+  date         = year,%
   maxcitenames = 1,%
   maxbibnames  = 3,%
   firstinits   = true,%
@@ -173,6 +175,10 @@
 %   those fields is non-empty). The redefinition of
 %   |journal+issuetitle| also includes an inclusion of the macro
 %   |pages|, therefore the same macro is removed from |note+pages|.
+%
+%   For entries of type |booklet| use the defined macro |doilink| as
+%   well with their corresponding field |howpublished|.
+%   DEBUG: Are other entry types also using this field?
 %
 %   The following lines are copied from the original Biblatex
 %   definition files, with all changed marked. Used file version:
@@ -213,6 +219,7 @@
 \renewbibmacro*{note+pages}{% renewed
   \printfield{note}% removed following 2 lines
   \newunit}
+\DeclareFieldFormat{howpublished}{\printtext[string+doi]{#1}}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -220,7 +227,8 @@
 %   This part of the code applies general style changes. This includes
 %   several redefinitions of field formats, e.g. volumes using bold
 %   face, journal titles using the normal font. Use commas for
-%   separating fields, and do not finish entries with a full stop.
+%   separating fields, and do not finish entries with a full
+%   stop. Additionally, remove page strings for ngerman and english.
 %    \begin{macrocode}
 \DeclareFieldFormat*{title}{\mkbibemph{#1}}
 \DeclareFieldFormat{volume}{\textbf{#1}\space}
@@ -230,15 +238,19 @@
 \renewcommand*{\newunitpunct}{\addcomma\space}
 \renewcommand*{\finentrypunct}{}
 \renewbibmacro{in:}{}
+\DefineBibliographyStrings{ngerman}{%
+  page = {},
+  pages = {}
+}
+\DefineBibliographyStrings{english}{%
+  page = {},
+  pages = {}
+}
 %    \end{macrocode}
 % Clear the following fields for all bib entries (does NOT touch the
-% .bib file itself). Only remaining date information should be the years.
+% .bib file itself).
 %    \begin{macrocode}
 \AtEveryBibitem{%
-  \clearfield{day}%
-  \clearfield{month}%
-  \clearfield{endday}%
-  \clearfield{endmonth}%
   \clearfield{issue}%
   \clearfield{number}%
 }
@@ -290,6 +302,28 @@
     {}}
 %    \end{macrocode}
 % \end{macro}
+%
+% \begin{macro}{eprint}
+%   The following code lines clear the field |eprint| under certain
+%   conditions. If this code is used for classes, it is checked
+%   whether the option |web| is set (or the complementary option
+%   |print|). For printing, clear the eprint field. If this code is a
+%   stand-alone package, check for option |eprint|.
+%
+%    \begin{macrocode}
+%<report|thesis>\ifthenelse{\boolean{ktx@web}}{%
+%<package>\ifthenelse{\boolean{ktxbbltx@eprint}}{%
+  \relax
+}{%
+  \AtEveryBibitem{%
+    \ifentrytype{article}{%
+      \iffieldundef{journal}{%
+        \clearfield{eprint}
+      }
+    }
+  }
+}
+%    \end{macrocode}
 %
 % \noindent
 % Don't do anything when the option |biblatex| is not set.

@@ -1,23 +1,25 @@
 % \iffalse meta-comment
 %
 % kTheTex-bundle.dtx
-%r Copyright 2016 Knut Zoch <knut DOT zoch AT gmail DOT com>
+% Copyright 2016 Knut Zoch <knut DOT zoch AT gmail DOT com>
 % 
-% This work may be distributed and/or modified under the conditions of the LaTeX
-% Project Public License, either version 1.3 of this license or (at your option)
-% any later version.  The latest version of this license is in
-% http://www.latex-project.org/lppl.txt and version 1.3 or later is part of all
-% distributions of LaTeX version 2005/12/01 or later.
+% This work may be distributed and/or modified under the conditions of
+% the LaTeX Project Public License, either version 1.3 of this license
+% or (at your option) any later version.  The latest version of this
+% license is in http://www.latex-project.org/lppl.txt and version 1.3
+% or later is part of all distributions of LaTeX version 2005/12/01 or
+% later.
 % 
 % This work has the LPPL maintenance status `maintained'.
 % 
 % The Current Maintainer of this work is Knut Zoch.
 % 
-% This work consists of the files kTheTex-bundle.dtx, kTheTex-bundle.ins,
-% dtx/ktx-base.dtx, dtx/ktx-bibliography.dtx, dtx/ktx-debug.dtx,
-% dtx/ktx-drafting.dtx, dtx/ktx-floats.dtx, dtx/ktx-font.dtx,
-% dtx/ktx-headfoot.dtx, dtx/ktx-headings.dtx, dtx/ktx-misc-style.dtx,
-% dtx/ktx-references.dtx, dtx/ktx-toc.dtx and the derived file ktxreprt.sty.
+% This work consists of the files kTheTex-bundle.dtx,
+% kTheTex-bundle.ins, dtx/ktx-base.dtx, dtx/ktx-bibliography.dtx,
+% dtx/ktx-debug.dtx, dtx/ktx-drafting.dtx, dtx/ktx-floats.dtx,
+% dtx/ktx-font.dtx, dtx/ktx-headfoot.dtx, dtx/ktx-headings.dtx,
+% dtx/ktx-misc-style.dtx, dtx/ktx-references.dtx, dtx/ktx-toc.dtx and
+% the derived file ktxreprt.sty.
 % \fi
 %
 % \iffalse
@@ -73,54 +75,238 @@
 % \subsection{Bibliography}
 % \label{sec:bibliography}
 %
-% This section sets up the bibliography of the document.
+% This section sets up a custom-defined BibLaTeX bibliography style;
+% it depends on the |Biblatex| package and |Biber| backend (|BibTeX|
+% as backend is possible, but deprecated). The bibliography customizes
+% the standard style numeric/numeric-comp. It can be used either
+% within the classes |ktxreprt| and |ktxthss|, or as a stand-alone
+% package |ktxbbltx|. Within the classes, the standard options are
+% used, the package allows the following customisations:
 %
-% \begin{enumerate}
+% \begin{itemize}
+% \item |titles=true/false| shows or hides all titles of the entry
+%   type article. Default is |false|.
+% \item |overwrite=true/false| overwrites the Biblatex package options
+%   for the DOI, URL, ISBN, and firstinits. Default is |true| which
+%   activates |doi=false|, |url=false|, |isbn=false|,
+%   |firstinits=true|.
+% \item |linking=true/false| activates/deactivates the hyperlinking of
+%   the journal titles with the DOI/URL links. Default is |true|.
+% \end{itemize}
 %
-% \item Include package Biblatex for advanced bibliographies. The
-%   styles |numeric| and |numeric-comp| use a numerical reference system (|comp|
-%   compresses multiple citations: [1][2][3] $\to$ [1-3]).
-% \item Include customised bibliography style. The main difference is a
-%   shortened system for displaying journal articles (no title; DOI links are
-%   projected on the journal title).
-% \end{enumerate}
+% All changes made to the standard styles |numeric|/|numeric-comp|
+%     in detail:
+%
+% \begin{itemize}
+% \item Only years are considered for date information (fields like
+%   month day, endmonth etc. are ignored).
+% \item Does not display an "In:" for articles published in a journal.
+% \item Adds a field collaboration after the authors' names, i.e. Author
+%   A Author B (XY Collaboration).
+% \item Instead of printing the DOI or the URL given in a .bib-file
+%   entry after the journal information, the journal title, volume,
+%   issue are used for hyperlinking instead.
+% \item The order is changed to journal, volume, issue, pages, year
+%   (latter one in parentheses).
+% \item The standard separator is changed to a comma, bibliography
+%   entries do not end in a full stop anymore.
+% \item Only print the starting page when citing articles.
+% \item Print the volume in bold letters and the title emphasised.
+% \end{itemize}
+%
+% \begin{macro}{basic setup}
+%   Require essential packages for setting up the class
+%   options. Without the following packages, the basic setup will not
+%   be possible.
+%    \begin{macrocode}
+%<*package>
+\RequirePackage{etoolbox}[2015/05/04]
+\RequirePackage{ifthen}[2014/09/29]
+\RequirePackage{kvoptions}[2011/06/30]
+\RequirePackage{xstring}[2013/10/13]
+%</package>
+%    \end{macrocode}
+%   Define the package options.
+%    \begin{macrocode}
+%<*package>
+\DeclareBoolOption[true]{linking}
+\DeclareBoolOption[true]{overwrite}
+\DeclareBoolOption[true]{titles}
+\ProcessKeyvalOptions*
+%</package>
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{macro}{biblatex}
-%   The biblatex package is loaded according to the option |biblatex|. The
-%   following options are used: Biber as a backend (BibTeX is possible, but
-%   labelled as depcrecated by the authors). Use the numeric-comp style and no
-%   sorting, i.e. the entries in the bibliography are sorted by order of
-%   appearance. Use a maximum of one author name to cite within the text and
-%   don't list more than three authors in the bibliography. Display only the
+%   The biblatex package is loaded according to the option
+%   |biblatex|. The following options are used: Biber as a backend
+%   (BibTeX is possible, but labelled as depcrecated by the
+%   authors). Use the numeric-comp style and no sorting, i.e. the
+%   entries in the bibliography are sorted by order of appearance. Use
+%   a maximum of one author name to cite within the text and don't
+%   list more than three authors in the bibliography. Display only the
 %   initials of their first names. And hide all urls.
 %    \begin{macrocode}
 %<*report|thesis>
 \ifthenelse{\boolean{ktx@biblatex}}{%
 %</report|thesis>
-  \PassOptionsToPackage{%
-    backend      = biber,%
-    style        = numeric-comp,%
-    sorting      = none,%
-    maxcitenames = 1,%
-    maxbibnames  = 3,%
-    firstinits   = true,%
-    url          = false,%
-  }{biblatex}
-  \RequirePackage{biblatex}
+\PassOptionsToPackage{%
+  backend      = biber,%
+  style        = numeric-comp,%
+  sorting      = none,%
+  maxcitenames = 1,%
+  maxbibnames  = 3,%
+  firstinits   = true,%
+  url          = false,%
+}{biblatex}
+\RequirePackage{biblatex}[2015/04/19]
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{kbibstyle}
-%   The following code includes a custom bibliography style. Options
-%   are: |linking| to turn on and off the linking of the journal titles to
-%   DOI/url (default: true). |titles| to display or hide titles of articles
-%   (default: false). |Overwrite| to overwrite the default settings of Biblatex
-%   when it comes to ??? (DEBUG).
-%   
-%   Use via |\RequirePackage[overwrite=false, titles=true]{kbibstyle}|
-% 
-%   DEBUG: include package code here as well
+% The following part was copied from the original BibLaTeX files and
+% is slightly modified. All changes/additions are marked.
 %    \begin{macrocode}
-  \RequirePackage[titles=true]{aux/kBibstyle}
+\DeclareBibliographyDriver{article}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/translator+others}%
+  \setunit{\addspace}                   % line added
+  \printfield{usera}%                   % line added
+  \setunit{\labelnamepunct}\newblock
+  \usebibmacro{title}%
+  \newunit
+  \printlist{language}%
+  \newunit\newblock
+  \usebibmacro{byauthor}%
+  \newunit\newblock
+  \usebibmacro{bytranslator+others}%
+  \newunit\newblock
+  \printfield{version}%
+  \newunit\newblock
+  % \usebibmacro{in:}%                  % commented
+  \printtext[doilink]{%                 % line added
+  \usebibmacro{journal+issuetitle}%     % macro changed (see below)
+  \newunit
+  \usebibmacro{byeditor+others}%
+  \newunit
+  \usebibmacro{note+pages}%
+  }%                                    % line added
+  \setunit{\addspace}%                  % line added
+  \usebibmacro{date}%                   % line added
+  \newunit\newblock
+  \iftoggle{bbx:isbn}
+    {\printfield{issn}}
+    {}%
+  \newunit\newblock
+  \usebibmacro{doi+eprint+url}%
+  \newunit\newblock
+  \usebibmacro{addendum+pubstate}%
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \newunit\newblock
+  \iftoggle{bbx:related}
+    {\usebibmacro{related:init}%
+     \usebibmacro{related}}
+    {}%
+  \usebibmacro{finentry}}
+%    \end{macrocode}
+% Renew macro for journal+issue (w/o date).
+%    \begin{macrocode}
+\renewbibmacro*{journal+issuetitle}{%
+  \usebibmacro{journal}%
+  \setunit*{\addspace}%
+  \iffieldundef{series}
+    {}
+    {\newunit
+     \printfield{series}%
+     \setunit{\addspace}}%
+  \usebibmacro{volume+number+eid}%
+  \setunit{\addspace}%
+  % \usebibmacro{issue+date}%           % substituted
+  \usebibmacro{issue}%                  % line added
+  \setunit{\addcolon\space}%
+  \usebibmacro{issue}%
+  \newunit}
+%    \end{macrocode}
+% Use comma separation instead of colons and do not close with a
+% colon.
+%    \begin{macrocode}
+\renewcommand*{\newunitpunct}{\addcomma\space}
+\renewcommand*{\finentrypunct}{}
+%    \end{macrocode}
+% Define field "doilink" (uses inserted text as hyperlink).
+%    \begin{macrocode}
+%<*package>
+\ifthenelse{\boolean{ktxbbltx@linking}}{%
+%</package>
+\DeclareFieldFormat{doilink}{%
+  \iffieldundef{doi}{%
+    \iffieldundef{url}{#1}%
+    {\href{\thefield{url}}{#1}}}
+  {\href{http://dx.doi.org/\thefield{doi}}{#1}}}
+%<*package>
+}{%
+  \DeclareFieldFormat{doilink}{#1}
+}
+%</package>
+%    \end{macrocode}
+% Adjust field formats.
+%    \begin{macrocode}
+\DeclareFieldFormat[article]{date}{\mkbibparens{#1}}
+\DeclareFieldFormat*{title}{\mkbibemph{#1}}
+\DeclareFieldFormat{volume}{\textbf{#1}\space}
+\DeclareFieldFormat{journaltitle}{#1}
+\DeclareFieldFormat{pages}{\mkfirstpage{#1}}
+\DeclareFieldFormat{usera}{\mkbibparens{#1}}
+%    \end{macrocode}
+% Declare a map from field "collaboration" to "usera".
+%    \begin{macrocode}
+\DeclareSourcemap{
+  \maps[datatype=bibtex,overwrite=true]{
+    \map{
+      \step[fieldsource=Collaboration, final=true]
+      \step[fieldset=usera, origfieldval, final=true]
+    }
+  }
+}
+%    \end{macrocode}
+% Clear the following fields for all bib entries (does NOT touch the
+% .bib file itself).
+%    \begin{macrocode}
+\AtEveryBibitem{%
+  \clearfield{day}%
+  \clearfield{month}%
+  \clearfield{endday}%
+  \clearfield{endmonth}%
+  \clearfield{issue}%
+  \clearfield{number}%
+}
+%    \end{macrocode}
+% Overwrite biblatex options (default=yes).
+%    \begin{macrocode}
+%<*package>
+\ifthenelse{\boolean{ktxbbltx@overwrite}}{%
+%</package>
+\ExecuteBibliographyOptions{doi=false}
+\ExecuteBibliographyOptions{url=false}
+\ExecuteBibliographyOptions{isbn=false}
+\ExecuteBibliographyOptions{firstinits=true}
+%<*package>
+}{%
+  \relax
+}
+%</package>
+%    \end{macrocode}
+% Hide the titles if option is given (default: |titles=true|).
+%    \begin{macrocode}
+%<*package>
+\ifthenelse{\boolean{ktxbbltx@titles}}{%
+  \relax
+}{%
+\AtEveryBibitem{\clearfield{title}}
+}
+%</package>
 %    \end{macrocode}
 % \end{macro}
 %

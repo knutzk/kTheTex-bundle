@@ -167,67 +167,32 @@
 % The following part was copied from the original BibLaTeX files and
 % is slightly modified. All changes/additions are marked.
 %    \begin{macrocode}
-\DeclareBibliographyDriver{article}{%
-  \usebibmacro{bibindex}%
-  \usebibmacro{begentry}%
-  \usebibmacro{author/translator+others}%
-  \setunit{\addspace}                   % line added
-  \printfield{usera}%                   % line added
-  \setunit{\labelnamepunct}\newblock
-  \usebibmacro{title}%
-  \newunit
-  \printlist{language}%
-  \newunit\newblock
-  \usebibmacro{byauthor}%
-  \newunit\newblock
-  \usebibmacro{bytranslator+others}%
-  \newunit\newblock
-  \printfield{version}%
-  \newunit\newblock
-  % \usebibmacro{in:}%                  % commented
-  \printtext[doilink]{%                 % line added
-  \usebibmacro{journal+issuetitle}%     % macro changed (see below)
-  \newunit
-  \usebibmacro{byeditor+others}%
-  \newunit
-  \usebibmacro{note+pages}%
-  }%                                    % line added
-  \setunit{\addspace}%                  % line added
-  \usebibmacro{date}%                   % line added
-  \newunit\newblock
-  \iftoggle{bbx:isbn}
-    {\printfield{issn}}
-    {}%
-  \newunit\newblock
-  \usebibmacro{doi+eprint+url}%
-  \newunit\newblock
-  \usebibmacro{addendum+pubstate}%
-  \setunit{\bibpagerefpunct}\newblock
-  \usebibmacro{pageref}%
-  \newunit\newblock
-  \iftoggle{bbx:related}
-    {\usebibmacro{related:init}%
-     \usebibmacro{related}}
-    {}%
-  \usebibmacro{finentry}}
+% NO CODE
 %    \end{macrocode}
 % Renew macro for journal+issue (w/o date).
 %    \begin{macrocode}
-\renewbibmacro*{journal+issuetitle}{%
-  \usebibmacro{journal}%
-  \setunit*{\addspace}%
-  \iffieldundef{series}
-    {}
-    {\newunit
-     \printfield{series}%
-     \setunit{\addspace}}%
-  \usebibmacro{volume+number+eid}%
-  \setunit{\addspace}%
-  % \usebibmacro{issue+date}%           % substituted
-  \usebibmacro{issue}%                  % line added
-  \setunit{\addcolon\space}%
-  \usebibmacro{issue}%
+\renewbibmacro*{journal+issuetitle}{% renewed
+  \printtext[doilink]{% added
+    \usebibmacro{journal}%
+    \setunit*{\addspace}%
+    \iffieldundef{series}
+      {}
+      {\newunit
+       \printfield{series}%
+       \setunit{\addspace}}%
+    \usebibmacro{volume+number+eid}%
+    \setunit{\addspace}%
+    \usebibmacro{issue+date}%
+    \setunit{\addcolon\space}%
+    \usebibmacro{issue}%
+    \setunit{\bibpagespunct}% added
+    \printfield{pages}% added
+    \newunit}
+}% added
+\renewbibmacro*{note+pages}{% renewed
+  \printfield{note}% removed following 2 lines
   \newunit}
+\renewbibmacro{in:}{}
 %    \end{macrocode}
 % Use comma separation instead of colons and do not close with a
 % colon.
@@ -253,7 +218,6 @@
 %    \end{macrocode}
 % Adjust field formats.
 %    \begin{macrocode}
-\DeclareFieldFormat[article]{date}{\mkbibparens{#1}}
 \DeclareFieldFormat*{title}{\mkbibemph{#1}}
 \DeclareFieldFormat{volume}{\textbf{#1}\space}
 \DeclareFieldFormat{journaltitle}{#1}
@@ -262,6 +226,23 @@
 %    \end{macrocode}
 % Declare a map from field "collaboration" to "usera".
 %    \begin{macrocode}
+\renewbibmacro*{author}{% renewed
+  \ifboolexpr{
+    test \ifuseauthor
+    and
+    not test {\ifnameundef{author}}
+  }
+    {\printnames{author}%
+     \iffieldundef{authortype}
+       {}
+       {\setunit{\addcomma\space}%
+        \usebibmacro{authorstrg}} % removed brace
+      \ifentrytype{article}{% added
+        \iffieldundef{usera}{}{% added
+          \printfield{usera}}% added
+      }% added
+    }% added
+    {}}
 \DeclareSourcemap{
   \maps[datatype=bibtex,overwrite=true]{
     \map{

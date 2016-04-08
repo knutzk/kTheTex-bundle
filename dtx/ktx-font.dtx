@@ -1,22 +1,104 @@
+% \iffalse meta-comment
+%
+% kTheTex-bundle.dtx
+% Copyright 2016 Knut Zoch <knut DOT zoch AT gmail DOT com>
+%
+% This work may be distributed and/or modified under the conditions of the LaTeX
+% Project Public License, either version 1.3 of this license or (at your option)
+% any later version.  The latest version of this license is in
+% http://www.latex-project.org/lppl.txt and version 1.3 or later is part of all
+% distributions of LaTeX version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The Current Maintainer of this work is Knut Zoch.
+%
+% This work consists of the files kTheTex-bundle.dtx, kTheTex-bundle.ins,
+% dtx/ktx-base.dtx, dtx/ktx-bibliography.dtx, dtx/ktx-debug.dtx,
+% dtx/ktx-drafting.dtx, dtx/ktx-floats.dtx, dtx/ktx-font.dtx,
+% dtx/ktx-headfoot.dtx, dtx/ktx-headings.dtx, dtx/ktx-misc-style.dtx,
+% dtx/ktx-references.dtx, dtx/ktx-toc.dtx and the derived file ktxreprt.sty.
+% \fi
+%
+% \iffalse
+%<*driver>
+\ProvidesFile{dtx/ktx-font.dtx}
+[2016/04/01 v0.1 ktx-font]
+%</driver>
+%
+%<*driver>
+\documentclass[draft]{ltxdoc}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+\DocInput{dtx/ktx-font.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \CheckSum{0}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+%
+% \changes{v1.0}{2016/03/25}{Initial version} %
+% \GetFileInfo{dtx/ktx-font.dtx} %
+% \DoNotIndex{} %
+%
+% \title{The \textsf{kTheTex-bundle} file
+% \textsf{ktx-font.dtx}\thanks{This document corresponds to
+% \textsf{ktx-font.dtx}~\fileversion, dated \filedate.}}
+% \author{Knut Zoch \\ \texttt{knut.zoch NOSPAM gmail.com}} %
+% \maketitle
+%
 %
 % \subsection{Fonts}
 % \label{sec:fonts}
 %
-% In this section, a couple of fonts are proposed and their settings optimised for usage with this class. The fonts can be chosen with the option |fonts|. Currently, three types are available: MinionPro (proprietary), Kepler fonts, mathpazo.
+% In this section, a couple of fonts are proposed and their settings
+% optimised for usage with this class. The fonts can be chosen with
+% the option |fonts|. Currently, three types are available:
+%
+% \begin{itemize}
+% \item |font=minion|: Choose MinionPro as the main font and MyriadPro
+%   as a supplementing sans-serif font for the main text. Those fonts
+%   are only available as proprietary fonts, so make sure your system
+%   provides them first!
+%
+%   The given options include old-style numerals, custom MinionPro
+%   integral symbols, swashed italics capitals and Greek italics (also
+%   for the Greek capital letters).
+% \item |font=kpfonts|: Load the package |kpfonts| for the main font
+%   and |berasans| for the sans-serif font. Given options include
+%   slanted Greek letters, old-style numerals and the partial
+%   derivative symbol non-slanted.
+% \item |font=mathpazo|: Load the package |mathpazo| for the main font
+%   and |helvet| (Helvetica) for the sans-serif font. Use a scaled
+%   version for the latter one.
+% \item |font=false|: Do nothing here. This leaves the choice of the
+%   font to the user -- otherwise the standard font Computer Modern
+%   will be used.
+% \end{itemize}
+%
+% If the given font type is unknown, issue an error.
 %
 %    \begin{macrocode}
 \IfEqCase*{\ktx@font}{%
-%    \end{macrocode}
-%
-% \begin{macro}{font=minion}
-%   Choose MinionPro as the main font and MyriadPro as a supplementing
-%   sans-serif font for the main text. Those fonts are only available as
-%   proprietary fonts, so make sure your system provides them first!
-%
-%   The given options include old-style numerals, custom MinionPro integral
-%   symbols, swashed italics capitals and Greek italics (also for the Greek
-%   capital letters).
-%    \begin{macrocode}
   {minion}{%
     \RequirePackage{MnSymbol}%
     \RequirePackage[mathlf,%
@@ -26,41 +108,13 @@
                     italicgreek,%
                     ]{MinionPro}%
     \RequirePackage[medfamily,lf,scale=0.92,sansmath]{MyriadPro}}%
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{font=kpfonts}
-%   Load the package |kpfonts| for the main font and |berasans| for the
-%   sans-serif font. Given options include slanted Greek letters, old-style
-%   numerals and the partial derivative symbol non-slanted.
-%    \begin{macrocode}
   {kpfonts}{%
     \RequirePackage[slantedGreeks,oldstylenums,partialup]{kpfonts}%
     \RequirePackage[scaled=0.86]{berasans}}%
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{font=mathpazo}
-%   Load the package |mathpazo| for the main font and |helvet| (Helvetica) for
-%   the sans-serif font. Use a scaled version for the latter one.
-%    \begin{macrocode}
   {mathpazo}{%
     \RequirePackage{mathpazo}%
     \RequirePackage[scaled]{helvet}}%
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{font=false}
-%   Do nothing here. This leaves the choice of the font to the user -- otherwise
-%   the standard font Computer Modern will be used.
-%    \begin{macrocode}
   {false}{}%
-%    \end{macrocode}
-% \end{macro}
-%
-% \noindent
-% Issue an error when the given font type is unknown.
-%    \begin{macrocode}
 }[\ktx@error{Unknown font: "\ktx@font"}{%
   The given font is unknown. ktx class supports the fonts kpfonts,
   mathpazo, minion and CM. If you want to use your own font

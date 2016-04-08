@@ -1,46 +1,136 @@
+% \iffalse meta-comment
+%
+% kTheTex-bundle.dtx
+% Copyright 2016 Knut Zoch <knut DOT zoch AT gmail DOT com>
+%
+% This work may be distributed and/or modified under the conditions of the LaTeX
+% Project Public License, either version 1.3 of this license or (at your option)
+% any later version.  The latest version of this license is in
+% http://www.latex-project.org/lppl.txt and version 1.3 or later is part of all
+% distributions of LaTeX version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The Current Maintainer of this work is Knut Zoch.
+%
+% This work consists of the files kTheTex-bundle.dtx, kTheTex-bundle.ins,
+% dtx/ktx-base.dtx, dtx/ktx-bibliography.dtx, dtx/ktx-debug.dtx,
+% dtx/ktx-drafting.dtx, dtx/ktx-floats.dtx, dtx/ktx-font.dtx,
+% dtx/ktx-headfoot.dtx, dtx/ktx-headings.dtx, dtx/ktx-misc-style.dtx,
+% dtx/ktx-references.dtx, dtx/ktx-toc.dtx and the derived file ktxreprt.sty.
+% \fi
+%
+% \iffalse
+%<*driver>
+\ProvidesFile{dtx/ktx-references.dtx}
+[2016/04/01 v0.1 ktx-references]
+%</driver>
+%
+%<*driver>
+\documentclass[draft]{ltxdoc}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+\DocInput{dtx/ktx-references.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \CheckSum{0}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+%
+% \changes{v1.0}{2016/03/25}{Initial version} %
+% \GetFileInfo{dtx/ktx-references.dtx} %
+% \DoNotIndex{} %
+%
+% \title{The \textsf{kTheTex-bundle} file
+% \textsf{ktx-references.dtx}\thanks{This document corresponds to
+% \textsf{ktx-references.dtx}~\fileversion, dated \filedate.}}
+% \author{Knut Zoch \\ \texttt{knut.zoch NOSPAM gmail.com}} %
+% \maketitle
+%
+%
 % \subsection{References}
 % \label{sec:impl-refer}
 %
-% The following code will include the |hyperref| package, which should always be
-% the last package loaded, as well as the package |cleveref|.
+% The following code will include the |hyperref| package, which should
+% always be the last package loaded, as well as the package
+% |cleveref|.
+%
+%
 % \begin{macro}{option hyperref}
-%   The package will only be loaded when the corresponding option is set to
-%   |hyperref=true|. In case the user wants to add a package that conflicts with
-%   hyperref if its loaded first, turn hyperref off via |hyperref=false|.
+%   The package will only be loaded when the corresponding option is
+%   set to |hyperref=true|. In case the user wants to add a package
+%   that conflicts with hyperref if its loaded first, turn hyperref
+%   off via |hyperref=false|. The following code will define some
+%   colours to mark links within the document in non-standard
+%   colours. Afterwards, |hyperref| is loaded with the following
+%   options: 
+%
+% \begin{itemize}
+% \item |colorlinks|: use coloured links instead of coloured boxes
+%   around the links.
+% \item |urlcolor|, |citecolor|, |linkcolor| set the corresponding
+%   colours to the ones just defined.
+% \item Link the page numbers in the TOC, instead of the chapters
+%   themselves. 
+% \end{itemize}
+%
+% If option |web| is given to the class, do everything as described
+% above. For option "print", hide links, i.e. make them black again.
+%
 %    \begin{macrocode}
 \ifthenelse{\boolean{ktx@hyperref}}{%
-%    \end{macrocode}
-% Defining some colours now to mark the links within the document in
-% non-standard colours.
-%    \begin{macrocode}
   \definecolor{Maroon}{cmyk}{0, 0.87, 0.68, 0.32}
   \definecolor{RoyalBlue}{cmyk}{1, 0.50, 0, 0}
   \definecolor{Black}{cmyk}{0, 0, 0, 0}
   \definecolor{webgreen}{rgb}{0,.5,0}
   \definecolor{webbrown}{rgb}{.6,0,0}
-%    \end{macrocode}
-% The following options are called: Do not use colour boxes for linking, but
-% coloured text instead. Use the specified colours for URL, citations and
-% links. Additionally, do not link the names in the TOC, but rather the page
-% numbers.
-%    \begin{macrocode}
   \RequirePackage[%
-          colorlinks = true,%
-          urlcolor   = webbrown,%
-          citecolor  = webgreen,%
-          linkcolor  = RoyalBlue,%
-          linktocpage = true,%
-          ]{hyperref}
+    colorlinks = true,%
+    urlcolor   = webbrown,%
+    citecolor  = webgreen,%
+    linkcolor  = RoyalBlue,%
+    linktocpage = true,%
+    ]{hyperref}
+  \ifthenelse{\boolean{ktx@web}}{%
+    \relax
+  }{
+    \hypersetup{hidelinks}
+  }  
 %    \end{macrocode}
-% Now also call the cleveref package for intelligent references. They can be
-% used via |\cref{}| commands instead of |\ref{}| and include the \emph{type} of
-% the reference within the reference itself (also linked).
+% \end{macro}
+%
+% \begin{macro}{cleveref}
+%   Now also call the cleveref package for intelligent
+%   references. They can be used via |\cref{}| commands instead of
+%   |\ref{}| and include the \emph{type} of the reference within the
+%   reference itself (also linked). This is achieved with the option
+%   |nameinlink|. Option |capitalise| used capitalised version for
+%   every type of reference, e.g. Eq. (3), Section 4, Table 3.
+%
+%   For some reason, some of the German reference names are not set
+%   correctly, therefore some adjustments are being made.
+%
 %    \begin{macrocode}
   \RequirePackage[nameinlink, capitalise]{cleveref}
-%    \end{macrocode}
-% Apparently, some of the German abbreviations for equations and tables were
-% missing. This is a temporary hack to add them to |cleveref|.
-%    \begin{macrocode}
   \addto\captionsngerman{
     \if@cref@abbrev
     \crefname{equation}{Gl.}{Gl.}
@@ -50,16 +140,12 @@
     \fi
   }
 %    \end{macrocode}
-% If option "web" is given to the class, do everything as described above. For
-% option "print", hide links, i.e. make them black again.
+% \end{macro}
+%
 %    \begin{macrocode}
-  \ifthenelse{\boolean{ktx@web}}{%
-    \relax % do nothing
-  }{
-    \hypersetup{hidelinks}
-  }  
 }{%
-  \relax  % do nothing
+  \relax
 }
 %    \end{macrocode}
-% \end{macro}
+%
+

@@ -1,13 +1,87 @@
+% \iffalse meta-comment
+%
+% kTheTex-bundle.dtx
+% Copyright 2016 Knut Zoch <knut DOT zoch AT gmail DOT com>
+%
+% This work may be distributed and/or modified under the conditions of the LaTeX
+% Project Public License, either version 1.3 of this license or (at your option)
+% any later version.  The latest version of this license is in
+% http://www.latex-project.org/lppl.txt and version 1.3 or later is part of all
+% distributions of LaTeX version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The Current Maintainer of this work is Knut Zoch.
+%
+% This work consists of the files kTheTex-bundle.dtx, kTheTex-bundle.ins,
+% dtx/ktx-base.dtx, dtx/ktx-bibliography.dtx, dtx/ktx-debug.dtx,
+% dtx/ktx-drafting.dtx, dtx/ktx-floats.dtx, dtx/ktx-font.dtx,
+% dtx/ktx-headfoot.dtx, dtx/ktx-headings.dtx, dtx/ktx-misc-style.dtx,
+% dtx/ktx-references.dtx, dtx/ktx-toc.dtx and the derived file ktxreprt.sty.
+% \fi
+%
+% \iffalse
+%<*driver>
+\ProvidesFile{dtx/ktx-drafting.dtx}
+[2016/04/01 v0.1 ktx-drafting]
+%</driver>
+%
+%<*driver>
+\documentclass[draft]{ltxdoc}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+\DocInput{dtx/ktx-drafting.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \CheckSum{0}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+%
+% \changes{v1.0}{2016/03/25}{Initial version} %
+% \GetFileInfo{dtx/ktx-drafting.dtx} %
+% \DoNotIndex{} %
+%
+% \title{The \textsf{kTheTex-bundle} file
+% \textsf{ktx-drafting.dtx}\thanks{This document corresponds to
+% \textsf{ktx-drafting.dtx}~\fileversion, dated \filedate.}}
+% \author{Knut Zoch \\ \texttt{knut.zoch NOSPAM gmail.com}} %
+% \maketitle
+%
 %
 % \subsection{Draft Settings}
 % \label{sec:draft-settings}
 %
-% This section introduces a couple of packages and settings that will be
-% activated only for the options |draft| or |lightdraft| (a draft version
-% without the distracting rulers at the top and bottom of the pages).
+% This section introduces a couple of packages and settings that will
+% be activated only for the options |draft| or |lightdraft| (a draft
+% version without the distracting rulers at the top and bottom of the
+% pages).
 %
-% First define a warning that will be issued for option |lightdraft| since this
-% is a class-specific feature.
+% \begin{macro}{lightdraft}
+%   First define a warning that will be issued for option |lightdraft|
+%   since this is a class-specific feature. If the option |lightdraft|
+%   is set, also switch the boolean |draft| to |true|. The only real
+%   difference is that the underlying KOMA script class won't notice
+%   that draft features are used. Otherwise, the rulers would be
+%   switched on.
 %
 %    \begin{macrocode}
 \newcommand*{\issuelightdraftwarning}{\ktx@warning{%
@@ -16,14 +90,6 @@
     this is meant to be a final version, deactivate the \MessageBreak
     lightdraft and draft option or set the option "final".\MessageBreak}
 }
-%    \end{macrocode}
-%
-% \begin{macro}{lightdraft}
-%   If the option |lightdraft| is set, also switch the boolean |draft| to
-%   |true|. The only real difference is that the underlying KOMA script class
-%   won't notice that draft features are used. Otherwise, the rulers would be
-%   switched on.
-%    \begin{macrocode}
 \ifthenelse{\boolean{ktx@lightdraft}}{%
   \setboolean{ktx@draft}{true}
 }{}
@@ -31,10 +97,17 @@
 % \end{macro}
 %
 % \begin{macro}{draft}
-%   Now the custom features for the draft option are set. This includes a draft
-%   watermark with the package |draftwatermark| that will be set in the
-%   background of every page. The package |prelim2e| sets a draft notice at the
-%   very bottom of every page.
+%   Now the custom features for the draft option are set. This
+%   includes a draft watermark with the package |draftwatermark| that
+%   will be set in the background of every page. The package
+%   |prelim2e| sets a draft notice at the very bottom of every page.
+%
+%   Now crosscheck whether the lightdraft option is set and forward
+%   that information to KOMA script. KOMA will only use draft settings
+%   if |draft| is set, NOT for |lightdraft|. For the traditional
+%   |draft| option, the package |showframe| will also be loaded to
+%   display a frame around the text areas.
+%
 %    \begin{macrocode}
 \ifthenelse{\boolean{ktx@draft}}{%
   \RequirePackage{draftwatermark}%
@@ -45,12 +118,6 @@
     \PassOptionsToPackage{german}{prelim2e}%
   }{}%
   \RequirePackage[scrtime]{prelim2e}%
-%    \end{macrocode}
-% Now crosscheck whether the lightdraft option is set and forward that
-% information to KOMA script. KOMA will only use draft settings if |draft| is
-% set, NOT for |lightdraft|. For the traditional |draft| option, the package
-% |showframe| will also be loaded to display a frame around the text areas.
-%    \begin{macrocode}
   \ifthenelse{\boolean{ktx@lightdraft}}{%
     \issuelightdraftwarning
     \KOMAoptions{draft=false}
@@ -58,10 +125,6 @@
     \RequirePackage{showframe}%
     \KOMAoptions{draft=true}%
   }
-%    \end{macrocode}
-% If the boolean |draft| is set to false, also make sure that KOMA script will
-% get this message.
-%    \begin{macrocode}
 }{%
   \KOMAoptions{draft=false}
 }

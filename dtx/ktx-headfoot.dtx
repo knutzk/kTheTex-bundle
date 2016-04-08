@@ -1,11 +1,80 @@
+% \iffalse meta-comment
+%
+% kTheTex-bundle.dtx
+% Copyright 2016 Knut Zoch <knut DOT zoch AT gmail DOT com>
+%
+% This work may be distributed and/or modified under the conditions of the LaTeX
+% Project Public License, either version 1.3 of this license or (at your option)
+% any later version.  The latest version of this license is in
+% http://www.latex-project.org/lppl.txt and version 1.3 or later is part of all
+% distributions of LaTeX version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The Current Maintainer of this work is Knut Zoch.
+%
+% This work consists of the files kTheTex-bundle.dtx, kTheTex-bundle.ins,
+% dtx/ktx-base.dtx, dtx/ktx-bibliography.dtx, dtx/ktx-debug.dtx,
+% dtx/ktx-drafting.dtx, dtx/ktx-floats.dtx, dtx/ktx-font.dtx,
+% dtx/ktx-headfoot.dtx, dtx/ktx-headings.dtx, dtx/ktx-misc-style.dtx,
+% dtx/ktx-references.dtx, dtx/ktx-toc.dtx and the derived file ktxreprt.sty.
+% \fi
+%
+% \iffalse
+%<*driver>
+\ProvidesFile{dtx/ktx-headfoot.dtx}
+[2016/04/01 v0.1 ktx-headfoot]
+%</driver>
+%
+%<*driver>
+\documentclass[draft]{ltxdoc}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+\DocInput{dtx/ktx-headfoot.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \CheckSum{0}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+%
+% \changes{v1.0}{2016/03/25}{Initial version} %
+% \GetFileInfo{dtx/ktx-headfoot.dtx} %
+% \DoNotIndex{} %
+%
+% \title{The \textsf{kTheTex-bundle} file
+% \textsf{ktx-headfoot.dtx}\thanks{This document corresponds to
+% \textsf{ktx-headfoot.dtx}~\fileversion, dated \filedate.}}
+% \author{Knut Zoch \\ \texttt{knut.zoch NOSPAM gmail.com}} %
+% \maketitle
+%
 %
 % \subsection{Headers \& Footers}
 % \label{sec:headers--footers}
 %
-% Load the KOMA script package which is responsible for the header/footer design
-% of a document: |scrlayer-scrpage|. Set the style of the pages to running heads
-% by using |scrheadings| and mark the chapter and section titles to be put in the
-% headers of the pages.
+% Load the KOMA script package which is responsible for the
+% header/footer design of a document: |scrlayer-scrpage|. Set the
+% style of the pages to running heads by using |scrheadings| and mark
+% the chapter and section titles to be put in the headers of the
+% pages.
 %
 %    \begin{macrocode}
 \RequirePackage{scrlayer-scrpage}
@@ -17,32 +86,24 @@
 % \subsubsection{Where to Put the Page Numbers}
 % \label{sec:where-put-page}
 %
-% At first, the option |pagenumberstop| is checked. When the option is set to
-% true, the page numbers will be put in the outer margin next to the running
-% heads. Otherwise, the page numbers will appear in the outer footer (standard).
+% At first, the option |pagenumberstop| is checked. When the option is
+% set to true, the page numbers will be put in the outer margin next
+% to the running heads. Otherwise, the page numbers will appear in the
+% outer footer (standard).
 %
-% First define the custom commands to put the page numbers in the margin.
+% First define the custom commands to put the page numbers in the
+% margin. Then check whether the option has been set, put the page
+% numbers to the margin and clear the footer. Finally, renew the
+% commands for the left and right heads.
 %    \begin{macrocode}
 \let\ktx@thepage@l\empty
 \let\ktx@thepage@r\empty
-%    \end{macrocode}
-%
-% \begin{macro}{pagenumberstop}
-%   Now check whether the option had been set, put the number to the margin and
-%   clear the footer.
-%    \begin{macrocode}
 \ifthenelse{\boolean{ktx@pagenumberstop}}{%
   \renewcommand*{\ktx@thepage@l}{\llap{\thepage\kern1.5em}}
   \renewcommand*{\ktx@thepage@r}{\rlap{\kern1.5em\thepage}}
   \ofoot[]{}
   \cfoot[]{}
 }{}
-%    \end{macrocode}
-% \end{macro}
-%
-% \noindent
-% And now put everything to the outer headers.
-%    \begin{macrocode}
 \lehead[\ktx@thepage@l]{\ktx@thepage@l\headmark}
 \rohead[\ktx@thepage@r]{\headmark\ktx@thepage@r}
 \chead[]{}
@@ -52,74 +113,55 @@
 % \subsubsection{Fix the Header Style}
 % \label{sec:fix-header-style}
 %
-% In this part of the code, the headers and footers are fixed. Depending on the
-% settings of the previous section, the headers may be adjusted to the headings
-% style. Otherwise, the style can be set with the |header| option.
+% In this part of the code, the headers and footers are
+% fixed. Depending on the settings of the previous section, the
+% headers may be adjusted to the headings style (then the option was
+% initially set to |header=adjust| and was changed while the headings
+% were fixed. Otherwise, the style can be set to the following
+% options:
+%
+% \begin{itemize}
+% \item |bringhurst|: This style follows the style of the headings
+%   that are used by Bringhurst. If the option |pagenumberstop| is
+%   set, the page numbers will be within the outer margin of the
+%   pages.
+% \item |italics|: Set the running heads to \textit{Italics}.
+% \item |swash|: This style sets the running heads to the \emph{swash}
+%   letters (depending on the chosen font, this might be the same as
+%   the italics option).
+% \item |sansserif|: And the sans-serif option, again including the
+%   page numbers in the outer margin if |pagenumberstop| is set. The
+%   header is also separated from the main text by a thin line.
+% \item |default|: Do not adjust anything (whatever was set before is
+% used).
+% \item DEBUG: Here should come an error message because the
+%   adjustment should have been set in the previous section already.
+% \end{itemize}
+%
+% If the given option is unknown, return an error.
 %
 %    \begin{macrocode}
+%<*options>
 \IfEqCase*{\ktx@header}{%
-%    \end{macrocode}
-%
-% \begin{macro}{header=bringhurst}
-% This style follows the style of the headings that are used by Bringhurst. If
-% the option |pagenumberstop| is set, the page numbers will be within the outer
-% margin of the pages.
-%    \begin{macrocode}
   {bringhurst}{%
     \lehead{\small\ktx@thepage@l\upshape%
             \ktx@lowcaps{\headmark}}%
     \rohead{\small\ktx@textsw{\headmark}\ktx@thepage@r}}%
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{header=italics}
-%   This style sets the runnings heads to italics.
-%    \begin{macrocode}
   {italics}{%
     \addtokomafont{pagehead}{\small\itshape}}%
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{header=swash}
-%   And this style to the \emph{swash} letters (depending on the chosen font,
-%   this might be the same as the italics option).
-%    \begin{macrocode}
   {swash}{%
     \addtokomafont{pagehead}{\small\ktx@swshape}}%
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{header=sansserif}
-%   And the sans-serif option, again including the page numbers in the outer
-%   margin if |pagenumberstop| is set.
-%    \begin{macrocode}
   {sansserif}{%
-    \KOMAoptions{headsepline}
-    \setkomafont{pagehead}{\sffamily\upshape\footnotesize}%
-    \lehead[\ktx@thepage@l]{\ktx@thepage@l%
-                                \ktx@allcaps{\headmark}}%
-    \rohead[\ktx@thepage@r]{\ktx@allcaps{\headmark}%
-                                \ktx@thepage@r}}%
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{header=default}
-%   Don't change anything when |header=default| is used.
-%    \begin{macrocode}
+%</options>
+\KOMAoptions{headsepline}
+\setkomafont{pagehead}{\sffamily\upshape\footnotesize}
+\lehead[\ktx@thepage@l]{\ktx@thepage@l\ktx@allcaps{\headmark}}
+\rohead[\ktx@thepage@r]{\ktx@allcaps{\headmark}\ktx@thepage@r}
+%<*options>
+  }%
   {default}{}%
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{header=adjust}
-%   DEBUG: Here should come an error message because the adjustment should have
-%   been set in the previous section already.
-%    \begin{macrocode}
   {adjust}{}%
-%    \end{macrocode}
-% \end{macro}
-% 
-% \noindent
-% And return an error when the given option is unknown.
-%    \begin{macrocode}
 }[\ktx@error{Unknown option header=\ktx@header}{}]
+%</options>
 %    \end{macrocode}
+%

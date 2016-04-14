@@ -158,9 +158,10 @@
 % \end{itemize}
 %    \begin{macrocode}
 \PassOptionsToClass{bibliography = totoc,%
-                    fontsize     = 12pt,%
+                    fontsize     = 11pt,%
                     twoside      = yes,%
-                    DIV          = calc,%
+                    DIV          = 9,%
+                    titlepage    = firstiscover,%
                     }{scrbook}
 %    \end{macrocode}
 %
@@ -172,16 +173,16 @@
 %   \begin{table}[ht]
 %     \centering
 %     \begin{tabular}{ll}
-%         bibliography = totoc         & display bibliography in TOC \\
-%         BCOR         = (0mm)         & binding correction for margins \\
-%         DIV          = calc          & page division factor  \\
-%         fontsize     = 12pt          & set font size \\
-%         footinclude  = (no)          & include footer in DIV calculation \\
-%         headinclude  = yes           & include header in DIV calculation \\
-%         headsepline  = (no)          & separate header and text with line \\
-%         paper        = (a4)          & set paper size \\
-%         titlepage    = (no)          & titlepage: yes/no/firstiscover \\
-%         twoside      = yes           & twosided/singlesided document \\
+%         bibliography = totoc   & display bibliography in TOC \\
+%         BCOR         = (0mm)   & binding correction for margins \\
+%         DIV          = 9       & page division factor  \\
+%         fontsize     = 11pt    & set font size \\
+%         footinclude  = no      & include footer in DIV calc \\
+%         headinclude  = yes     & include header in DIV calc \\
+%         headsepline  = (no)    & separate header+text with line \\
+%         paper        = (a4)    & set paper size \\
+%         titlepage    = firstiscover  & yes/no/firstiscover \\
+%         twoside      = yes     & twosided/singlesided document \\
 %       \end{tabular}
 %       \caption{Options transferred to the base class.}
 %   \label{tab:options}

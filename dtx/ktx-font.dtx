@@ -71,8 +71,9 @@
 % \label{sec:fonts}
 %
 % In this section, a couple of fonts are proposed and their settings
-% optimised for usage with this class. The fonts can be chosen with
-% the option |fonts|. Currently, three types are available:
+% optimised for usage with this class. Generally, all fonts use T1
+% font encoding. The fonts can be chosen with the option
+% |fonts|. Currently, three types are available:
 %
 % \begin{itemize}
 % \item |font=minion|: Choose MinionPro as the main font and MyriadPro
@@ -98,6 +99,7 @@
 % If the given font type is unknown, issue an error.
 %
 %    \begin{macrocode}
+\RequirePackage[T1]{fontenc}
 \IfEqCase*{\ktx@font}{%
   {minion}{%
     \RequirePackage{MnSymbol}%

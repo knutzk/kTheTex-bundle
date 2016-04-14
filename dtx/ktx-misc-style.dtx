@@ -1,27 +1,162 @@
+% \iffalse meta-comment
+%
+% kTheTex-bundle.dtx
+% Copyright 2016 Knut Zoch <knut DOT zoch AT gmail DOT com>
+% 
+% This work may be distributed and/or modified under the conditions of
+% the LaTeX Project Public License, either version 1.3 of this license
+% or (at your option) any later version.  The latest version of this
+% license is in http://www.latex-project.org/lppl.txt and version 1.3
+% or later is part of all distributions of LaTeX version 2005/12/01 or
+% later.
+% 
+% This work has the LPPL maintenance status `maintained'.
+% 
+% The Current Maintainer of this work is Knut Zoch.
+% 
+% This work consists of the files kTheTex-bundle.dtx,
+% kTheTex-bundle.ins, dtx/ktx-base.dtx, dtx/ktx-bibliography.dtx,
+% dtx/ktx-debug.dtx, dtx/ktx-drafting.dtx, dtx/ktx-floats.dtx,
+% dtx/ktx-font.dtx, dtx/ktx-headfoot.dtx, dtx/ktx-headings.dtx,
+% dtx/ktx-misc-style.dtx, dtx/ktx-references.dtx, dtx/ktx-toc.dtx and
+% the derived file ktxreprt.sty.
+% \fi
+%
+% \iffalse
+%<*driver>
+\ProvidesFile{dtx/ktx-misc-style.dtx}
+[2016/04/01 v0.1 ktx-misc-style]
+%</driver>
+%<*package>
+\ProvidesPackage{ktxbbltx}
+[2016/04/01 v0.1 kTheTex-bundle -- ktxbbltx package]
+%</package>
+%
+%<*driver>
+\documentclass[draft]{ltxdoc}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+\DocInput{dtx/ktx-misc-style.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \CheckSum{0}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+%
+% \changes{v1.0}{2016/03/25}{Initial version} %
+% \GetFileInfo{dtx/ktx-misc-style.dtx} %
+% \DoNotIndex{} %
+% \title{The \textsf{kTheTex-bundle} file \textsf{ktx-misc-style.dtx}\thanks{This document
+% corresponds to \textsf{ktx-misc-style.dtx}~\fileversion,
+%   dated \filedate.}}
+% \author{Knut Zoch \\ \texttt{knut.zoch NOSPAM gmail.com}} %
+% \maketitle
+%
+%
 %
 % \subsection{Miscellaneous Page Style}
 % \label{sec:misc-page-style}
 %
+% \begin{macro}{pagelayout}
+%   This section fixes the page layout completely. The base class was
+%   called with DIV=9, i.e. the available space (horizontally and
+%   vertically) is divided in 9x9 equal sections. Six out of nine
+%   sections are used for text (inner margin: 1, outer margin: 2, top
+%   margin: 1, bottom margin: 2).
+%
+%   For a font size of 11pt, use a leading of 14pt (requested with the
+%   package |leading|). Then, we want the text to be longer than
+%   usually. Consider the following calculation: One A4 page measures
+%   a width of 210mm, i.e. the text is spread over 140mm. Now multiply
+%   this value with the golden section for a nice text height. The
+%   height then is 226.5mm or 595pt (1mm = 2.845pt). With a leading of
+%   14pt, this equals 42 lines (-2pt because last line does not need
+%   leading).
+%
+%   The top margin is modified as well: Set it to be the same as the
+%   inner margin. This corresponds to 1/6 of the text width (1in is
+%   the Latex standard offset).
+%
+%   Skips between paragraphs are set to 0pt (with no variable space).
+%   A more relaxed option would be:
+%   |\setlength{\parskip}{0pt plus 0.3\baselineskip}|.
+%
+%    \begin{macrocode}
+\RequirePackage{leading}
+\leading{14pt}
+\setlength{\textheight}{42\baselineskip-2pt}
+\setlength{\topmargin}{0.16666\textwidth-1in}
+\setlength{\parskip}{0pt}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{xcolor}
+%   This section defines three different colours by using the package
+%   |xcolor|. The colours are used for link marking within hyperref
+%   (as long as the package is loaded). They can also be used for
+%   figures etc. to stick to a consistent colour scheme. The used
+%   colours are names ``Venetian'', ``Lime'' and ``Dodger''. In the
+%   end, redefine the title command to be coloured.
+%
+%   Other colours, currently not used anymore:
+%
+%   \begin{itemize}
+%   \item |\definecolor{Maroon}{cmyk}{0, 0.87, 0.68, 0.32}|
+%   \item |\definecolor{RoyalBlue}{cmyk}{1, 0.5, 0, 0}|
+%   \item |\definecolor{Black}{cmyk}{0, 0, 0, 0}|
+%   \item |\definecolor{webgreen}{cmyk}{1, 0, 1, 0.5}|
+%   \item |\definecolor{webbrown}{cmyk}{0, 1, 1, 0.4}|
+%   \end{itemize}
+%
+%    \begin{macrocode}
+\RequirePackage{xcolor}
+\definecolor{Venetian}{cmyk}{0, 0.95, 0.85, 0.30}
+\definecolor{Lime}{cmyk}{0.85, 0, 0.75, 0.25}
+\definecolor{Dodger}{cmyk}{1, 0.40, 0, 0.10}
+\let\oldtitle\title
+\renewcommand*{\title}[1]{%
+  \oldtitle{\color{Venetian}#1}
+}
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{macro}{microtype}
-%   Optimise text spread with microtype package. First make a check whether the
-%   |microtype| option has been set.
+%   Optimise text spread with microtype package. First make a check
+%   whether the |microtype| option has been set. Then load package
+%   |microtype|. Options include: use language information from the
+%   babel package to determine kerning etc. Set stretch and shrink to
+%   a value of 10 (20 is default). And always use final=true,
+%   i.e. ignore draft options from the class in order to \emph{always}
+%   run |microtype|. To really turn it off, use the option
+%   |microtype=false|.
+%
 %    \begin{macrocode}
 \ifthenelse{\boolean{ktx@microtype}}{%
-%    \end{macrocode}
-% Now load package |microtype|. Options include: use language information from
-% the babel package to determine kerning etc. Set stretch and shrink to a value
-% of 10 (20 is default). And always use final=true, i.e. ignore draft options
-% from the class in order to \emph{always} run |microtype|. To really turn it
-% off, use the option |microtype=false|.
-%    \begin{macrocode}
   \RequirePackage[babel   = true,%
                   stretch = 10,%
                   shrink  = 10,%
                   final   = true,%
                   ]{microtype}
-%    \end{macrocode}
-% Issue a warning if package |microtype| is not loaded.
-%    \begin{macrocode}
  }{%
    \ktx@warning{Microtype package not loaded.}
 }
@@ -29,32 +164,33 @@
 % \end{macro}
 %
 % \begin{macro}{letterspacing}
-%   Now adjust the letter spacing for the small-caps font (in the standard
-%   settings, the spacing is way too small). For that, use the |microtype|
-%   package. First, check if |microtype| was loaded or not. If this is not the
-%   case, load the package |letterspacing| which is part of the |microtype|
-%   package. Maybe the latter one was turned off deliberately, so we only want
-%   the letter spacing features here. 
+%   Now adjust the letter spacing for the small-caps font (in the
+%   standard settings, the spacing is way too small). For that, use
+%   the |microtype| package. First, check if |microtype| was loaded or
+%   not. If this is not the case, load the package |letterspacing|
+%   which is part of the |microtype| package. Maybe the latter one was
+%   turned off deliberately, so we only want the letter spacing
+%   features here then.
+%
+%   Provide commands for fully-capitalised and small-caps-only
+%   fonts. By default, those commands work fine, but always issue a
+%   warning when the spacing is not adjusted. If either |letterspace|
+%   or |microtype| were loaded, apply the spacing adjustments.
+%
+%   Finally, provide global commands |\textsca| and |\textscl| to use
+%   all-caps and small-caps.
+%
 %    \begin{macrocode}
 \@ifpackageloaded{microtype}{
   \relax
 }{%
   \RequirePackage{letterspace}}
-%    \end{macrocode}
-% Now first provide commands for fully-capitalised and only-small-caps fonts. By
-% default, those commands work fine, but always issue a warning because the
-% spacing is not adjusted.
-%    \begin{macrocode}
 \newrobustcmd{\ktx@allcaps}[1]{%
   \ktx@warning{Spacing of small caps not adjusted! Using
     default\MessageBreak spacing now.}\textsc{\MakeUppercase{#1}}}
 \newrobustcmd{\ktx@lowcaps}[1]{%
   \ktx@warning{Spacing of small caps not adjusted! Using
     default\MessageBreak spacing now.}\textsc{\MakeLowercase{#1}}}
-%    \end{macrocode}
-% Check if either |letterspacing| or |microtype| were loaded before applying the
-% spacing corrections.
-%    \begin{macrocode}
 \ifboolexpr{ test {\@ifpackageloaded{letterspace}} or
              test {\@ifpackageloaded{microtype}} }{%
   \ktx@info{Using letterspacing options of microtype package.}
@@ -62,41 +198,24 @@
                   \textls[150]{\MakeUppercase{#1}}}
   \renewrobustcmd{\ktx@lowcaps}[1]{%
                   \textls[50]{\textsc{\MakeLowercase{#1}}}}
-%    \end{macrocode}
-% Also apply the spacing corrections for the standard |\textsc| command.
-%    \begin{macrocode}
   \let\ktx@textsc@old\textsc
   \renewcommand*{\textsc}[1]{\textls[50]{\ktx@textsc@old{#1}}}
-%    \end{macrocode}
-% If none of the packages was loaded, do nothing (warnings will be printed when
-% all-caps or low-caps are used).
-%    \begin{macrocode}
 }{%
   \relax
 }
-%    \end{macrocode}
-% Finally, provide global commands for the defined fonts: |\textsca| and
-% |\textscl|.
-%    \begin{macrocode}
 \let\textsca\ktx@allcaps
 \let\textscl\ktx@lowcaps
 %    \end{macrocode}
 % \end{macro}
 %
 %
-% \subsection{Trash Section}
-% \label{sec:trash-section}
+% \begin{macro}{swash font}
+%   Some fonts provide a specific typeface, called \emph{swashed}
+%   (similar to italics). These commands define |textsw| and |swshape|
+%   for the class and -- when the fonts MinionPro and MyriadPro are
+%   used -- applies their definition of them. Otherwise, those two
+%   commands equal |textit| and |itshape|.
 %
-% \begin{macro}{alles}
-%   DEBUG BESCHREIBUNG FEHLT
-%    \begin{macrocode}
-\linespread{1.12}
-\KOMAoptions{DIV=last}
-%    \end{macrocode}
-% \end{macro}
-% 
-% \begin{macro}{alles}
-%   Declare essential text formatting commands (robust, no dependencies).
 %    \begin{macrocode}
 \newcommand*{\ktx@textsw}[1]{\textit{#1}}
 \newcommand*{\ktx@swshape}{\itshape}
@@ -107,21 +226,49 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{alles}
+%
+% \begin{macro}{Other packages}
+%   Various packages applying the following settings:
+%
+%   \begin{itemize}
+%   \item encoding of document is UTF8
+%   \item language support via babel (hyphenation etc.)
+%   \item math package of the AMS
+%   \item sync quoting style with language by using |\enquote{...}|
+%   \item support for graphics inclusion
+%   \item custom commands do not eat spaces
+%   \end{itemize}
 %    \begin{macrocode}
-\RequirePackage[utf8]{inputenc}         % encoding of document is UTF8
-\RequirePackage{babel}                  % language support (hyphenation etc.)
-\RequirePackage{amsmath}                % math package
-\RequirePackage[autostyle=true]{csquotes} % sync quoting style with language
-\RequirePackage{enumitem}               % control layout of lists
-\RequirePackage[T1]{fontenc}            % fontenc T1 (includes Umlaute)
-\RequirePackage{graphicx}               % support for graphics inclusion
-\RequirePackage{xcolor}                 % support for custom colours
-\RequirePackage{xspace}                 % custom commands do not eat spaces
+\RequirePackage[utf8]{inputenc}
+\RequirePackage{babel}
+\RequirePackage{amsmath}
+\RequirePackage[autostyle=true]{csquotes}
+\RequirePackage{graphicx}
+\RequirePackage{xspace}
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{alles}
+%
+% \begin{macro}{enumitem}
+%   The package |enumitem| controls the behaviour of lists. 
+%    \begin{macrocode}
+\RequirePackage{enumitem}
+\setlist{nosep}
+\setlist{leftmargin=1.5em}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{numbering} 
+%   Control the numbering of equations, tables and figures. The number
+%   of digits assigned to those objects is set to depend on the used
+%   class: theses use chapter-wide numbers, report use section-wide
+%   numbers.
+%
+%   The following might be an interesting addition: change the
+%   numbering of sections (+subsections etc.) to numbers without
+%   chapter, so chapters can be omitted
+%   completely. |\renewcommand*\thesection{\arabic{section}}|
 %    \begin{macrocode}
 %<*report>
 \numberwithin{equation}{section}
@@ -133,49 +280,35 @@
 \numberwithin{table}{chapter}
 \numberwithin{figure}{chapter}
 %</thesis>
-% \definecolor{Maroon}{cmyk}{0, 0.87, 0.68, 0.32}
-% \definecolor{RoyalBlue}{cmyk}{1, 0.5, 0, 0}
-% \definecolor{Black}{cmyk}{0, 0, 0, 0}
-% \definecolor{webgreen}{cmyk}{1, 0, 1, 0.5}
-% \definecolor{webbrown}{cmyk}{0, 1, 1, 0.4}
-% Name still preliminary
-\definecolor{Venetian}{cmyk}{0, 0.95, 0.85, 0.30}
-\definecolor{Lime}{cmyk}{0.85, 0, 0.75, 0.25}
-\definecolor{Dodger}{cmyk}{1, 0.40, 0, 0.10}
-\graphicspath{{./figures/}}             % ==> look for figures in folder
-\setlist{itemsep=-1ex}                 % ==> smaller spacing between items
-\setlist[enumerate]{itemsep=0.1\baselineskip}
-\setlist{leftmargin=1.5em}
-\setlength{\parskip}{0pt}% plus 0.3\baselineskip}
-\setlist{nosep}
-%% This might be interesting for an option to change to articles
-%% (no chapters)
-%% \renewcommand*\thesection{\arabic{section}}
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{alles}
-%   Alter some LaTeX defaults for better treatment of figures: See p.105 of "TeX Unbound" for suggested values. See pp. 199-200 of Lamport's "LaTeX" book for details. General parameters, for ALL pages:
-%    \begin{macrocode}
-\renewcommand{\topfraction}{0.9}	% max fraction of floats at top
-\renewcommand{\bottomfraction}{0.8}	% max fraction of floats at bottom
-%    \end{macrocode}
-% Parameters for TEXT pages (not float pages):
-%    \begin{macrocode}
-\setcounter{topnumber}{2}
-\setcounter{bottomnumber}{2}
-\setcounter{totalnumber}{4}             % 2 may work better
-\setcounter{dbltopnumber}{2}            % for 2-column pages
-\renewcommand{\dbltopfraction}{0.9}	% fit big float above 2-col. text
-\renewcommand{\textfraction}{0.07}	% allow minimal text w. figs
-%    \end{macrocode}
-% Parameters for FLOAT pages (not text pages):
-%    \begin{macrocode}
-\renewcommand{\floatpagefraction}{0.7}	% require fuller float pages
-%    \end{macrocode}
-% N.B.: floatpagefraction MUST be less than topfraction !!
-%    \begin{macrocode}
-\renewcommand{\dblfloatpagefraction}{0.7}	% require fuller float pages
-%    \end{macrocode}
-% \end{macro}
-% 
+%
+%
+% \subsection{Unused Packages}
+% \label{sec:unused-packages}
+%
+% There are a number of packages that initially were part of the
+% template, but are not of any use right now. Those include:
+% \begin{verbatim}
+%  Currently not needed packages (delete them?)
+%  \RequirePackage{comment}                % comment whole parts of text
+%  \RequirePackage[shortcuts]{extdash}     % dash commands for compound words
+%  \RequirePackage{float}                  % force floats to put "here" [!H]
+%  \RequirePackage{multirow}               % multi-row support for tables
+%  \RequirePackage{rotating}               % flip floats
+%  \RequirePackage{todonotes}              % add to-do notes to text
+%  \RequirePackage{units}                  % correct units typesetting
+%  \RequirePackage{wrapfig}                % wrap text around figures
+%  \RequirePackage{datetime}
+% \end{verbatim}
+%
+% The very last package allows customisation of dates:
+% \begin{itemize}
+% \item Fix dates with: |\newdate{name}{dd}{mm}{yyyy}|
+% \item Display dates with: |\displaydate{name} (or the usual \today)|
+% \item Customise appearance e.g. with |\ddmmyyyydate| |\longdate|
+% \item Change separator (e.g. ".", "/") via |\renewcommand{\dateseparator}{xxx}|
+% \end{itemize}
+%
+

@@ -143,3 +143,49 @@
 %    \end{macrocode}
 % \end{macro}
 %
+%
+% \begin{macro}{Float handling}
+%   Apply some adjustments to the page layouts by altering some LaTeX
+%   defaults for better treatment of figures: See p.105 of "TeX
+%   Unbound" for suggested values. See pp. 199-200 of Lamport's
+%   "LaTeX" book for details. Altered parameters:
+%
+%   \begin{itemize}
+%   \item max fraction of floats at top/bottom
+%   \item number of floats at the top/bottom/page
+%   \item allow minimal text with figures
+%   \item require fuller float pages (float-page fraction MUST be less
+%     than top fraction!)
+%   \end{itemize}
+%
+%    \begin{macrocode}
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
+\setcounter{topnumber}{2}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{4}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.7}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{caption font}
+%   In case Minion and Myriad are used as fonts, use their option
+%   |mathversion{sans}| to change the math font to sans serif within
+%   figure environments.
+%    \begin{macrocode}
+\@ifpackageloaded{MyriadPro}{%
+  \let\oldfigure\figure
+  \let\oldendfigure\endfigure
+  \renewenvironment{figure}{%
+    \begingroup\mathversion{sans}\oldfigure
+  }{%
+    \oldendfigure\endgroup
+  }
+}{%
+  \relax
+}
+%    \end{macrocode}
+% \end{macro}
+%

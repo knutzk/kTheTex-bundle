@@ -33,6 +33,12 @@
 %
 %<*driver>
 \documentclass[draft]{ltxdoc}
+\usepackage{mathpazo}
+\usepackage[scaled]{helvet}
+\usepackage{leading}
+\leading{13pt}
+\usepackage{sectsty}
+\allsectionsfont{\sffamily}
 \EnableCrossrefs
 \CodelineIndex
 \RecordChanges
@@ -100,7 +106,6 @@
 % \StopEventually{}
 %
 % \section{Implementation}
-% \clearpage
 % \input{dtx/ktx-base.dtx}
 % \input{dtx/ktx-debug.dtx}
 % \input{dtx/ktx-font.dtx}
@@ -136,9 +141,16 @@
 % ]{exm}
 % \end{verbatim}
 %
-% \item Typearea setup for two-column pages: \texttt{fontsize=9pt,
-%   twocolumn=yes, headinclude=yes, footinclude=yes, DIV=calc,
-%   linespread=1.06, setlength columnsep 0.02 textwidth}
+% \item Typearea setup for two-column pages:
+%   \begin{itemize}
+%   \item fontsize=9pt
+%   \item twocolumn=yes
+%   \item headinclude=yes
+%   \item footinclude=yes
+%   \item DIV=calc
+%   \item linespread=1.06
+%   \item setlength columnsep 0.02 textwidth
+%   \end{itemize}
 %
 % \item Include a proper title page (especially for theses)
 % \item Check bib volume format (no ``Bd'' or ``Vol'')

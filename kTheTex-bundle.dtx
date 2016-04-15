@@ -70,17 +70,20 @@
 % \author{Knut Zoch \\ \texttt{knut.zoch NOSPAM gmail.com}} %
 % \maketitle
 %
+% \iffalse
 % \begin{abstract}
 %   Put text here.
 % \end{abstract}
+% \fi
 %
 % \section{Introduction}
 %
-% Put text here.
-%
-% \section{Usage}
-%
-% Put text here.
+% This is the documentation of the |kTheTex-bundle| package
+% \LaTeX. Its classes allow typesetting of reports and
+% theses. Unfortunately, this documentation still lacks a concise
+% description of the functionalities, but only includes descriptions
+% of the implementations in the next section. Eventually, the
+% documentation should look like this:
 %
 % \DescribeMacro{\dummyMacro}
 % This macro does nothing.\index{doing nothing|usage} It is merely an
@@ -109,6 +112,70 @@
 % \input{dtx/ktx-bibliography.dtx}
 % \input{dtx/ktx-toc.dtx}
 % \input{dtx/ktx-references.dtx}
+%
+%
+% \section{To-Do List}
+%
+% Possible additions to the template:
+% \begin{enumerate}
+% \item Definition of an example/theorem environment:
+% \begin{verbatim}
+% \usepackage{amsthm}
+% \usepackage[framemethod=TikZ]{mdframed}
+% \theoremstyle{definition}
+% \newtheorem{exm}{Example}[section]
+% \surroundwithmdframed[
+%   topline=false,
+%   rightline=false,
+%   bottomline=false,
+%   linewidth=1ex,
+%   linecolor=black!25,
+%   leftmargin=\parindent,
+%   skipabove=\medskipamount,
+%   skipbelow=\medskipamount
+% ]{exm}
+% \end{verbatim}
+%
+% \item Typearea setup for two-column pages: \texttt{fontsize=9pt,
+%   twocolumn=yes, headinclude=yes, footinclude=yes, DIV=calc,
+%   linespread=1.06, setlength columnsep 0.02 textwidth}
+%
+% \item Include a proper title page (especially for theses)
+% \item Check bib volume format (no ``Bd'' or ``Vol'')
+%
+% \item Definition of full-width floats:
+% \begin{verbatim}
+% \usepackage{changepage}
+% \newenvironment{widefigure}[1][]{%
+%   \strictpagecheck
+%   \begin{figure}[#1]
+%     \begin{adjustwidth*}{0pt}{-\marginparsep-\marginparwidth}
+% }{%
+%     \end{adjustwidth*}
+%   \end{figure}
+% }
+% \end{verbatim}
+%
+% \item Include fool-proof version of abstract definition
+% \begin{verbatim}
+% \RequirePackage{abstract}
+% \renewcommand*{\abstractnamefont}{%
+%   \normalfont\kReport@lowcaps}
+%
+% \let\oldabstract\abstract
+% \let\oldendabstract\endabstract
+%
+% \renewenvironment{abstract}{%
+%   \begin{center}
+%     \begin{minipage}{0.9\textwidth}
+%       \oldabstract
+% }{%
+%       \oldendabstract
+%     \end{minipage}
+%   \end{center}
+% }
+% \end{verbatim}
+% \end{enumerate}
 %
 % \Finale
 \endinput

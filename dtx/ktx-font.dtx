@@ -83,6 +83,9 @@
 %   The given options include old-style numerals, custom MinionPro
 %   integral symbols, swashed italics capitals and Greek italics (also
 %   for the Greek capital letters).
+% \item |font=charter|: Load the package |mathdesign| with charter as
+%   the main font and |berasans| for the sans-serif font. DEBUG: Maybe
+%   optimise the scaling here.
 % \item |font=kpfonts|: Load the package |kpfonts| for the main font
 %   and |berasans| for the sans-serif font. Given options include
 %   slanted Greek letters, old-style numerals and the partial
@@ -109,6 +112,9 @@
                     italicgreek,%
                     ]{MinionPro}%
     \RequirePackage[medfamily,lf,scale=0.92,sansmath]{MyriadPro}}%
+  {charter}{%
+    \RequirePackage[charter]{mathdesign}%
+    \RequirePackage[scaled=0.86]{berasans}}%
   {kpfonts}{%
     \RequirePackage[slantedGreeks,oldstylenums,partialup]{kpfonts}%
     \RequirePackage[scaled=0.86]{berasans}}%

@@ -168,13 +168,13 @@
   }%
   {sansserif}{%
 %</options>
-    \definecolor{darkgray}{gray}{0.35}
-    \addtokomafont{disposition}{\bfseries\sffamily\color{darkgray}}
+    \addtokomafont{disposition}{\bfseries\sffamily}
     \addtokomafont{title}{\color{black}}
     \renewcommand*{\sectionformat}{\ktx@sectionformat}%
     \renewcommand*{\subsectionformat}{\ktx@subsectionformat}%
     \renewcommand*{\subsubsectionformat}{\ktx@subsubsectionformat}%
-    \addtokomafont{paragraph}{\normalsize\rmfamily\textsc}%
+    \setkomafont{paragraph}{\normalsize\mdseries\rmfamily\textscl}%
+    \RedeclareSectionCommand[afterskip=-0.5em]{paragraph}
 %<*options>
     \ifdefstring{\ktx@header}{adjust}{%
       \renewcommand*{\ktx@header}{sansserif}

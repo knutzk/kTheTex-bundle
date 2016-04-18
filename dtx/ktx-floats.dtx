@@ -96,7 +96,8 @@
 %
 %   Set the font of the captions to be sans-serif and in footnote size
 %   (10pt for a 12pt document size). Set the stretching factor as well
-%   (that step needs the package |setspace| to adjust the
+%   (that step needs the package |setspace| to adjust the spacing --
+%   1.666 (*1.2*10pt=14pt) ensures that captions will have the same
 %   spacing). For the labels, use the same font settings plus
 %   additional bold face. Add a skip below table captions of half the
 %   base line.
@@ -105,7 +106,7 @@
                 margin = 2.0em,%
                 ]{caption}
 \RequirePackage{setspace}
-\captionsetup{font={small,sf,stretch=1.2}}
+\captionsetup{font={small,sf,stretch=1.1666}}
 \captionsetup{labelfont={small,sf,bf}}
 \captionsetup[table]{belowskip=0.5\baselineskip}
 %    \end{macrocode}

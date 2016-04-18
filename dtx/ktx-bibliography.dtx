@@ -276,9 +276,9 @@
 %   of the macro is based on the original code taken from the same
 %   package version of Biblatex as the code earlier in this section.
 %    \begin{macrocode}
-\DeclareSourcemap{
-  \maps[datatype=bibtex,overwrite=true]{
-    \map{
+\DeclareSourcemap{%
+  \maps[datatype=bibtex,overwrite=true]{%
+    \map{%
       \step[fieldsource=Collaboration, final=true]
       \step[fieldset=usera, origfieldval, final=true]
     }
@@ -294,7 +294,7 @@
      \iffieldundef{authortype}
        {}
        {\setunit{\addcomma\space}%
-        \usebibmacro{authorstrg}} % removed brace
+        \usebibmacro{authorstrg}}% removed brace
       \ifentrytype{article}{% added
         \iffieldundef{usera}{}{% added
           \printfield{usera}}% added

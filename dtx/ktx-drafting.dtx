@@ -123,7 +123,7 @@
   \ifthenelse{\boolean{ktx@lightdraft}}{%
     \issuelightdraftwarning
     \KOMAoptions{draft=false}
-  }{
+  }{%
     \RequirePackage{showframe}%
     \KOMAoptions{draft=true}%
   }

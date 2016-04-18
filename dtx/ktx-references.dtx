@@ -109,7 +109,7 @@
     ]{hyperref}
   \ifthenelse{\boolean{ktx@web}}{%
     \relax
-  }{
+  }{%
     \hypersetup{hidelinks}
   }  
 %    \end{macrocode}
@@ -127,8 +127,8 @@
 %   correctly, therefore some adjustments are being made.
 %
 %    \begin{macrocode}
-  \RequirePackage[nameinlink, capitalise]{cleveref}
-  \addto\captionsngerman{
+  \RequirePackage[nameinlink,capitalise]{cleveref}
+  \addto\captionsngerman{%
     \if@cref@abbrev
     \crefname{equation}{Gl.}{Gl.}
     \Crefname{equation}{Gleichung}{Gleichungen}

@@ -318,10 +318,10 @@
 }{%
   \AtEveryBibitem{%
     \ifentrytype{article}{%
-      \iffieldundef{journal}{%
+      \iffieldundef{journaltitle}{%
         \clearfield{eprint}
       }
-    }
+    }{}
   }
 }
 %    \end{macrocode}

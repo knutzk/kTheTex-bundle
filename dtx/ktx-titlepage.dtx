@@ -108,16 +108,34 @@
 \newcommand{\ktxReferees}[2]{\def\ktx@tp@firstref{#1}\def\ktx@tp@secondref{#2}}
 %    \end{macrocode}
 %
+% Add explanation: now logo
+%    \begin{macrocode}
+\newcommand{\ktx@tp@logoerror}{\ktx@error{Logo files not found}{}}
+\def\ktx@tp@leftlogo{\ktx@tp@logoerror}
+\def\ktx@tp@rightlogo{\ktx@tp@logoerror}
+\IfFileExists{figures/logo_university.eps}%
+{\IfFileExists{figures/logo_university.pdf}%
+  {\renewcommand{\ktx@tp@leftlogo}%
+    {\includegraphics[height=1.5cm]{figures/logo_university}}}{}}{}%
+\IfFileExists{figures/logo_institute.eps}%
+{\IfFileExists{figures/logo_institute.pdf}%
+  {\renewcommand{\ktx@tp@rightlogo}%
+    {\includegraphics[height=1.5cm]{figures/logo_institute}}}{}}{}%
+
+%    \end{macrocode}
+%
 % Add explanation: definition
 %    \begin{macrocode}
 \renewcommand{\coverpagetopmargin}{1in}
 \renewcommand{\coverpagebottommargin}{1in}
 \renewcommand{\coverpageleftmargin}{1in}
 \renewcommand{\coverpagerightmargin}{1in}
+\setkomafont{titlehead}{}
 \setkomafont{title}{\rmfamily\bfseries\LARGE}
 \setkomafont{subject}{\rmfamily\bfseries\Large}
 \setkomafont{author}{}
 \setkomafont{publishers}{}
+\titlehead{\ktx@tp@leftlogo\hfill\ktx@tp@rightlogo\vspace{5em}}
 \subject{\ktx@tp@type}
 \author{%
   prepared by\\[3mm]

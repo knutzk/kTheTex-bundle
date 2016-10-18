@@ -78,7 +78,34 @@
 % \begin{macro}{titlepage}
 %   Add explanation here.
 %    \begin{macrocode}
-Place code here
+\def\ktx@tp@type{\empty}
+\IfEqCase*{\ktx@thesistype}{%
+  {bsc}{%
+    \def\ktx@tp@type{Bachelor's thesis}}%
+  {msc}{%
+    \def\ktx@tp@type{Master's thesis}}
+  {none}{\relax}%
+}[\ktx@error{Unknown thesistype: "\ktx@thesistype"}{}]
+\def\ktx@tp@title{\ktx@error{%
+    No title is given for the thesis}{}}
+\def\ktx@tp@titlealt{\ktx@error{%
+    No alternative title is given for the thesis}{}}
+\def\ktx@tp@author{\ktx@error{%
+    No author is given for the thesis}{}}
+\def\ktx@tp@address{\ktx@error{%
+    No address is given for the thesis}{}}
+\def\ktx@tp@institute{\ktx@error{%
+    No institute is given for the thesis}{}}
+\def\ktx@tp@firstref{\ktx@error{%
+    No first referee is given for the thesis}{}}
+\def\ktx@tp@secondref{\ktx@error{%
+    No second referee is given for the thesis}{}}
+\newcommand{\ktxTitle}[1]{\def\ktx@tp@title{#1}}
+\newcommand{\ktxTitleAlt}[1]{\def\ktx@tp@titlealt{#1}}
+\newcommand{\ktxAuthor}[1]{\def\ktx@tp@author{#1}}
+\newcommand{\ktxAddress}[1]{\def\ktx@tp@address{#1}}
+\newcommand{\ktxInstitute}[1]{\def\ktx@tp@institute{#1}}
+\newcommand{\ktxReferees}[2]{\def\ktx@tp@firstref{#1}\def\ktx@tp@secondref{#2}}
 %    \end{macrocode}
 % \end{macro} 
 %

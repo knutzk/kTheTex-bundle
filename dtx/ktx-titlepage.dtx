@@ -107,5 +107,38 @@
 \newcommand{\ktxInstitute}[1]{\def\ktx@tp@institute{#1}}
 \newcommand{\ktxReferees}[2]{\def\ktx@tp@firstref{#1}\def\ktx@tp@secondref{#2}}
 %    \end{macrocode}
+%
+% Add explanation: definition
+%    \begin{macrocode}
+\renewcommand{\coverpagetopmargin}{1in}
+\renewcommand{\coverpagebottommargin}{1in}
+\renewcommand{\coverpageleftmargin}{1in}
+\renewcommand{\coverpagerightmargin}{1in}
+\setkomafont{title}{\rmfamily\bfseries\LARGE}
+\setkomafont{subject}{\rmfamily\bfseries\Large}
+\setkomafont{author}{}
+\setkomafont{publishers}{}
+\subject{\ktx@tp@type}
+\author{%
+  prepared by\\[3mm]
+  \textbf{\large \ktx@tp@author}\\[3mm]
+  from \ktx@tp@address\\[5mm]
+  at the \ktx@tp@institute
+}
+\title{\ktx@tp@title\vskip 2em\ktx@tp@titlealt\vskip 1em}
+
+\publishers{%
+\vfill
+\begin{tabular}[t]{p{0.24\linewidth}p{0.76\textwidth-4\tabcolsep}}
+  \bfseries Thesis number:&\begin{minipage}[t]{0.76\textwidth-4\tabcolsep}II.Physik-UniGö-MSc-2016/001\end{minipage}\\&\\
+  \bfseries Thesis period:&\begin{minipage}[t]{0.76\textwidth-4\tabcolsep}1 April 2016 until 30 September 106\end{minipage}\\&\\
+  \bfseries First referee:&\begin{minipage}[t]{0.76\textwidth-4\tabcolsep}\ktx@tp@firstref\end{minipage}\\&\\
+  \bfseries Second referee:&\begin{minipage}[t]{0.76\textwidth-4\tabcolsep}\ktx@tp@secondref\end{minipage}\\
+\end{tabular}
+\vskip -3em
+}
+\let\@date\empty
+
+%    \end{macrocode}
 % \end{macro} 
 %

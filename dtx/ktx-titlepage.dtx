@@ -78,12 +78,17 @@
 % \begin{macro}{titlepage}
 %   Add explanation here.
 %    \begin{macrocode}
+\RequirePackage{iflang}[2007/11/11]
 \def\ktx@tp@type{\empty}
 \IfEqCase*{\ktx@thesistype}{%
   {bsc}{%
-    \def\ktx@tp@type{Bachelor's thesis}}%
+    \IfLanguageName{ngerman}{%
+      \def\ktx@tp@type{Bachelorarbeit}}{%
+      \def\ktx@tp@type{Bachelor's thesis}}}%
   {msc}{%
-    \def\ktx@tp@type{Master's thesis}}
+    \IfLanguageName{ngerman}{%
+      \def\ktx@tp@type{Masterarbeit}}{%
+      \def\ktx@tp@type{Master's thesis}}}%
   {none}{\relax}%
 }[\ktx@error{Unknown thesistype: "\ktx@thesistype"}{}]
 \def\ktx@tp@title{\ktx@error{%
@@ -138,20 +143,32 @@
 \titlehead{\ktx@tp@leftlogo\hfill\ktx@tp@rightlogo\vspace{5em}}
 \subject{\ktx@tp@type}
 \author{%
-  prepared by\\[3mm]
-  \textbf{\large \ktx@tp@author}\\[3mm]
-  from \ktx@tp@address\\[5mm]
-  at the \ktx@tp@institute
+  \IfLanguageName{ngerman}{%
+    angefertigt von\\[3mm]
+    \textbf{\large \ktx@tp@author}\\[3mm]
+    aus \ktx@tp@address\\[5mm]
+    am \ktx@tp@institute}{%
+    prepared by\\[3mm]
+    \textbf{\large \ktx@tp@author}\\[3mm]
+    from \ktx@tp@address\\[5mm]
+    at the \ktx@tp@institute}
 }
 \title{\ktx@tp@title\vskip 2em\ktx@tp@titlealt\vskip 1em}
 
 \publishers{%
 \vfill
 \begin{tabular}[t]{p{0.24\linewidth}p{0.76\textwidth-4\tabcolsep}}
+  \IfLanguageName{ngerman}{%
+  \bfseries Arbeitsnummer:&\begin{minipage}[t]{0.76\textwidth-4\tabcolsep}II.Physik-UniGö-MSc-2016/001\end{minipage}\\&\\
+  \bfseries Bearbeitungszeit:&\begin{minipage}[t]{0.76\textwidth-4\tabcolsep}1 April 2016 bis 30 September 106\end{minipage}\\&\\
+  \bfseries Erstgutachter/in:&\begin{minipage}[t]{0.76\textwidth-4\tabcolsep}\ktx@tp@firstref\end{minipage}\\&\\
+  \bfseries Zweitgutachter/in:&\begin{minipage}[t]{0.76\textwidth-4\tabcolsep}\ktx@tp@secondref\end{minipage}\\
+  }{%
   \bfseries Thesis number:&\begin{minipage}[t]{0.76\textwidth-4\tabcolsep}II.Physik-UniGö-MSc-2016/001\end{minipage}\\&\\
   \bfseries Thesis period:&\begin{minipage}[t]{0.76\textwidth-4\tabcolsep}1 April 2016 until 30 September 106\end{minipage}\\&\\
   \bfseries First referee:&\begin{minipage}[t]{0.76\textwidth-4\tabcolsep}\ktx@tp@firstref\end{minipage}\\&\\
   \bfseries Second referee:&\begin{minipage}[t]{0.76\textwidth-4\tabcolsep}\ktx@tp@secondref\end{minipage}\\
+  }
 \end{tabular}
 \vskip -3em
 }

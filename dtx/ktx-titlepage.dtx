@@ -77,10 +77,25 @@
 % title pages for bachelor's and master's theses are supported. There
 % are plans to extend this to PhD theses, too.
 %
+% \begin{macro}{report's title}
+%   For the report class, there are no modifications for a title page
+%   yet. Therefore, simply use the standard title page format with a
+%   nicely coloured title.
+%    \begin{macrocode}
+%<*report>
+\let\oldtitle\title
+\renewcommand*{\title}[1]{%
+  \oldtitle{\color{Venetian}#1}
+}
+%</report>
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{macro}{parameters}
 %   First, set up all commands and parameters that define the title
 %   page (such as author, title, alternative title, institute etc.).
 %    \begin{macrocode}
+%<*thesis>
 \RequirePackage{iflang}[2007/11/11]
 \def\ktx@tp@type{\empty}
 \IfEqCase*{\ktx@thesistype}{%
@@ -114,6 +129,7 @@
 \newcommand{\ktxAddress}[1]{\def\ktx@tp@address{#1}}
 \newcommand{\ktxInstitute}[1]{\def\ktx@tp@institute{#1}}
 \newcommand{\ktxReferees}[2]{\def\ktx@tp@firstref{#1}\def\ktx@tp@secondref{#2}}
+%</thesis>
 %    \end{macrocode}
 % \end{macro}
 %
@@ -121,6 +137,7 @@
 %   Set up a title head that includes logos of the university and the
 %   institute of the author.
 %    \begin{macrocode}
+%<*thesis>
 \newcommand{\ktx@tp@logoerror}{\ktx@error{Logo files not found}{}}
 \def\ktx@tp@leftlogo{\ktx@tp@logoerror}
 \def\ktx@tp@rightlogo{\ktx@tp@logoerror}
@@ -132,6 +149,7 @@
 {\IfFileExists{figures/logo_institute.pdf}%
   {\renewcommand{\ktx@tp@rightlogo}%
     {\includegraphics[height=1.5cm]{figures/logo_institute}}}{}}{}%
+%</thesis>
 %    \end{macrocode}
 % \end{macro}
 %
@@ -139,6 +157,7 @@
 %   Set the desired margins and font styles for the title page
 %   elements.
 %    \begin{macrocode}
+%<*thesis>
 \renewcommand{\coverpagetopmargin}{1in}
 \renewcommand{\coverpagebottommargin}{1in}
 \renewcommand{\coverpageleftmargin}{1in}
@@ -148,12 +167,14 @@
 \setkomafont{subject}{\rmfamily\bfseries\Large}
 \setkomafont{author}{}
 \setkomafont{publishers}{}
+%</thesis>
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{definition}
 %   Now define the actual content of the title page.
 %    \begin{macrocode}
+%<*thesis>
 \titlehead{\ktx@tp@leftlogo\hfill\ktx@tp@rightlogo\vspace{5em}}
 \subject{\ktx@tp@type}
 \author{%
@@ -202,6 +223,7 @@
 \vskip -3em
 }
 \let\@date\empty
+%</thesis>
 %    \end{macrocode}
 % \end{macro}
 %
@@ -209,12 +231,14 @@
 %   Make sure that the user cannot change the internal variables that
 %   set the title page elements.
 %    \begin{macrocode}
+%<*thesis>
 \renewcommand{\date}[1]{\empty}
 \renewcommand{\publishers}[1]{\empty}
 \renewcommand{\subject}[1]{\empty}
 \renewcommand{\author}[1]{\empty}
 \renewcommand{\title}[1]{\empty}
 \renewcommand{\thanks}[1]{\empty}
+%</thesis>
 %    \end{macrocode}
 % \end{macro} 
 %

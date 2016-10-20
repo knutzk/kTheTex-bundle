@@ -73,10 +73,13 @@
 % \subsection{Titlepage}
 % \label{sec:titlepage}
 %
-% The following part of the code sets up the titlepage.
+% The following part of the code sets up the title page. Currently,
+% title pages for bachelor's and master's theses are supported. There
+% are plans to extend this to PhD theses, too.
 %
-% \begin{macro}{titlepage}
-%   Add explanation here.
+% \begin{macro}{parameters}
+%   First, set up all commands and parameters that define the title
+%   page (such as author, title, alternative title, institute etc.).
 %    \begin{macrocode}
 \RequirePackage{iflang}[2007/11/11]
 \def\ktx@tp@type{\empty}
@@ -112,8 +115,11 @@
 \newcommand{\ktxInstitute}[1]{\def\ktx@tp@institute{#1}}
 \newcommand{\ktxReferees}[2]{\def\ktx@tp@firstref{#1}\def\ktx@tp@secondref{#2}}
 %    \end{macrocode}
+% \end{macro}
 %
-% Add explanation: now logo
+% \begin{macro}{logos}
+%   Set up a title head that includes logos of the university and the
+%   institute of the author.
 %    \begin{macrocode}
 \newcommand{\ktx@tp@logoerror}{\ktx@error{Logo files not found}{}}
 \def\ktx@tp@leftlogo{\ktx@tp@logoerror}
@@ -126,10 +132,12 @@
 {\IfFileExists{figures/logo_institute.pdf}%
   {\renewcommand{\ktx@tp@rightlogo}%
     {\includegraphics[height=1.5cm]{figures/logo_institute}}}{}}{}%
-
 %    \end{macrocode}
+% \end{macro}
 %
-% Add explanation: definition
+% \begin{macro}{margins and fonts}
+%   Set the desired margins and font styles for the title page
+%   elements.
 %    \begin{macrocode}
 \renewcommand{\coverpagetopmargin}{1in}
 \renewcommand{\coverpagebottommargin}{1in}
@@ -140,6 +148,12 @@
 \setkomafont{subject}{\rmfamily\bfseries\Large}
 \setkomafont{author}{}
 \setkomafont{publishers}{}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{definition}
+%   Now define the actual content of the title page.
+%    \begin{macrocode}
 \titlehead{\ktx@tp@leftlogo\hfill\ktx@tp@rightlogo\vspace{5em}}
 \subject{\ktx@tp@type}
 \author{%
@@ -154,32 +168,53 @@
     at the \ktx@tp@institute}
 }
 \title{\ktx@tp@title\vskip 2em\ktx@tp@titlealt\vskip 1em}
-
 \publishers{%
 \vfill
 \begin{tabular}[t]{p{0.24\linewidth}p{0.76\textwidth-4\tabcolsep}}
   \IfLanguageName{ngerman}{%
-  \bfseries Arbeitsnummer:&\begin{minipage}[t]{0.76\textwidth-4\tabcolsep}II.Physik-UniGö-MSc-2016/001\end{minipage}\\&\\
-  \bfseries Bearbeitungszeit:&\begin{minipage}[t]{0.76\textwidth-4\tabcolsep}1 April 2016 bis 30 September 106\end{minipage}\\&\\
-  \bfseries Erstgutachter/in:&\begin{minipage}[t]{0.76\textwidth-4\tabcolsep}\ktx@tp@firstref\end{minipage}\\&\\
-  \bfseries Zweitgutachter/in:&\begin{minipage}[t]{0.76\textwidth-4\tabcolsep}\ktx@tp@secondref\end{minipage}\\
+  \bfseries Arbeitsnummer:&\begin{minipage}[t]%
+    {0.76\textwidth-4\tabcolsep}
+    II.Physik-UniGö-MSc-2016/001\end{minipage}\\&\\
+  \bfseries Bearbeitungszeit:&\begin{minipage}[t]%
+    {0.76\textwidth-4\tabcolsep}
+    1. April 2016 bis 30. September 106\end{minipage}\\&\\
+  \bfseries Erstgutachter/in:&\begin{minipage}[t]%
+    {0.76\textwidth-4\tabcolsep}
+    \ktx@tp@firstref\end{minipage}\\&\\
+  \bfseries Zweitgutachter/in:&\begin{minipage}[t]%
+    {0.76\textwidth-4\tabcolsep}%
+    \ktx@tp@secondref\end{minipage}\\
   }{%
-  \bfseries Thesis number:&\begin{minipage}[t]{0.76\textwidth-4\tabcolsep}II.Physik-UniGö-MSc-2016/001\end{minipage}\\&\\
-  \bfseries Thesis period:&\begin{minipage}[t]{0.76\textwidth-4\tabcolsep}1 April 2016 until 30 September 106\end{minipage}\\&\\
-  \bfseries First referee:&\begin{minipage}[t]{0.76\textwidth-4\tabcolsep}\ktx@tp@firstref\end{minipage}\\&\\
-  \bfseries Second referee:&\begin{minipage}[t]{0.76\textwidth-4\tabcolsep}\ktx@tp@secondref\end{minipage}\\
+  \bfseries Thesis number:&\begin{minipage}[t]%
+    {0.76\textwidth-4\tabcolsep}
+    II.Physik-UniGö-MSc-2016/001\end{minipage}\\&\\
+  \bfseries Thesis period:&\begin{minipage}[t]%
+    {0.76\textwidth-4\tabcolsep}
+    1 April 2016 until 30 September 106\end{minipage}\\&\\
+  \bfseries First referee:&\begin{minipage}[t]%
+    {0.76\textwidth-4\tabcolsep}
+    \ktx@tp@firstref\end{minipage}\\&\\
+  \bfseries Second referee:&\begin{minipage}[t]%
+    {0.76\textwidth-4\tabcolsep}
+    \ktx@tp@secondref\end{minipage}\\
   }
 \end{tabular}
 \vskip -3em
 }
 \let\@date\empty
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{user safety}
+%   Make sure that the user cannot change the internal variables that
+%   set the title page elements.
+%    \begin{macrocode}
 \renewcommand{\date}[1]{\empty}
 \renewcommand{\publishers}[1]{\empty}
 \renewcommand{\subject}[1]{\empty}
 \renewcommand{\author}[1]{\empty}
 \renewcommand{\title}[1]{\empty}
 \renewcommand{\thanks}[1]{\empty}
-
 %    \end{macrocode}
 % \end{macro} 
 %

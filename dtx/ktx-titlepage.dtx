@@ -126,6 +126,7 @@
     No first referee is given for the thesis}{}}
 \def\ktx@tp@secondref{\ktx@error{%
     No second referee is given for the thesis}{}}
+\def\ktx@tp@addsupervisor{\empty}
 \def\ktx@tp@begindate@dd{01}
 \def\ktx@tp@begindate@mm{01}
 \def\ktx@tp@begindate@yyyy{2000}
@@ -138,6 +139,7 @@
 \newcommand{\ktxAddress}[1]{\def\ktx@tp@address{#1}}
 \newcommand{\ktxInstitute}[1]{\def\ktx@tp@institute{#1}}
 \newcommand{\ktxReferees}[2]{\def\ktx@tp@firstref{#1}\def\ktx@tp@secondref{#2}}
+\newcommand{\ktxSupervisor}[1]{\def\ktx@tp@addsupervisor{#1}}
 \newcommand{\ktxBeginDate}[3]{%
   \def\ktx@tp@begindate@dd{#1}%
   \def\ktx@tp@begindate@mm{#2}%
@@ -231,6 +233,11 @@
   \bfseries Thesis period:&\begin{minipage}[t]%
     {0.76\textwidth-4\tabcolsep}
     \ktx@dateformat@gb\displaydate{begindate} until \displaydate{enddate}\end{minipage}\\&\\
+  \ifdefstring{\ktx@tp@addsupervisor}{\empty}{}{%
+  \bfseries Supervisor:&\begin{minipage}[t]%
+    {0.76\textwidth-4\tabcolsep}
+    \ktx@tp@addsupervisor\end{minipage}\\&\\
+  }
   \bfseries First referee:&\begin{minipage}[t]%
     {0.76\textwidth-4\tabcolsep}
     \ktx@tp@firstref\end{minipage}\\&\\

@@ -97,6 +97,9 @@
 %    \begin{macrocode}
 %<*thesis>
 \RequirePackage{iflang}[2007/11/11]
+\RequirePackage[nodayofweek]{datetime}[2015/03/20]
+\newdateformat{ktx@dateformat@gb}{\THEDAY~\monthname[\THEMONTH]~\THEYEAR}
+\newdateformat{ktx@dateformat@de}{\THEDAY.~\monthname[\THEMONTH]~\THEYEAR}
 \def\ktx@tp@type{\empty}
 \IfEqCase*{\ktx@thesistype}{%
   {bsc}{%
@@ -123,12 +126,26 @@
     No first referee is given for the thesis}{}}
 \def\ktx@tp@secondref{\ktx@error{%
     No second referee is given for the thesis}{}}
+\def\ktx@tp@begindate@dd{01}
+\def\ktx@tp@begindate@mm{01}
+\def\ktx@tp@begindate@yyyy{2000}
+\def\ktx@tp@enddate@dd{31}
+\def\ktx@tp@enddate@mm{12}
+\def\ktx@tp@enddate@yyyy{2000}
 \newcommand{\ktxTitle}[1]{\def\ktx@tp@title{#1}}
 \newcommand{\ktxTitleAlt}[1]{\def\ktx@tp@titlealt{#1}}
 \newcommand{\ktxAuthor}[1]{\def\ktx@tp@author{#1}}
 \newcommand{\ktxAddress}[1]{\def\ktx@tp@address{#1}}
 \newcommand{\ktxInstitute}[1]{\def\ktx@tp@institute{#1}}
 \newcommand{\ktxReferees}[2]{\def\ktx@tp@firstref{#1}\def\ktx@tp@secondref{#2}}
+\newcommand{\ktxBeginDate}[3]{%
+  \def\ktx@tp@begindate@dd{#1}%
+  \def\ktx@tp@begindate@mm{#2}%
+  \def\ktx@tp@begindate@yyyy{#3}}
+\newcommand{\ktxEndDate}[3]{%
+  \def\ktx@tp@enddate@dd{#1}%
+  \def\ktx@tp@enddate@mm{#2}%
+  \def\ktx@tp@enddate@yyyy{#3}}
 %</thesis>
 %    \end{macrocode}
 % \end{macro}
@@ -190,6 +207,8 @@
 }
 \title{\ktx@tp@title\vskip 2em\ktx@tp@titlealt\vskip 1em}
 \publishers{%
+\newdate{begindate}{\ktx@tp@begindate@dd}{\ktx@tp@begindate@mm}{\ktx@tp@begindate@yyyy}%
+\newdate{enddate}{\ktx@tp@enddate@dd}{\ktx@tp@enddate@mm}{\ktx@tp@enddate@yyyy}
 \vfill
 \begin{tabular}[t]{p{0.24\linewidth}p{0.76\textwidth-4\tabcolsep}}
   \IfLanguageName{ngerman}{%
@@ -198,7 +217,7 @@
     II.Physik-UniGö-MSc-2016/001\end{minipage}\\&\\
   \bfseries Bearbeitungszeit:&\begin{minipage}[t]%
     {0.76\textwidth-4\tabcolsep}
-    1. April 2016 bis 30. September 106\end{minipage}\\&\\
+    \ktx@dateformat@de\displaydate{begindate} bis \displaydate{enddate}\end{minipage}\\&\\
   \bfseries Erstgutachter/in:&\begin{minipage}[t]%
     {0.76\textwidth-4\tabcolsep}
     \ktx@tp@firstref\end{minipage}\\&\\
@@ -211,7 +230,7 @@
     II.Physik-UniGö-MSc-2016/001\end{minipage}\\&\\
   \bfseries Thesis period:&\begin{minipage}[t]%
     {0.76\textwidth-4\tabcolsep}
-    1 April 2016 until 30 September 106\end{minipage}\\&\\
+    \ktx@dateformat@gb\displaydate{begindate} until \displaydate{enddate}\end{minipage}\\&\\
   \bfseries First referee:&\begin{minipage}[t]%
     {0.76\textwidth-4\tabcolsep}
     \ktx@tp@firstref\end{minipage}\\&\\

@@ -1,6 +1,7 @@
 %% Hauptdatei
 
-\documentclass[font=minion,BCOR=4mm,english,%
+\documentclass[font=minion,BCOR=4mm,%
+               ngerman,english,%        % languages of the document
                % draft,%                % activate for full draft features
                % lightdraft,%           % activate for watermarks
                ]{ktxthss}
@@ -23,6 +24,16 @@
 \maketitle
 \thispagestyle{empty}
 \cleardoublepage
+
+\begin{abstractpage}[1.0]
+  \begin{abstract}{english}{Abstract}
+    \Blindtext[2]
+  \end{abstract}
+
+  \begin{abstract}{ngerman}{Zusammenfassung}
+    \Blindtext[1]
+  \end{abstract}
+\end{abstractpage}
 
 \tableofcontents
 \thispagestyle{plain}

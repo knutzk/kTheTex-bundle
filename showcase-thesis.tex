@@ -1,16 +1,25 @@
 %% Hauptdatei
 
 \documentclass[font=minion,BCOR=4mm,%
-               ngerman,english,%        % languages of the document
+               ngerman,english,%        % languages (secondary, main)
                % draft,%                % activate for full draft features
                % lightdraft,%           % activate for watermarks
+               thesistype=msc,%
                ]{ktxthss}
 
 \usepackage{blindtext}
 \usepackage{layout}
 
-\author{Knut Zoch}
-\title{LaTeX Style Sample}
+\ktxTitle{Official Title of the Thesis\\in the Main Language\\of the Document}
+\ktxTitleAlt{Official Title of the Thesis\\in an Alternative Language}
+\ktxAuthor{Author Name}
+\ktxAddress{Home Town}
+\ktxInstitute{My Glorious Institute}
+\ktxSupervisor{Priv.-Doz.\,Dr.\,Additional Supervisor}
+\ktxReferees{Prof.\,Dr.\,First Referee}{Prof.\,Dr.\,Second Referee}
+\ktxBeginDate{01}{01}{1995}
+\ktxEndDate{04}{07}{2012}
+
 \bibliography{aux/bibliography}
 \input{aux/abbreviations}
 

@@ -159,13 +159,15 @@
 % \subsection{Call the Base Class}
 % \label{sec:call-base-class}
 %
-% Call the following options for the parent class:
+% The parent class is called with a pre-defined set of options.
+% The following options are called explicitly:
 % \begin{itemize}
 % \item Put the bibliography to the table of contents.
 % \item Use a font size of 11 points.
 % \item Use a two-sided layout.
-% \item Calculate the optimal page division factor (see KOMA script
+% \item Set the page division factor to 9 (see KOMA script
 %   documentation).
+% \item Make the title page a cover page with custom margins.
 % \end{itemize}
 %    \begin{macrocode}
 \PassOptionsToClass{bibliography = totoc,%
@@ -178,9 +180,9 @@
 %
 % \noindent
 % This class is based on the scrbook class from the KOMA script
-% family. The class will be loaded with the following options by
-% default (options in parentheses are the default values of
-% scrtartcl):
+% family. In total, the following table gives an overview of all
+% options transferred to the base class (options in parentheses are
+% the default values of scrtartcl and therefore called implicitly):
 %   \begin{table}[ht]
 %     \centering
 %     \begin{tabular}{ll}

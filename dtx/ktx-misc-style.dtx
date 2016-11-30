@@ -307,3 +307,32 @@
 % \item Change separator (e.g. ".", "/") via |\renewcommand{\dateseparator}{xxx}|
 % \end{itemize}
 %
+%
+%
+%
+% \subsection{Abstracts}
+% \label{sec:abstract}
+%
+% \begin{macro}{abstract}
+% Depending on the type of document, there should also be an abstract
+% just after the title. The following code introduces a dedicated
+% environment that can be used to set abstracts.
+%
+%    \begin{macrocode}
+%<*thesis>
+\newenvironment{abstractpage}[1][1.0]{%
+  \thispagestyle{plain}%
+  \vspace*{1em minus 1em}%
+  \begin{center}\begin{minipage}{#1\linewidth}}{%
+  \end{minipage}\end{center}%
+  \vspace*{0pt minus 2em}%
+  \cleardoublepage}
+\newenvironment{abstract}[2]{%
+  \addsec*{#2}\begin{otherlanguage}{#1}}{%
+  \end{otherlanguage}%
+  \vspace*{2em}%
+}
+%</thesis>
+%    \end{macrocode}
+% \end{macro}
+%

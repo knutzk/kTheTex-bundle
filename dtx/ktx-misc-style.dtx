@@ -76,7 +76,6 @@
 % \subsection{Miscellaneous Page Style}
 % \label{sec:misc-page-style}
 %
-% \begin{macro}{pagelayout}
 %   This section fixes the page layout completely. The base class was
 %   called with DIV=9, i.e. the available space (horizontally and
 %   vertically) is divided in 9x9 equal sections. Six out of nine
@@ -109,6 +108,36 @@
 \setlength{\topmargin}{59.5pt-1in}
 \setlength{\textheight}{613pt}
 \setlength{\parskip}{0pt}
+%    \end{macrocode}
+%
+% \begin{macro}{format}
+%   The calculation of the text width and height as described above
+%   follows recommendations from typography and guarantees an optimal
+%   text spread. One of the most important aspects in this case is the
+%   readibility of lines, i.e. the line length should (on average) not
+%   exceed a certain number of characters.
+%
+%   Besides, the layout uses both the very classical division of the
+%   page into 9x9 fields as well as the golden section for text width
+%   and height. However, this class also provides modifications of
+%   these settings with the |format| option.
+%
+%   The option |format=enlarge| increases the text spread over the
+%   page while switching to a font size of 12pt (in the standard
+%   setting the size is 11pt). To maintain optimal readability, the
+%   page is divided to 10x10 fields instead, 7 of which are used for
+%   the main text. Again, the text height is calculated following the
+%   golden section. The leading is extended to 16.15pt which allows 40
+%   lines of text in the given text height of 642pt.
+%    \begin{macrocode}
+\IfEqCase*{\ktx@format}{%
+  {standard}{\relax}%
+  {enlarge}{%
+    \KOMAoptions{fontsize=12pt, DIV=10}
+    \leading{16.15pt}
+    \setlength{\topmargin}{49pt-1in}
+    \setlength{\textheight}{642pt}}%
+}[\ktx@error{Unknown format: "\ktx@format"}{}]
 %    \end{macrocode}
 % \end{macro}
 %

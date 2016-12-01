@@ -124,6 +124,7 @@
 % \begin{macro}{style options}
 %   These options affect the style of the document.
 %    \begin{macrocode}
+\DeclareStringOption[standard]{format}
 \DeclareStringOption[false]{font}
 \DeclareStringOption[adjust]{header}
 \DeclareStringOption[sansserif]{headings}
@@ -160,6 +161,10 @@
 % \label{sec:call-base-class}
 %
 % The parent class is called with a pre-defined set of options.
+% However, some of the options are modified depending on class
+% options, such as |format|. For more info about these specific
+% configurations, check the section~\ref{sec:misc-page-style} about
+% the |format| option.
 % The following options are called explicitly:
 % \begin{itemize}
 % \item Put the bibliography to the table of contents.
@@ -188,8 +193,10 @@
 %     \begin{tabular}{ll}
 %         bibliography = totoc   & display bibliography in TOC \\
 %         BCOR         = (0mm)   & binding correction for margins \\
-%         DIV          = 9       & page division factor  \\
-%         fontsize     = 11pt    & set font size \\
+%         DIV          = 9       & page division factor (see also
+%         section \ref{sec:misc-page-style}) \\
+%         fontsize     = 11pt    & set font size (see also section
+%         \ref{sec:misc-page-style}) \\
 %         footinclude  = no      & include footer in DIV calc \\
 %         headinclude  = yes     & include header in DIV calc \\
 %         headsepline  = (no)    & separate header+text with line \\

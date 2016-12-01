@@ -88,13 +88,16 @@
 %   usually. Consider the following calculation: One A4 page measures
 %   a width of 210mm, i.e. the text is spread over 140mm. Now multiply
 %   this value with the golden section for a nice text height. The
-%   height then is 226.5mm or 595pt (1mm = 2.845pt). With a leading of
-%   14pt, this equals 42 lines (-2pt because last line does not need
-%   leading).
+%   height then is 226.5mm or 644.5pt (1mm = 2.845pt). Subtracting
+%   about 30pt for the header which should be included in these
+%   calculations, there are 614.5pt left for the main text. With a
+%   leading of 14pt, 44 lines therefore is a good length. This yields
+%   a text height of 613pt which is close to the ideal value (616
+%   minus 3 because the last line does not need leading).
 %
 %   The top margin is modified as well: Set it to be the same as the
-%   inner margin. This corresponds to 1/6 of the text width (1in is
-%   the Latex standard offset).
+%   inner margin. This corresponds to roughly 59.5pt (1in is the Latex
+%   standard offset).
 %
 %   Skips between paragraphs are set to 0pt (with no variable space).
 %   A more relaxed option would be:
@@ -103,8 +106,8 @@
 %    \begin{macrocode}
 \RequirePackage{leading}
 \leading{14pt}
-\setlength{\textheight}{42\baselineskip-2pt}
-\setlength{\topmargin}{0.16666\textwidth-1in}
+\setlength{\topmargin}{59.5pt-1in}
+\setlength{\textheight}{613pt}
 \setlength{\parskip}{0pt}
 %    \end{macrocode}
 % \end{macro}

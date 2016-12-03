@@ -120,6 +120,8 @@
     No author is given for the thesis}{}}
 \def\ktx@tp@address{\ktx@error{%
     No address is given for the thesis}{}}
+\def\ktx@tp@instaddress{\ktx@error{%
+    No institute address is given for the thesis}{}}
 \def\ktx@tp@institute{\ktx@error{%
     No institute is given for the thesis}{}}
 \def\ktx@tp@firstref{\ktx@error{%
@@ -137,6 +139,7 @@
 \newcommand{\ktxTitleAlt}[1]{\def\ktx@tp@titlealt{#1}}
 \newcommand{\ktxAuthor}[1]{\def\ktx@tp@author{#1}}
 \newcommand{\ktxAddress}[1]{\def\ktx@tp@address{#1}}
+\newcommand{\ktxInstituteAddress}[1]{\def\ktx@tp@instaddress{#1}}
 \newcommand{\ktxInstitute}[1]{\def\ktx@tp@institute{#1}}
 \newcommand{\ktxReferees}[2]{\def\ktx@tp@firstref{#1}\def\ktx@tp@secondref{#2}}
 \newcommand{\ktxSupervisor}[1]{\def\ktx@tp@addsupervisor{#1}}

@@ -20,9 +20,9 @@ contributing yourself!
 
 Yes, there is. Although this bundle is still on a beta stage in terms
 of its development, the
-[latest release](https://github.com/kzoch/kTheTex-bundle/releases/latest)
+[latest release](https://github.com/knutzk/kTheTex-bundle/releases/latest)
 can always be found on the
-[release page](https://github.com/kzoch/kTheTex-bundle/releases/) of
+[release page](https://github.com/knutzk/kTheTex-bundle/releases/) of
 this package.
 
 There are still some points to be crossed from the to do list, before

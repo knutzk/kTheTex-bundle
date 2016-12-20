@@ -347,6 +347,37 @@
 % thesis document.
 %    \begin{macrocode}
 %<*thesis>
+\newcommand{\ktxDeclaration}[2]{%
+\newdate{enddate}{\ktx@tp@enddate@dd}{\ktx@tp@enddate@mm}{\ktx@tp@enddate@yyyy}
+  \AtEndDocument{%
+    \begin{otherlanguage}{#1}
+    \clearpage\thispagestyle{empty}
+    \null\vfill\noindent
+    \begin{minipage}[t]{0.225\textwidth}
+      \hspace*{1em}\bfseries\large%
+        Declaration%
+    \end{minipage}%
+    \begin{minipage}[t]{0.775\textwidth}%
+        according to #2:\\[1em]
+        This dissertation is the result of my own work and includes nothing
+        which is the outcome of work done in collaboration except as declared in
+        the Preface and specified in the text.\par
+        It is not substantially the same as any that I have submitted, or, is
+        being concurrently submitted for a degree or diploma or other
+        qualification at this or any other University or similar institution
+        except as declared in the Preface and specified in the text. I further
+        state that no substantial part of my dissertation has already been
+        submitted, or, is being concurrently submitted for any such degree,
+        diploma or other qualification at this or any other University or
+        similar institution except as declared in the Preface and specified in
+        the text.\\[1em]
+        \begin{center}\ktx@tp@instaddress, \displaydate{enddate}\end{center}
+      \vspace*{1.5cm}
+      \begin{center}(\ktx@tp@author)\end{center}%
+    \vspace*{1\baselineskip}%
+    \end{minipage}%
+    \end{otherlanguage}
+}}
 %</thesis>
 %    \end{macrocode}
 %

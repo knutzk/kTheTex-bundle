@@ -336,3 +336,65 @@
 %    \end{macrocode}
 % \end{macro}
 %
+%
+%
+%
+% \subsection{Declaration}
+% \label{sec:declaration}
+%
+% At the end of a thesis, there should also be a declaration. The
+% following code allows to set such a declaration at the end of the
+% thesis document.
+%    \begin{macrocode}
+%<*thesis>
+\newcommand{\ktxDeclaration}[2]{%
+\newdate{enddate}{\ktx@tp@enddate@dd}{\ktx@tp@enddate@mm}{\ktx@tp@enddate@yyyy}
+  \AtEndDocument{%
+    \begin{otherlanguage}{#1}
+    \clearpage\thispagestyle{empty}
+    \null\vfill\noindent
+    \begin{minipage}[t]{0.225\textwidth}
+      \hspace*{1em}\bfseries\large%
+      \IfLanguageName{ngerman}{%
+        Erkl{\"a}rung%
+      }{%
+        Declaration%
+      }
+    \end{minipage}%
+    \begin{minipage}[t]{0.775\textwidth}%
+      \IfLanguageName{ngerman}{%
+        nach #2:\\[1em]
+        Hiermit erkl{\"a}re ich, dass ich diese Abschlussarbeit selbst{\"a}ndig
+        verfasst habe, keine anderen als die angegebenen Quellen und Hilfsmittel
+        benutzt habe und alle Stellen, die w{\"o}rtlich oder sinngem{\"a}\ss{}
+        aus ver{\"o}ffentlichten Schriften entnommen wurden, als solche
+        kenntlich gemacht habe.\par
+        Dar{\"u}berhinaus erkl{\"a}re ich, dass diese Abschlussarbeit nicht,
+        auch nicht auszugsweise, im Rahmen einer nichtbestandenen Pr{\"u}fung
+        an dieser oder einer anderen Hochschule eingereicht wurde.\\[1em]
+        \begin{center}\ktx@tp@instaddress, den \displaydate{enddate}\end{center}
+      }{%
+        according to #2:\\[1em]
+        This dissertation is the result of my own work and includes nothing
+        which is the outcome of work done in collaboration except as declared in
+        the Preface and specified in the text.\par
+        It is not substantially the same as any that I have submitted, or, is
+        being concurrently submitted for a degree or diploma or other
+        qualification at this or any other University or similar institution
+        except as declared in the Preface and specified in the text. I further
+        state that no substantial part of my dissertation has already been
+        submitted, or, is being concurrently submitted for any such degree,
+        diploma or other qualification at this or any other University or
+        similar institution except as declared in the Preface and specified in
+        the text.\\[1em]
+        \begin{center}\ktx@tp@instaddress, \displaydate{enddate}\end{center}
+      }%
+      \vspace*{1.5cm}
+      \begin{center}(\ktx@tp@author)\end{center}%
+      \vspace*{1\baselineskip}%
+    \end{minipage}%
+    \end{otherlanguage}
+}}
+%</thesis>
+%    \end{macrocode}
+%

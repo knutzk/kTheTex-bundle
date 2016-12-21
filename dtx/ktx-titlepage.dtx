@@ -1,7 +1,7 @@
 % \iffalse meta-comment
 %
 % ktx-titlepage.dtx
-% Copyright 2016 Knut Zoch <knut DOT zoch AT gmail DOT com>
+% Copyright 2016 Knut Zoch <github.com/knutzk>
 %
 % This work may be distributed and/or modified under the conditions of
 % the LaTeX Project Public License, either version 1.3 of this license
@@ -21,14 +21,13 @@
 % dtx/ktx-misc-style.dtx, dtx/ktx-references.dtx,
 % dtx/ktx-titlepage.dtx, dtx/ktx-toc.dtx as well as the derived files
 % ktxbbltx.sty, ktxreprt.cls and ktxthss.cls.
-% DO NOT FORGET TO ADD THIS TO THE OTHER FILES!
 %
 % \fi
 %
 % \iffalse
 %<*driver>
 \ProvidesFile{dtx/ktx-titlepage.dtx}
-[2016/04/18 v0.1.0 ktx-titlepage]
+[2016/12/21 v0.2.0 ktx-titlepage]
 %</driver>
 %
 %<*driver>
@@ -42,7 +41,7 @@
 \title{The \textsf{kTheTex-bundle} file
   \textsf{ktx-titlepage.dtx}\thanks{This document corresponds to
     \textsf{ktx-titlepage.dtx}~\fileversion, dated \filedate.}}
-\author{Knut Zoch \\ \texttt{knut.zoch NOSPAM gmail.com}} %
+\author{Knut Zoch \\ \texttt{github.com/knutzk}} %
 \begin{document}
 \maketitle
 \DocInput{dtx/ktx-titlepage.dtx}
@@ -76,6 +75,8 @@
 % The following part of the code sets up the title page. Currently,
 % title pages for bachelor's and master's theses are supported. There
 % are plans to extend this to PhD theses, too.
+%
+% \changes{v0.2.0}{2016/12/21}{Title page code added}
 %
 % \begin{macro}{report's title}
 %   For the report class, there are no modifications for a title page
@@ -230,7 +231,8 @@
   }
   \bfseries Bearbeitungszeit:&\begin{minipage}[t]%
     {0.76\textwidth-4\tabcolsep}
-    \ktx@dateformat@de\displaydate{begindate} bis \displaydate{enddate}\end{minipage}\\[3mm]
+    \ktx@dateformat@de\displaydate{begindate}
+    bis \displaydate{enddate}\end{minipage}\\[3mm]
   \bfseries Erstgutachter/in:&\begin{minipage}[t]%
     {0.76\textwidth-4\tabcolsep}
     \ktx@tp@firstref\end{minipage}\\[3mm]
@@ -245,7 +247,8 @@
   }
   \bfseries Thesis period:&\begin{minipage}[t]%
     {0.76\textwidth-4\tabcolsep}
-    \ktx@dateformat@gb\displaydate{begindate} until \displaydate{enddate}\end{minipage}\\[3mm]
+    \ktx@dateformat@gb\displaydate{begindate}
+    until \displaydate{enddate}\end{minipage}\\[3mm]
   \ifdefstring{\ktx@tp@addsupervisor}{\empty}{}{%
   \bfseries Supervisor:&\begin{minipage}[t]%
     {0.76\textwidth-4\tabcolsep}

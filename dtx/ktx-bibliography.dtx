@@ -1,7 +1,7 @@
 % \iffalse meta-comment
 %
 % ktx-bibliography.dtx
-% Copyright 2016 K. Zoch <github.com/knutzk>
+% Copyright 2016 Knut Zoch <github.com/knutzk>
 %
 % This work may be distributed and/or modified under the conditions of
 % the LaTeX Project Public License, either version 1.3 of this license
@@ -12,26 +12,26 @@
 %
 % This work has the LPPL maintenance status `maintained'.
 %
-% The Current Maintainer of this work is K. Zoch.
+% The Current Maintainer of this work is Knut Zoch.
 %
 % This work consists of the files kTheTex-bundle.dtx,
 % kTheTex-bundle.ins, dtx/ktx-base.dtx, dtx/ktx-bibliography.dtx,
 % dtx/ktx-debug.dtx, dtx/ktx-drafting.dtx, dtx/ktx-floats.dtx,
 % dtx/ktx-font.dtx, dtx/ktx-headfoot.dtx, dtx/ktx-headings.dtx,
-% dtx/ktx-misc-style.dtx, dtx/ktx-references.dtx, dtx/ktx-toc.dtx as
-% well as the derived files ktxbbltx.sty, ktxreprt.cls and
-% ktxthss.cls.
+% dtx/ktx-misc-style.dtx, dtx/ktx-references.dtx,
+% dtx/ktx-titlepage.dtx, dtx/ktx-toc.dtx as well as the derived files
+% ktxbbltx.sty, ktxreprt.cls and ktxthss.cls.
 %
 % \fi
 %
 % \iffalse
 %<*driver>
 \ProvidesFile{dtx/ktx-bibliography.dtx}
-[2016/04/18 v0.1.0 ktx-bibliography]
+[2016/12/21 v0.2.0 ktx-bibliography]
 %</driver>
 %<*package>
 \ProvidesPackage{ktxbbltx}
-[2016/04/18 v0.1.0 kTheTex-bundle -- ktxbbltx package]
+[2016/12/21 v0.2.0 kTheTex-bundle -- ktxbbltx package]
 %</package>
 %
 %<*driver>
@@ -45,7 +45,7 @@
 \title{The \textsf{kTheTex-bundle} file
   \textsf{ktx-bibliography.dtx}\thanks{This document corresponds to
     \textsf{ktx-bibliography.dtx}~\fileversion, dated \filedate.}}
-\author{K. Zoch \\ \texttt{github.com/knutzk}} %
+\author{Knut Zoch \\ \texttt{github.com/knutzk}} %
 \begin{document}
 \maketitle
 \DocInput{dtx/ktx-bibliography.dtx}
@@ -148,6 +148,9 @@
 %   text and don't list more than three authors in the
 %   bibliography. Display only the initials of their first names. And
 %   hide all DOI, URL and ISBN fields.
+%
+%   \changes{v0.2.0}{2016/12/21}{Changed maxcitenames from 3 to 2}
+%
 %    \begin{macrocode}
 %<*report|thesis>
 \ifthenelse{\boolean{ktx@biblatex}}{%
@@ -157,7 +160,7 @@
   style        = numeric-comp,%
   sorting      = none,%
   date         = year,%
-  maxcitenames = 1,%
+  maxcitenames = 2,%
   maxbibnames  = 3,%
   firstinits   = true,%
   doi          = false,%
@@ -276,9 +279,9 @@
 %   of the macro is based on the original code taken from the same
 %   package version of Biblatex as the code earlier in this section.
 %    \begin{macrocode}
-\DeclareSourcemap{
-  \maps[datatype=bibtex,overwrite=true]{
-    \map{
+\DeclareSourcemap{%
+  \maps[datatype=bibtex,overwrite=true]{%
+    \map{%
       \step[fieldsource=Collaboration, final=true]
       \step[fieldset=usera, origfieldval, final=true]
     }
@@ -294,7 +297,7 @@
      \iffieldundef{authortype}
        {}
        {\setunit{\addcomma\space}%
-        \usebibmacro{authorstrg}} % removed brace
+        \usebibmacro{authorstrg}}% removed brace
       \ifentrytype{article}{% added
         \iffieldundef{usera}{}{% added
           \printfield{usera}}% added
@@ -311,6 +314,8 @@
 %   |print|). For printing, clear the eprint field. If this code is a
 %   stand-alone package, check for option |eprint|.
 %
+%   \changes{v0.2.0}{2016/12/21}{Fixed bug with eprints}
+%
 %    \begin{macrocode}
 %<report|thesis>\ifthenelse{\boolean{ktx@web}}{%
 %<package>\ifthenelse{\boolean{ktxbbltx@eprint}}{%
@@ -318,10 +323,10 @@
 }{%
   \AtEveryBibitem{%
     \ifentrytype{article}{%
-      \iffieldundef{journal}{%
+      \iffieldundef{journaltitle}{%
         \clearfield{eprint}
       }
-    }
+    }{}
   }
 }
 %    \end{macrocode}

@@ -1,0 +1,286 @@
+% \iffalse meta-comment
+%
+% ktx-titlepage.dtx
+% Copyright 2016 Knut Zoch <github.com/knutzk>
+%
+% This work may be distributed and/or modified under the conditions of
+% the LaTeX Project Public License, either version 1.3 of this license
+% or (at your option) any later version.  The latest version of this
+% license is in http://www.latex-project.org/lppl.txt and version 1.3
+% or later is part of all distributions of LaTeX version 2005/12/01 or
+% later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The Current Maintainer of this work is Knut Zoch.
+%
+% This work consists of the files kTheTex-bundle.dtx,
+% kTheTex-bundle.ins, dtx/ktx-base.dtx, dtx/ktx-bibliography.dtx,
+% dtx/ktx-debug.dtx, dtx/ktx-drafting.dtx, dtx/ktx-floats.dtx,
+% dtx/ktx-font.dtx, dtx/ktx-headfoot.dtx, dtx/ktx-headings.dtx,
+% dtx/ktx-misc-style.dtx, dtx/ktx-references.dtx,
+% dtx/ktx-titlepage.dtx, dtx/ktx-toc.dtx as well as the derived files
+% ktxbbltx.sty, ktxreprt.cls and ktxthss.cls.
+%
+% \fi
+%
+% \iffalse
+%<*driver>
+\ProvidesFile{dtx/ktx-titlepage.dtx}
+[2016/12/21 v0.2.0 ktx-titlepage]
+%</driver>
+%
+%<*driver>
+\documentclass[draft]{ltxdoc}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\changes{v0.1.0}{2016/04/18}{Initial version} %
+\GetFileInfo{dtx/ktx-titlepage.dtx} %
+\DoNotIndex{} %
+\title{The \textsf{kTheTex-bundle} file
+  \textsf{ktx-titlepage.dtx}\thanks{This document corresponds to
+    \textsf{ktx-titlepage.dtx}~\fileversion, dated \filedate.}}
+\author{Knut Zoch \\ \texttt{github.com/knutzk}} %
+\begin{document}
+\maketitle
+\DocInput{dtx/ktx-titlepage.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \CheckSum{0}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+%
+%
+% \subsection{Titlepage}
+% \label{sec:titlepage}
+%
+% The following part of the code sets up the title page. Currently,
+% title pages for bachelor's and master's theses are supported. There
+% are plans to extend this to PhD theses, too.
+%
+% \changes{v0.2.0}{2016/12/21}{Title page code added}
+%
+% \begin{macro}{report's title}
+%   For the report class, there are no modifications for a title page
+%   yet. Therefore, simply use the standard title page format with a
+%   nicely coloured title.
+%    \begin{macrocode}
+%<*report>
+\let\oldtitle\title
+\renewcommand*{\title}[1]{%
+  \oldtitle{\color{Venetian}#1}
+}
+%</report>
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{parameters}
+%   First, set up all commands and parameters that define the title
+%   page (such as author, title, alternative title, institute etc.).
+%    \begin{macrocode}
+%<*thesis>
+\RequirePackage{iflang}[2007/11/11]
+\RequirePackage[nodayofweek]{datetime}[2015/03/20]
+\newdateformat{ktx@dateformat@gb}{\THEDAY~\monthname[\THEMONTH]~\THEYEAR}
+\newdateformat{ktx@dateformat@de}{\THEDAY.~\monthname[\THEMONTH]~\THEYEAR}
+\def\ktx@tp@type{\empty}
+\IfEqCase*{\ktx@thesistype}{%
+  {bsc}{%
+    \IfLanguageName{ngerman}{%
+      \def\ktx@tp@type{Bachelorarbeit}}{%
+      \def\ktx@tp@type{Bachelor's thesis}}}%
+  {msc}{%
+    \IfLanguageName{ngerman}{%
+      \def\ktx@tp@type{Masterarbeit}}{%
+      \def\ktx@tp@type{Master's thesis}}}%
+  {none}{\relax}%
+}[\ktx@error{Unknown thesistype: "\ktx@thesistype"}{}]
+\def\ktx@tp@title{\ktx@error{%
+    No title is given for the thesis}{}}
+\def\ktx@tp@titlealt{\ktx@error{%
+    No alternative title is given for the thesis}{}}
+\def\ktx@tp@author{\ktx@error{%
+    No author is given for the thesis}{}}
+\def\ktx@tp@address{\ktx@error{%
+    No address is given for the thesis}{}}
+\def\ktx@tp@instaddress{\ktx@error{%
+    No institute address is given for the thesis}{}}
+\def\ktx@tp@institute{\ktx@error{%
+    No institute is given for the thesis}{}}
+\def\ktx@tp@firstref{\ktx@error{%
+    No first referee is given for the thesis}{}}
+\def\ktx@tp@secondref{\ktx@error{%
+    No second referee is given for the thesis}{}}
+\def\ktx@tp@addsupervisor{\empty}
+\def\ktx@tp@thesisnumber{\empty}
+\def\ktx@tp@begindate@dd{01}
+\def\ktx@tp@begindate@mm{01}
+\def\ktx@tp@begindate@yyyy{2000}
+\def\ktx@tp@enddate@dd{31}
+\def\ktx@tp@enddate@mm{12}
+\def\ktx@tp@enddate@yyyy{2000}
+\newcommand{\ktxTitle}[1]{\def\ktx@tp@title{#1}}
+\newcommand{\ktxTitleAlt}[1]{\def\ktx@tp@titlealt{#1}}
+\newcommand{\ktxAuthor}[1]{\def\ktx@tp@author{#1}}
+\newcommand{\ktxAddress}[1]{\def\ktx@tp@address{#1}}
+\newcommand{\ktxInstituteAddress}[1]{\def\ktx@tp@instaddress{#1}}
+\newcommand{\ktxInstitute}[1]{\def\ktx@tp@institute{#1}}
+\newcommand{\ktxReferees}[2]{\def\ktx@tp@firstref{#1}\def\ktx@tp@secondref{#2}}
+\newcommand{\ktxSupervisor}[1]{\def\ktx@tp@addsupervisor{#1}}
+\newcommand{\ktxThesisNumber}[1]{\def\ktx@tp@thesisnumber{#1}}
+\newcommand{\ktxBeginDate}[3]{%
+  \def\ktx@tp@begindate@dd{#1}%
+  \def\ktx@tp@begindate@mm{#2}%
+  \def\ktx@tp@begindate@yyyy{#3}}
+\newcommand{\ktxEndDate}[3]{%
+  \def\ktx@tp@enddate@dd{#1}%
+  \def\ktx@tp@enddate@mm{#2}%
+  \def\ktx@tp@enddate@yyyy{#3}}
+%</thesis>
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{logos}
+%   Set up a title head that includes logos of the university and the
+%   institute of the author.
+%    \begin{macrocode}
+%<*thesis>
+\newcommand{\ktx@tp@logoerror}{\ktx@error{Logo files not found}{}}
+\def\ktx@tp@leftlogo{\ktx@tp@logoerror}
+\def\ktx@tp@rightlogo{\ktx@tp@logoerror}
+\IfFileExists{figures/logo_university.eps}%
+{\IfFileExists{figures/logo_university.pdf}%
+  {\renewcommand{\ktx@tp@leftlogo}%
+    {\includegraphics[height=1.5cm]{figures/logo_university}}}{}}{}%
+\IfFileExists{figures/logo_institute.eps}%
+{\IfFileExists{figures/logo_institute.pdf}%
+  {\renewcommand{\ktx@tp@rightlogo}%
+    {\includegraphics[height=1.5cm]{figures/logo_institute}}}{}}{}%
+%</thesis>
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{margins and fonts}
+%   Set the desired margins and font styles for the title page
+%   elements.
+%    \begin{macrocode}
+%<*thesis>
+\renewcommand{\coverpagetopmargin}{1in}
+\renewcommand{\coverpagebottommargin}{1in}
+\renewcommand{\coverpageleftmargin}{1in}
+\renewcommand{\coverpagerightmargin}{1in}
+\setkomafont{titlehead}{}
+\setkomafont{title}{\rmfamily\bfseries\LARGE}
+\setkomafont{subject}{\rmfamily\bfseries\Large}
+\setkomafont{author}{}
+\setkomafont{publishers}{}
+%</thesis>
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{definition}
+%   Now define the actual content of the title page.
+%    \begin{macrocode}
+%<*thesis>
+\titlehead{\ktx@tp@leftlogo\hfill\ktx@tp@rightlogo\vspace*{3em minus 2em}}
+\subject{\ktx@tp@type}
+\author{%
+  \IfLanguageName{ngerman}{%
+    angefertigt von\\[3mm]
+    \textbf{\large \ktx@tp@author}\\[3mm]
+    aus \ktx@tp@address\\[5mm]
+    am \ktx@tp@institute
+    \vspace*{10mm}}{%
+    prepared by\\[3mm]
+    \textbf{\large \ktx@tp@author}\\[3mm]
+    from \ktx@tp@address\\[5mm]
+    at the \ktx@tp@institute
+    \vspace*{10mm}}
+}
+\title{\vspace*{0pt minus 1.0em}\ktx@tp@title\vskip 0pt%
+  \vspace*{2em minus 1.0em}\ktx@tp@titlealt\vskip 0pt%
+  \vspace*{1em minus 1.5em}}
+\publishers{%
+\newdate{begindate}{\ktx@tp@begindate@dd}{\ktx@tp@begindate@mm}{\ktx@tp@begindate@yyyy}%
+\newdate{enddate}{\ktx@tp@enddate@dd}{\ktx@tp@enddate@mm}{\ktx@tp@enddate@yyyy}
+\vfill
+\begin{tabular}[t]{p{0.24\linewidth}p{0.76\textwidth-4\tabcolsep}}
+  \IfLanguageName{ngerman}{%
+  \ifdefstring{\ktx@tp@thesisnumber}{\empty}{}{%
+  \bfseries Arbeitsnummer:&\begin{minipage}[t]%
+    {0.76\textwidth-4\tabcolsep}
+    \ktx@tp@thesisnumber\end{minipage}\\[3mm]
+  }
+  \bfseries Bearbeitungszeit:&\begin{minipage}[t]%
+    {0.76\textwidth-4\tabcolsep}
+    \ktx@dateformat@de\displaydate{begindate}
+    bis \displaydate{enddate}\end{minipage}\\[3mm]
+  \bfseries Erstgutachter/in:&\begin{minipage}[t]%
+    {0.76\textwidth-4\tabcolsep}
+    \ktx@tp@firstref\end{minipage}\\[3mm]
+  \bfseries Zweitgutachter/in:&\begin{minipage}[t]%
+    {0.76\textwidth-4\tabcolsep}%
+    \ktx@tp@secondref\end{minipage}\\
+  }{%
+  \ifdefstring{\ktx@tp@thesisnumber}{\empty}{}{%
+  \bfseries Thesis number:&\begin{minipage}[t]%
+    {0.76\textwidth-4\tabcolsep}
+    \ktx@tp@thesisnumber\end{minipage}\\[3mm]
+  }
+  \bfseries Thesis period:&\begin{minipage}[t]%
+    {0.76\textwidth-4\tabcolsep}
+    \ktx@dateformat@gb\displaydate{begindate}
+    until \displaydate{enddate}\end{minipage}\\[3mm]
+  \ifdefstring{\ktx@tp@addsupervisor}{\empty}{}{%
+  \bfseries Supervisor:&\begin{minipage}[t]%
+    {0.76\textwidth-4\tabcolsep}
+    \ktx@tp@addsupervisor\end{minipage}\\[3mm]
+  }
+  \bfseries First referee:&\begin{minipage}[t]%
+    {0.76\textwidth-4\tabcolsep}
+    \ktx@tp@firstref\end{minipage}\\[3mm]
+  \bfseries Second referee:&\begin{minipage}[t]%
+    {0.76\textwidth-4\tabcolsep}
+    \ktx@tp@secondref\end{minipage}\\
+  }
+\end{tabular}
+\vskip -3em
+}
+\let\@date\empty
+%</thesis>
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{user safety}
+%   Make sure that the user cannot change the internal variables that
+%   set the title page elements.
+%    \begin{macrocode}
+%<*thesis>
+\renewcommand{\date}[1]{\empty}
+\renewcommand{\publishers}[1]{\empty}
+\renewcommand{\subject}[1]{\empty}
+\renewcommand{\author}[1]{\empty}
+\renewcommand{\title}[1]{\empty}
+\renewcommand{\thanks}[1]{\empty}
+%</thesis>
+%    \end{macrocode}
+% \end{macro}
+%

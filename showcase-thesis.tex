@@ -1,15 +1,27 @@
 %% Hauptdatei
 
-\documentclass[font=minion,BCOR=4mm,english,%
+\documentclass[font=minion,BCOR=4mm,%
+               ngerman,english,%        % languages (secondary, main)
                % draft,%                % activate for full draft features
                % lightdraft,%           % activate for watermarks
+               thesistype=msc,%
                ]{ktxthss}
 
 \usepackage{blindtext}
 \usepackage{layout}
 
-\author{Knut Zoch}
-\title{LaTeX Style Sample}
+\ktxTitle{Official Title of the Thesis\\in the Main Language\\of the Document}
+\ktxTitleAlt{Official Title of the Thesis\\in an Alternative Language}
+\ktxAuthor{Author Name}
+\ktxAddress{Home Town}
+\ktxInstitute{Glorious Institute}
+\ktxInstituteAddress{Institute Town}
+\ktxSupervisor{Priv.-Doz.\,Dr.\,Additional Supervisor}
+\ktxReferees{Prof.\,Dr.\,First Referee}{Prof.\,Dr.\,Second Referee}
+\ktxThesisNumber{Institute/Year-Thesis0042}
+\ktxBeginDate{01}{01}{1995}
+\ktxEndDate{04}{07}{2012}
+
 \bibliography{aux/bibliography}
 \input{aux/abbreviations}
 
@@ -24,11 +36,24 @@
 \thispagestyle{empty}
 \cleardoublepage
 
+\begin{abstractpage}[1.0]
+  \begin{abstract}{english}{Abstract}
+    \Blindtext[2]
+  \end{abstract}
+
+  \begin{abstract}{ngerman}{Zusammenfassung}
+    \Blindtext[1]
+  \end{abstract}
+\end{abstractpage}
+
 \tableofcontents
 \thispagestyle{plain}
 \cleardoublepage
 
 \mainmatter
-\Blinddocument[5]
+\Blinddocument
+
+\ktxDeclaration{english}{\S42(1) of the B.Sc. examination rules of my
+  subject at my glorious institute/university}
 
 \end{document}

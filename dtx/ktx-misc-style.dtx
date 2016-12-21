@@ -1,7 +1,7 @@
 % \iffalse meta-comment
 %
 % ktx-misc-style.dtx
-% Copyright 2016 K. Zoch <github.com/knutzk>
+% Copyright 2016 Knut Zoch <github.com/knutzk>
 %
 % This work may be distributed and/or modified under the conditions of
 % the LaTeX Project Public License, either version 1.3 of this license
@@ -12,26 +12,26 @@
 %
 % This work has the LPPL maintenance status `maintained'.
 %
-% The Current Maintainer of this work is K. Zoch.
+% The Current Maintainer of this work is Knut Zoch.
 %
 % This work consists of the files kTheTex-bundle.dtx,
 % kTheTex-bundle.ins, dtx/ktx-base.dtx, dtx/ktx-bibliography.dtx,
 % dtx/ktx-debug.dtx, dtx/ktx-drafting.dtx, dtx/ktx-floats.dtx,
 % dtx/ktx-font.dtx, dtx/ktx-headfoot.dtx, dtx/ktx-headings.dtx,
-% dtx/ktx-misc-style.dtx, dtx/ktx-references.dtx, dtx/ktx-toc.dtx as
-% well as the derived files ktxbbltx.sty, ktxreprt.cls and
-% ktxthss.cls.
+% dtx/ktx-misc-style.dtx, dtx/ktx-references.dtx,
+% dtx/ktx-titlepage.dtx, dtx/ktx-toc.dtx as well as the derived files
+% ktxbbltx.sty, ktxreprt.cls and ktxthss.cls.
 %
 % \fi
 %
 % \iffalse
 %<*driver>
 \ProvidesFile{dtx/ktx-misc-style.dtx}
-[2016/04/18 v0.1.0 ktx-misc-style]
+[2016/12/21 v0.2.0 ktx-misc-style]
 %</driver>
 %<*package>
 \ProvidesPackage{ktxbbltx}
-[2016/04/18 v0.1.0 kTheTex-bundle -- ktxbbltx package]
+[2016/12/21 v0.2.0 kTheTex-bundle -- ktxbbltx package]
 %</package>
 %
 %<*driver>
@@ -45,7 +45,7 @@
 \title{The \textsf{kTheTex-bundle} file
   \textsf{ktx-misc-style.dtx}\thanks{This document corresponds to
     \textsf{ktx-misc-style.dtx}~\fileversion, dated \filedate.}}
-\author{K. Zoch \\ \texttt{github.com/knutzk}} %
+\author{Knut Zoch \\ \texttt{github.com/knutzk}} %
 \begin{document}
 \maketitle
 \DocInput{dtx/ktx-misc-style.dtx}
@@ -76,7 +76,6 @@
 % \subsection{Miscellaneous Page Style}
 % \label{sec:misc-page-style}
 %
-% \begin{macro}{pagelayout}
 %   This section fixes the page layout completely. The base class was
 %   called with DIV=9, i.e. the available space (horizontally and
 %   vertically) is divided in 9x9 equal sections. Six out of nine
@@ -88,24 +87,62 @@
 %   usually. Consider the following calculation: One A4 page measures
 %   a width of 210mm, i.e. the text is spread over 140mm. Now multiply
 %   this value with the golden section for a nice text height. The
-%   height then is 226.5mm or 595pt (1mm = 2.845pt). With a leading of
-%   14pt, this equals 42 lines (-2pt because last line does not need
-%   leading).
+%   height then is 226.5mm or 644.5pt (1mm = 2.845pt). Subtracting
+%   about 30pt for the header which should be included in these
+%   calculations, there are 614.5pt left for the main text. With a
+%   leading of 14pt, 44 lines therefore is a good length. This yields
+%   a text height of 613pt which is close to the ideal value (616
+%   minus 3 because the last line does not need leading).
 %
 %   The top margin is modified as well: Set it to be the same as the
-%   inner margin. This corresponds to 1/6 of the text width (1in is
-%   the Latex standard offset).
+%   inner margin. This corresponds to roughly 59.5pt (1in is the Latex
+%   standard offset).
 %
 %   Skips between paragraphs are set to 0pt (with no variable space).
 %   A more relaxed option would be:
 %   |\setlength{\parskip}{0pt plus 0.3\baselineskip}|.
 %
+%   \changes{v0.2.0}{2016/12/21}{Refined page layout calculation}
+%
 %    \begin{macrocode}
 \RequirePackage{leading}
 \leading{14pt}
-\setlength{\textheight}{42\baselineskip-2pt}
-\setlength{\topmargin}{0.16666\textwidth-1in}
+\setlength{\topmargin}{59.5pt-1in}
+\setlength{\textheight}{613pt}
 \setlength{\parskip}{0pt}
+%    \end{macrocode}
+%
+% \begin{macro}{format}
+%   The calculation of the text width and height as described above
+%   follows recommendations from typography and guarantees an optimal
+%   text spread. One of the most important aspects in this case is the
+%   readibility of lines, i.e. the line length should (on average) not
+%   exceed a certain number of characters.
+%
+%   Besides, the layout uses both the very classical division of the
+%   page into 9x9 fields as well as the golden section for text width
+%   and height. However, this class also provides modifications of
+%   these settings with the |format| option.
+%
+%   The option |format=enlarge| increases the text spread over the
+%   page while switching to a font size of 12pt (in the standard
+%   setting the size is 11pt). To maintain optimal readability, the
+%   page is divided to 10x10 fields instead, 7 of which are used for
+%   the main text. Again, the text height is calculated following the
+%   golden section. The leading is extended to 16.15pt which allows 40
+%   lines of text in the given text height of 642pt.
+%
+%   \changes{v0.2.0}{2016/12/21}{Class option 'format' added}
+%
+%    \begin{macrocode}
+\IfEqCase*{\ktx@format}{%
+  {standard}{\relax}%
+  {enlarge}{%
+    \KOMAoptions{fontsize=12pt, DIV=10}
+    \leading{16.15pt}
+    \setlength{\topmargin}{49pt-1in}
+    \setlength{\textheight}{642pt}}%
+}[\ktx@error{Unknown format: "\ktx@format"}{}]
 %    \end{macrocode}
 % \end{macro}
 %
@@ -133,10 +170,6 @@
 \definecolor{Venetian}{cmyk}{0, 0.95, 0.85, 0.30}
 \definecolor{Lime}{cmyk}{0.85, 0, 0.75, 0.25}
 \definecolor{Dodger}{cmyk}{1, 0.40, 0, 0.10}
-\let\oldtitle\title
-\renewcommand*{\title}[1]{%
-  \oldtitle{\color{Venetian}#1}
-}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -181,7 +214,7 @@
 %   all-caps and small-caps.
 %
 %    \begin{macrocode}
-\@ifpackageloaded{microtype}{
+\@ifpackageloaded{microtype}{%
   \relax
 }{%
   \RequirePackage{letterspace}}
@@ -311,4 +344,100 @@
 % \item Change separator (e.g. ".", "/") via |\renewcommand{\dateseparator}{xxx}|
 % \end{itemize}
 %
-
+%
+%
+% \subsection{Abstracts}
+% \label{sec:abstract}
+%
+% \begin{macro}{abstract}
+% Depending on the type of document, there should also be an abstract
+% just after the title. The following code introduces a dedicated
+% environment that can be used to set abstracts.
+%
+% \changes{v0.2.0}{2016/12/21}{abstract and abstractpage environments added}
+%
+%    \begin{macrocode}
+%<*thesis>
+\newenvironment{abstractpage}[1][1.0]{%
+  \begin{samepage}%
+  \thispagestyle{plain}%
+  \vspace*{1em minus 1em}%
+  \begin{center}\begin{minipage}{#1\linewidth}}{%
+  \end{minipage}\end{center}%
+  \vspace*{0pt minus 2em}%
+  \end{samepage}
+  \cleardoublepage}
+\newenvironment{abstract}[2]{%
+  \addsec*{#2}\begin{otherlanguage}{#1}}{%
+  \end{otherlanguage}%
+  \vspace*{2em}%
+}
+%</thesis>
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+%
+% \subsection{Declaration}
+% \label{sec:declaration}
+%
+% At the end of a thesis, there should also be a declaration. The
+% following code allows to set such a declaration at the end of the
+% thesis document.
+%
+% \changes{v0.2.0}{2016/12/21}{Declaration command added}
+%
+%    \begin{macrocode}
+%<*thesis>
+\newcommand{\ktxDeclaration}[2]{%
+\newdate{enddate}{\ktx@tp@enddate@dd}{\ktx@tp@enddate@mm}{\ktx@tp@enddate@yyyy}
+  \AtEndDocument{%
+    \begin{otherlanguage}{#1}
+    \clearpage\thispagestyle{empty}
+    \null\vfill\noindent
+    \begin{minipage}[t]{0.225\textwidth}
+      \hspace*{1em}\bfseries\large%
+      \IfLanguageName{ngerman}{%
+        Erkl{\"a}rung%
+      }{%
+        Declaration%
+      }
+    \end{minipage}%
+    \begin{minipage}[t]{0.775\textwidth}%
+      \IfLanguageName{ngerman}{%
+        nach #2:\\[1em]
+        Hiermit erkl{\"a}re ich, dass ich diese Abschlussarbeit selbst{\"a}ndig
+        verfasst habe, keine anderen als die angegebenen Quellen und Hilfsmittel
+        benutzt habe und alle Stellen, die w{\"o}rtlich oder sinngem{\"a}\ss{}
+        aus ver{\"o}ffentlichten Schriften entnommen wurden, als solche
+        kenntlich gemacht habe.\par
+        Dar{\"u}berhinaus erkl{\"a}re ich, dass diese Abschlussarbeit nicht,
+        auch nicht auszugsweise, im Rahmen einer nichtbestandenen Pr{\"u}fung
+        an dieser oder einer anderen Hochschule eingereicht wurde.\\[1em]
+        \begin{center}\ktx@tp@instaddress, den \displaydate{enddate}\end{center}
+      }{%
+        according to #2:\\[1em]
+        This dissertation is the result of my own work and includes nothing
+        which is the outcome of work done in collaboration except as declared in
+        the Preface and specified in the text.\par
+        It is not substantially the same as any that I have submitted, or, is
+        being concurrently submitted for a degree or diploma or other
+        qualification at this or any other University or similar institution
+        except as declared in the Preface and specified in the text. I further
+        state that no substantial part of my dissertation has already been
+        submitted, or, is being concurrently submitted for any such degree,
+        diploma or other qualification at this or any other University or
+        similar institution except as declared in the Preface and specified in
+        the text.\\[1em]
+        \begin{center}\ktx@tp@instaddress, \displaydate{enddate}\end{center}
+      }%
+      \vspace*{1.5cm}
+      \begin{center}(\ktx@tp@author)\end{center}%
+      \vspace*{1\baselineskip}%
+    \end{minipage}%
+    \end{otherlanguage}
+}}
+%</thesis>
+%    \end{macrocode}
+%

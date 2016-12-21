@@ -58,7 +58,7 @@ $ pdflatex kTheTex-bundle.dtx
 Although still on a very early stage, there are showcase files for the
 classes `ktxreprt` and `ktxthss`. The code includes the `.tex` file
 for both showcases, a compiled version is included in every release on
-the [relase page](releases/). To compile them yourself, call
+the [release page](releases/). To compile them yourself, call
 
 ```
 $ pdflatex showcase-report.tex

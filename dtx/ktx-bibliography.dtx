@@ -148,6 +148,9 @@
 %   text and don't list more than three authors in the
 %   bibliography. Display only the initials of their first names. And
 %   hide all DOI, URL and ISBN fields.
+%
+%   \changes{v0.2.0}{2016/12/21}{Changed maxcitenames from 3 to 2}
+%
 %    \begin{macrocode}
 %<*report|thesis>
 \ifthenelse{\boolean{ktx@biblatex}}{%
@@ -310,6 +313,8 @@
 %   whether the option |web| is set (or the complementary option
 %   |print|). For printing, clear the eprint field. If this code is a
 %   stand-alone package, check for option |eprint|.
+%
+%   \changes{v0.2.0}{2016/12/21}{Fixed bug with eprints}
 %
 %    \begin{macrocode}
 %<report|thesis>\ifthenelse{\boolean{ktx@web}}{%

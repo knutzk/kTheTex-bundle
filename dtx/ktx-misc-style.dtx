@@ -102,6 +102,8 @@
 %   A more relaxed option would be:
 %   |\setlength{\parskip}{0pt plus 0.3\baselineskip}|.
 %
+%   \changes{v0.2.0}{2016/12/21}{Refined page layout calculation}
+%
 %    \begin{macrocode}
 \RequirePackage{leading}
 \leading{14pt}
@@ -129,6 +131,9 @@
 %   the main text. Again, the text height is calculated following the
 %   golden section. The leading is extended to 16.15pt which allows 40
 %   lines of text in the given text height of 642pt.
+%
+%   \changes{v0.2.0}{2016/12/21}{Class option 'format' added}
+%
 %    \begin{macrocode}
 \IfEqCase*{\ktx@format}{%
   {standard}{\relax}%
@@ -348,6 +353,9 @@
 % Depending on the type of document, there should also be an abstract
 % just after the title. The following code introduces a dedicated
 % environment that can be used to set abstracts.
+%
+% \changes{v0.2.0}{2016/12/21}{abstract and abstractpage environments added}
+%
 %    \begin{macrocode}
 %<*thesis>
 \newenvironment{abstractpage}[1][1.0]{%
@@ -377,6 +385,9 @@
 % At the end of a thesis, there should also be a declaration. The
 % following code allows to set such a declaration at the end of the
 % thesis document.
+%
+% \changes{v0.2.0}{2016/12/21}{Declaration command added}
+%
 %    \begin{macrocode}
 %<*thesis>
 \newcommand{\ktxDeclaration}[2]{%

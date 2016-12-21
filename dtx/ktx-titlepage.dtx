@@ -199,20 +199,24 @@
 %   Now define the actual content of the title page.
 %    \begin{macrocode}
 %<*thesis>
-\titlehead{\ktx@tp@leftlogo\hfill\ktx@tp@rightlogo\vspace{5em}}
+\titlehead{\ktx@tp@leftlogo\hfill\ktx@tp@rightlogo\vspace*{3em minus 2em}}
 \subject{\ktx@tp@type}
 \author{%
   \IfLanguageName{ngerman}{%
     angefertigt von\\[3mm]
     \textbf{\large \ktx@tp@author}\\[3mm]
     aus \ktx@tp@address\\[5mm]
-    am \ktx@tp@institute}{%
+    am \ktx@tp@institute
+    \vspace*{10mm}}{%
     prepared by\\[3mm]
     \textbf{\large \ktx@tp@author}\\[3mm]
     from \ktx@tp@address\\[5mm]
-    at the \ktx@tp@institute}
+    at the \ktx@tp@institute
+    \vspace*{10mm}}
 }
-\title{\ktx@tp@title\vskip 2em\ktx@tp@titlealt\vskip 1em}
+\title{\vspace*{0pt minus 1.0em}\ktx@tp@title\vskip 0pt%
+  \vspace*{2em minus 1.0em}\ktx@tp@titlealt\vskip 0pt%
+  \vspace*{1em minus 1.5em}}
 \publishers{%
 \newdate{begindate}{\ktx@tp@begindate@dd}{\ktx@tp@begindate@mm}{\ktx@tp@begindate@yyyy}%
 \newdate{enddate}{\ktx@tp@enddate@dd}{\ktx@tp@enddate@mm}{\ktx@tp@enddate@yyyy}
@@ -222,14 +226,14 @@
   \ifdefstring{\ktx@tp@thesisnumber}{\empty}{}{%
   \bfseries Arbeitsnummer:&\begin{minipage}[t]%
     {0.76\textwidth-4\tabcolsep}
-    \ktx@tp@thesisnumber\end{minipage}\\&\\
+    \ktx@tp@thesisnumber\end{minipage}\\[3mm]
   }
   \bfseries Bearbeitungszeit:&\begin{minipage}[t]%
     {0.76\textwidth-4\tabcolsep}
-    \ktx@dateformat@de\displaydate{begindate} bis \displaydate{enddate}\end{minipage}\\&\\
+    \ktx@dateformat@de\displaydate{begindate} bis \displaydate{enddate}\end{minipage}\\[3mm]
   \bfseries Erstgutachter/in:&\begin{minipage}[t]%
     {0.76\textwidth-4\tabcolsep}
-    \ktx@tp@firstref\end{minipage}\\&\\
+    \ktx@tp@firstref\end{minipage}\\[3mm]
   \bfseries Zweitgutachter/in:&\begin{minipage}[t]%
     {0.76\textwidth-4\tabcolsep}%
     \ktx@tp@secondref\end{minipage}\\
@@ -237,19 +241,19 @@
   \ifdefstring{\ktx@tp@thesisnumber}{\empty}{}{%
   \bfseries Thesis number:&\begin{minipage}[t]%
     {0.76\textwidth-4\tabcolsep}
-    \ktx@tp@thesisnumber\end{minipage}\\&\\
+    \ktx@tp@thesisnumber\end{minipage}\\[3mm]
   }
   \bfseries Thesis period:&\begin{minipage}[t]%
     {0.76\textwidth-4\tabcolsep}
-    \ktx@dateformat@gb\displaydate{begindate} until \displaydate{enddate}\end{minipage}\\&\\
+    \ktx@dateformat@gb\displaydate{begindate} until \displaydate{enddate}\end{minipage}\\[3mm]
   \ifdefstring{\ktx@tp@addsupervisor}{\empty}{}{%
   \bfseries Supervisor:&\begin{minipage}[t]%
     {0.76\textwidth-4\tabcolsep}
-    \ktx@tp@addsupervisor\end{minipage}\\&\\
+    \ktx@tp@addsupervisor\end{minipage}\\[3mm]
   }
   \bfseries First referee:&\begin{minipage}[t]%
     {0.76\textwidth-4\tabcolsep}
-    \ktx@tp@firstref\end{minipage}\\&\\
+    \ktx@tp@firstref\end{minipage}\\[3mm]
   \bfseries Second referee:&\begin{minipage}[t]%
     {0.76\textwidth-4\tabcolsep}
     \ktx@tp@secondref\end{minipage}\\

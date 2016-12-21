@@ -129,6 +129,7 @@
 \def\ktx@tp@secondref{\ktx@error{%
     No second referee is given for the thesis}{}}
 \def\ktx@tp@addsupervisor{\empty}
+\def\ktx@tp@thesisnumber{\empty}
 \def\ktx@tp@begindate@dd{01}
 \def\ktx@tp@begindate@mm{01}
 \def\ktx@tp@begindate@yyyy{2000}
@@ -143,6 +144,7 @@
 \newcommand{\ktxInstitute}[1]{\def\ktx@tp@institute{#1}}
 \newcommand{\ktxReferees}[2]{\def\ktx@tp@firstref{#1}\def\ktx@tp@secondref{#2}}
 \newcommand{\ktxSupervisor}[1]{\def\ktx@tp@addsupervisor{#1}}
+\newcommand{\ktxThesisNumber}[1]{\def\ktx@tp@thesisnumber{#1}}
 \newcommand{\ktxBeginDate}[3]{%
   \def\ktx@tp@begindate@dd{#1}%
   \def\ktx@tp@begindate@mm{#2}%
@@ -217,9 +219,11 @@
 \vfill
 \begin{tabular}[t]{p{0.24\linewidth}p{0.76\textwidth-4\tabcolsep}}
   \IfLanguageName{ngerman}{%
+  \ifdefstring{\ktx@tp@thesisnumber}{\empty}{}{%
   \bfseries Arbeitsnummer:&\begin{minipage}[t]%
     {0.76\textwidth-4\tabcolsep}
-    II.Physik-UniGö-MSc-2016/001\end{minipage}\\&\\
+    \ktx@tp@thesisnumber\end{minipage}\\&\\
+  }
   \bfseries Bearbeitungszeit:&\begin{minipage}[t]%
     {0.76\textwidth-4\tabcolsep}
     \ktx@dateformat@de\displaydate{begindate} bis \displaydate{enddate}\end{minipage}\\&\\
@@ -230,9 +234,11 @@
     {0.76\textwidth-4\tabcolsep}%
     \ktx@tp@secondref\end{minipage}\\
   }{%
+  \ifdefstring{\ktx@tp@thesisnumber}{\empty}{}{%
   \bfseries Thesis number:&\begin{minipage}[t]%
     {0.76\textwidth-4\tabcolsep}
-    II.Physik-UniGö-MSc-2016/001\end{minipage}\\&\\
+    \ktx@tp@thesisnumber\end{minipage}\\&\\
+  }
   \bfseries Thesis period:&\begin{minipage}[t]%
     {0.76\textwidth-4\tabcolsep}
     \ktx@dateformat@gb\displaydate{begindate} until \displaydate{enddate}\end{minipage}\\&\\

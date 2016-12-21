@@ -79,7 +79,8 @@ code which is painful to work with.
 
 ## To Do List
 
-A to-do list is included in the documentation that can be generated
-with the `kTheTex-bundle.dtx` file. If you have anything that should
-be added to these templates -- suggestions for improvement or bug
-reports -- please contact the package author or submit a pull request.
+A list of open issues can be found on the [github pages](issues/). If
+you have anything that should be added to these templates, suggestions
+for improvement or bug fixes, you should check the list of open issues
+first. If you can't find anything related there, feel free to open a
+new issue yourself -- or submit a pull request, of course. :>

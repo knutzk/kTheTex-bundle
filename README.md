@@ -37,9 +37,9 @@ $ latex kTheThex-bundle.ins
 ```
 Then copy the output files to the base folder of your
 project. Currently, the output files consist of:
-- `ktxreprt.cls` -- a class to write reports
-- `ktxthss.cls` -- a class to write theses
-- `ktxbbltx.sty` -- a package for bibliography formatting (the
+- `ktxreprt.cls` – a class to write reports
+- `ktxthss.cls` – a class to write theses
+- `ktxbbltx.sty` – a package for bibliography formatting (the
   functionality is included in the classes well, but this package can
   then also be used as a stand-alone for other templates)
 
@@ -74,7 +74,7 @@ as stable releases 2.0 and 1.0 since summer 2012, respectively. If you
 haven't switched to Biblatex in your projects, you should consider it!
 The main reason for this package to use Biblatex is the fact that its
 style files are written in LaTeX code and are therefore much easier to
-read, to understand and to adjust -- compared to files based on BibTeX
+read, to understand and to adjust – compared to files based on BibTeX
 code which is cumbersome to work with.
 
 
@@ -85,4 +85,4 @@ A list of open issues can be found on the
 you have anything that should be added to these templates, suggestions
 for improvement or bug fixes, you should check the list of open issues
 first. If you can't find anything related there, feel free to open a
-new issue yourself -- or submit a pull request, of course. :>
+new issue yourself – or submit a pull request, of course. :>

@@ -28,9 +28,9 @@ There are still some points to be crossed from the to-do list, before
 everything goes to a stable v1.0 release. If you are interested to try
 the current code, simply download it!
 
-The bundle is based on the docstrip utility, combing both
-documentation and code in the same files. To get the the class and
-package files, run LaTeX on the script `kTheTex-bundle.ins` by calling
+The bundle is based on the docstrip utility, combining both
+documentation and code in the same files. To get the class and package
+files, run LaTeX on the script `kTheTex-bundle.ins` by calling
 
 ```
 $ latex kTheThex-bundle.ins

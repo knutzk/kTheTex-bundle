@@ -1,4 +1,4 @@
-# kTheTex-bundle
+# The k-Thesis-Latex bundle (kTheTex)
 
 The kTheTex bundle is a collection of classes and packages to write
 reports, theses etc. in LaTeX. The intention is to provide
@@ -18,8 +18,7 @@ contributing yourself!
 
 ## Is there a stable release?
 
-Yes, there is. Although this bundle is still on a beta stage in terms
-of its development, the
+Yes, there is. Although this bundle is in constant development, the
 [latest release](https://github.com/knutzk/kTheTex-bundle/releases/latest)
 can always be found on the
 [release page](https://github.com/knutzk/kTheTex-bundle/releases/) of
@@ -55,7 +54,7 @@ $ pdflatex kTheTex-bundle.dtx
 
 ## But how do those templates look like?
 
-Although still on a very early stage, there are showcase files for the
+Although still in development, there are showcase files for the
 classes `ktxreprt` and `ktxthss`. The code includes the `.tex` file
 for both showcases, a compiled version is included in every release on
 the
@@ -76,7 +75,7 @@ haven't switched to Biblatex in your projects, you should consider it!
 The main reason for this package to use Biblatex is the fact that its
 style files are written in LaTeX code and are therefore much easier to
 read, to understand and to adjust -- compared to files based on BibTeX
-code which is painful to work with.
+code which is cumbersome to work with.
 
 
 ## To-Do List

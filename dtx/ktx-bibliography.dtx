@@ -325,6 +325,8 @@
   \AtEveryBibitem{%
     \ifentrytype{article}{%
       \iffieldundef{journaltitle}{%
+        \relax
+      }{%
         \clearfield{eprint}
       }
     }{}

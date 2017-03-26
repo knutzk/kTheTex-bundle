@@ -13,4 +13,4 @@ script:
   - docker exec -i cont latex --version
   - docker exec -i cont ls -R
   - docker exec -i cont latex kTheTex-bundle.ins
-  - docker exec -i cont latexmk -pdf showcase-thesis.tex
+  - docker exec -i cont latexmk -bibtex- -pdf showcase-thesis.tex

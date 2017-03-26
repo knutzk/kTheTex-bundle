@@ -1,4 +1,4 @@
-# The k-Thesis-Latex bundle (kTheTex)
+# The k-Thesis-Latex bundle (kTheTex) [![Build Status](https://travis-ci.org/knutzk/kTheTex-bundle.svg?branch=develop)](https://travis-ci.org/knutzk/kTheTex-bundle)
 
 The kTheTex bundle is a collection of classes and packages to write
 reports, theses etc. in LaTeX. The intention is to provide

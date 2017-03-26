@@ -1,14 +1,15 @@
-%% Hauptdatei
+%% Main file
 
-\documentclass[font=minion,BCOR=4mm,%
+\documentclass[font=kpfonts,%
+               BCOR=4mm,%
                ngerman,english,%        % languages (secondary, main)
                % draft,%                % activate for full draft features
                % lightdraft,%           % activate for watermarks
-               thesistype=msc,%
+               thesistype=bsc,%
+               format=enlarge,%
                ]{ktxthss}
 
 \usepackage{blindtext}
-\usepackage{layout}
 
 \ktxTitle{Official Title of the Thesis\\in the Main Language\\of the Document}
 \ktxTitleAlt{Official Title of the Thesis\\in an Alternative Language}
@@ -22,8 +23,8 @@
 \ktxBeginDate{01}{01}{1995}
 \ktxEndDate{04}{07}{2012}
 
-\bibliography{aux/bibliography}
-\input{aux/abbreviations}
+% \bibliography{aux/bibliography}
+% \input{aux/abbreviations}
 
 
 %  B E G I N N I N G   O F   D O C U M E N T

@@ -304,6 +304,10 @@
 %   completely. |\renewcommand*\thesection{\arabic{section}}|
 %    \begin{macrocode}
 %<*report>
+\renewcommand*\thesection{\arabic{section}}
+\let\chapter\section
+\let\section\subsection
+\let\subsection\subsubsection
 \numberwithin{equation}{section}
 \numberwithin{table}{section}
 \numberwithin{figure}{section}

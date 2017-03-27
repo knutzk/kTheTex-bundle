@@ -127,12 +127,16 @@
     \setkomafont{paragraph}{\textsc}%
     \addtokomafont{pagehead}{\small}%
     \RedeclareSectionCommand[%
-       beforeskip=-1\baselineskip plus 0.3\baselineskip,%
+       beforeskip=-1\baselineskip,%
+       afterskip=1\baselineskip,%
+       ]{chapter}
+    \RedeclareSectionCommand[%
+       beforeskip=-16.37pt,%
        afterskip=1\baselineskip,%
        ]{section}
     \RedeclareSectionCommand[%
        beforeskip=-1\baselineskip,%
-       afterskip=1\baselineskip plus 0.3\baselineskip,%
+       afterskip=1\baselineskip,%
        ]{subsection}
     \RedeclareSectionCommand[%
        beforeskip=-1\baselineskip,%

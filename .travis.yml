@@ -1,0 +1,16 @@
+language: generic
+
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker pull harshjv/texlive-2015
+  - docker run -i -d --name cont -v `pwd`:/temp -w /temp harshjv/texlive-2015 /bin/bash
+  
+script:
+  - docker exec -i cont latex --version
+  - docker exec -i cont ls -R
+  - docker exec -i cont latex kTheTex-bundle.ins
+  - docker exec -i cont latexmk -bibtex- -pdf showcase-thesis.tex

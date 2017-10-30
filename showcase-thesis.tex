@@ -1,14 +1,17 @@
-%% Hauptdatei
+%% Main file
 
-\documentclass[font=minion,BCOR=4mm,%
+\documentclass[font=kpfonts,%           % different font if desired (options:
+                                        % kpfonts, charter, mathpazo, minion
+                                        % and "false" (i.e. Latex standard))
+               BCOR=4mm,%               % binding correction, adjust if needed
                ngerman,english,%        % languages (secondary, main)
                % draft,%                % activate for full draft features
                % lightdraft,%           % activate for watermarks
-               thesistype=msc,%
+               thesistype=bsc,%         % options: bsc, msc (phd to be added!)
+               format=enlarge,%         % options: enlarge, standard
                ]{ktxthss}
 
 \usepackage{blindtext}
-\usepackage{layout}
 
 \ktxTitle{Official Title of the Thesis\\in the Main Language\\of the Document}
 \ktxTitleAlt{Official Title of the Thesis\\in an Alternative Language}
@@ -16,14 +19,15 @@
 \ktxAddress{Home Town}
 \ktxInstitute{Glorious Institute}
 \ktxInstituteAddress{Institute Town}
-\ktxSupervisor{Priv.-Doz.\,Dr.\,Additional Supervisor}
+\ktxSupervisor{Priv.-Doz.\,Dr.\,Additional Supervisor} % comment if not needed
 \ktxReferees{Prof.\,Dr.\,First Referee}{Prof.\,Dr.\,Second Referee}
-\ktxThesisNumber{Institute/Year-Thesis0042}
+\ktxThesisNumber{Institute/Year-Thesis0042}            % comment if not needed
 \ktxBeginDate{01}{01}{1995}
 \ktxEndDate{04}{07}{2012}
 
-\bibliography{aux/bibliography}
-\input{aux/abbreviations}
+% adjust these paths to your own needs:
+% \bibliography{aux/bibliography}
+% \input{aux/abbreviations}
 
 
 %  B E G I N N I N G   O F   D O C U M E N T

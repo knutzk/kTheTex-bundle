@@ -120,19 +120,23 @@
     \renewcommand*{\sectionformat}{\ktx@sectionformat}%
     \renewcommand*{\subsectionformat}{\ktx@subsectionformat}%
     \renewcommand*{\subsubsectionformat}{\ktx@subsubsectionformat}%
-    \addtokomafont{sectioning}{\normalsize\mdseries\rmfamily}%
-    \setkomafont{section}{\ktx@lowcaps}%
+    \setkomafont{sectioning}{\normalsize\mdseries\rmfamily}%
+    \setkomafont{section}{\mbox{\normalsize\vphantom{f}}\ktx@lowcaps}%
     \setkomafont{subsection}{\ktx@swshape}%
     \setkomafont{subsubsection}{\ktx@swshape}%
     \setkomafont{paragraph}{\textsc}%
     \addtokomafont{pagehead}{\small}%
     \RedeclareSectionCommand[%
-       beforeskip=-1\baselineskip plus 0.3\baselineskip,%
+       beforeskip=-1\baselineskip,%
+       afterskip=1\baselineskip,%
+       ]{chapter}
+    \RedeclareSectionCommand[%
+       beforeskip=-16.37pt,%
        afterskip=1\baselineskip,%
        ]{section}
     \RedeclareSectionCommand[%
        beforeskip=-1\baselineskip,%
-       afterskip=1\baselineskip plus 0.3\baselineskip,%
+       afterskip=1\baselineskip,%
        ]{subsection}
     \RedeclareSectionCommand[%
        beforeskip=-1\baselineskip,%
